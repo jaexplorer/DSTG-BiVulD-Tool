@@ -1,0 +1,76 @@
+@page
+@model SignupModel
+@{
+	ViewData["Title"] = "Signup";
+    Layout = "Shared/_LoginUI";
+}
+@section scripts{
+	@await Html.PartialAsync("_ValidationScriptsPartial")
+}
+@section Styles{
+	<link href="@Href("~/css/login.css")" rel="stylesheet" type="text/css" />
+}
+<div class="container">
+	@if (Model.Message != null)
+	{
+		<div class="d-flex justify-content-center h-100">
+			<p>@Model.Message</p>
+		</div>
+	}
+	else
+	{
+		<div class="d-flex justify-content-center h-100">
+			<div class="card">
+				<div class="card-header">
+					<h3>Signup</h3>
+				</div>
+				<div class="card-body">
+					<form method="post">
+						@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+						<div class="input-group form-group">
+							<div class="col-md-3">
+								@Html.LabelFor(m => m.UserModel.Username, new { @class = "control-label" })
+							</div>
+							<div class="col-md-10">
+								@Html.TextBoxFor(m => m.UserModel.Username, new { @class = "form-control" })
+								@Html.ValidationMessageFor(m => m.UserModel.Username, "", new { @class = "text-danger" })
+							</div>
+						</div>
+						<div class="input-group form-group">
+							<div class="col-md-3">
+								@Html.LabelFor(m => m.UserModel.Email)
+							</div>
+							<div class="col-md-10">
+								@Html.TextBoxFor(m => m.UserModel.Email, new { @class = "form-control" })
+								@Html.ValidationMessageFor(m => m.UserModel.Email, "", new { @class = "text-danger" })
+							</div>
+						</div>
+						<div class="input-group form-group">
+							<div class="col-md-3">
+								@Html.LabelFor(m => m.UserModel.Password, new { @class = "control-label" })
+							</div>
+							<div class="col-md-10">
+								@Html.PasswordFor(m => m.UserModel.Password, new { @class = "form-control" })
+								@Html.ValidationMessageFor(m => m.UserModel.Password, "", new { @class = "text-danger" })
+							</div>
+						</div>
+						<div class="input-group form-group">
+							<div class="col-md-8">
+								@Html.LabelFor(m => m.UserModel.ConfirmPassword, new { @class = "control-label" })
+							</div>
+							<div class="col-md-10">
+								@Html.PasswordFor(m => m.UserModel.ConfirmPassword, new { @class = "form-control" })
+								@Html.ValidationMessageFor(m => m.UserModel.ConfirmPassword, "", new { @class = "text-danger" })
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="col-md-offset-2 col-md-10">
+								<button asp-page-handler="SignUp" class="btn btn-primary">Sign Up</button>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	}
+</div>

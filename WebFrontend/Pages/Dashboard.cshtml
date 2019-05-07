@@ -1,0 +1,228 @@
+@page "{handler?}"
+@model DashboardModel
+@{
+    Layout = "Shared/_MainUI";
+    ViewData["Title"] = "Dashboard";
+}
+@if (Model.FileUpload != true)
+{
+    <div class="no-upload-error">
+        <p>No file uploaded! Click <a href="/Index">here</a> to upload a file</p>
+    </div>
+}
+else if (Model.Display != true)
+{
+    <h1>File Uploaded Successfully</h1>
+    <div class="settings-container">
+        <div class="settings-option-center">
+            <div class="setting-content-center">
+                <form method="post">
+                    <input style="display:none" hidden class="choose-upload" name="scan" value="scan" />
+                    <input class="upload-button" asp-page-handler="Scan" type="submit" value="Scan" />
+                </form>
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    /*
+     * <div id="dotChart-container" style="position: relative; height:auto; width:100%">
+        <canvas id="functionsDotGraph"></canvas>
+    </div>
+    */
+    <div id="lineChart-container" style="position: relative; height:auto; width:100%">
+        <div style="width: 100%">
+            <canvas id="functionsLineGraph" height="60"></canvas>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.js"></script>
+    <script type="text/javascript">
+// Data Visualisation
+// ------------------------------------------------------------------- //
+    document.onload = makeLineGraph();
+    //document.onload = makeDotGraph();
+
+
+
+function makeLineGraph() {
+    var ctx = document.getElementById('lineChart-container');
+    ctx.appendChild(createDiv("FP-Heading",
+    "highest probability"));
+    ctx.appendChild(createDiv("overall-FP-Value", @Model.HighProb.ToString("n2") + "%"));
+    ctx.appendChild(createDiv("totalFunctionsHeading", "total functions"));
+    ctx.appendChild(createDiv("totalIssuesHeading", "total issues"));
+    ctx.appendChild(createDiv("totalIssuesValue", @Model.TotalIssues));
+    ctx.appendChild(createDiv("totalFunctionsValue", @Model.Results.NumFunctions));
+    ctx.appendChild(createDiv("timeTaken", "@Model.FormatTime(Model.Results.TimeTaken)"));
+
+
+    var lineChart = new Chart(ctx.firstElementChild.firstElementChild, {
+        type: 'bar',
+        data: {
+            labels: @Model.FunctionAxis,
+            datasets: [
+                {
+                    label: "Probability",
+                    backgroundColor: '#f5f5f5',
+                    hoverBackgroundColor: "#4bbbd9",
+                    data: @Model.Probabilities
+                },
+            ]
+        },
+        options: {
+            legend: { display: false },
+            title: {
+                display: false,
+            },
+            scales: {
+                xAxes: [{
+                    barThickness: 5,
+                    stacked: true,
+                    ticks: {
+                        display: false,
+                        min: 1,
+                        max: 100,
+                        stepSize: 1,
+
+                    },
+                    gridLines: {
+                        lineWidth: 4,
+                        display: true,
+                        offsetGridLines: false,
+                        tickMarkLength: 0,
+                        drawBorder: false,
+                        color: 'rgba(85,85,85, 0.4)',
+                        lineWidth: 5
+                    },
+                }],
+                yAxes: [{
+                    ticks: {
+                        min: 0,
+                        max: 100,
+                        display: false,
+                    },
+                    gridLines: {
+                        display: false,
+                        color: 'rgba(171,171,171,0)',
+                        lineWidth: 1
+                    },
+                }],
+            },
+            tooltips: {
+                callbacks: {
+                    title: function (tooltipItem) {
+                        var title = "Function " + (tooltipItem[0].xLabel);
+                        return title;
+                    },
+                    label: function (tooltipItem, data) {
+                        var label = "Vulnerability " + data.datasets[tooltipItem.datasetIndex].label;
+
+                        if (label) {
+                            label += ': ';
+                        }
+                        label += (Math.round(tooltipItem.yLabel * 100) / 100) + "%";
+                        return label;
+                    },
+                    footer: function (tooltipItem) {
+                        var footer = []
+                        @for(int i = 0; i < Model.Results.NumFunctions; i++)
+                        {
+                            foreach (var line in Model.Results.Functions[i].HexCode)
+                            {
+                                Model.HighlightedFunctionCode += line;
+                                Model.HighlightedFunctionCode += ",";
+                            }
+                            Model.HighlightedFunctionCode += "-";
+                        }
+                        footer.push("Hex");
+                        var codeByFunction = "@Model.HighlightedFunctionCode".split("-");
+                        var codeByLine = codeByFunction[tooltipItem[0].xLabel-1].split(",");
+                        codeByLine.forEach(function(line) {
+                            footer.push(line);
+                        });
+                        return footer;
+                        }
+                }
+            }
+        }
+    });
+
+
+}
+
+function makeDotGraph() {
+    var ctx = document.getElementById('dotChart-container');
+
+
+
+    /*
+    var scatterChart = new Chart(ctx.firstElementChild, {
+        type: 'scatter',
+        data: {
+            datasets: [{
+                label: 'Scatter Dataset',
+                backgroundColor: 'rgba(255,255,255,0.6)',
+                data: generateData()
+            }]
+        },
+        options: {
+            scales: {
+                xAxes: [{
+                    type: 'linear',
+                    position: 'bottom',
+                    ticks: {
+                        display: false,
+                    },
+                    gridLines: {
+                        display: false,
+                        color: 'rgba(171,171,171,0)',
+                        lineWidth: 1
+                    },
+                }],
+                yAxes: [{
+                    type: 'linear',
+                    position: 'bottom',
+                    ticks: {
+                        min: 0,
+                        max: 200,
+                        display: false,
+                    },
+                    gridLines: {
+                        display: false,
+                        color: 'rgba(171,171,171,0)',
+                        lineWidth: 1
+                    },
+                }],
+            },
+            legend: {
+                display: false
+            },
+        }
+    });
+    */
+}
+
+function generateData() {
+    var data = [];
+    for (var i = 0; i < @Model.Results.NumFunctions; i++) {
+        data.push({
+            x: Math.floor((Math.random() * 99) + 1),
+            y: Math.floor((Math.random() * 99) + 50)
+        });
+    }
+    return data;
+}
+
+
+function createDiv(id, value) {
+    var temp = document.createElement('div');
+    temp.id = id;
+    temp.innerHTML = value;
+    return temp;
+}
+
+    </script>
+
+}

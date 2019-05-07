@@ -1,0 +1,73 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - WebFrontend</title>
+    <link rel="stylesheet" href="~/css/normalise.css" />
+    <link href="~/css/main.css" rel="stylesheet" runat="server" type="text/css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.css" />
+</head>
+<body>
+    <!-- Profile Status
+    ------------------------------------------------------------------- -->
+    <header class="p-header-container">
+        <!-- TODO: Add @ViewData Profile Pic-->
+        <div class="p-header-pic">
+            <img src="~/images/pic.jpg">
+        </div>
+        <!-- TODO: Add @ViewData Profile Name -->
+        <h4 class="p-header-name">John Smith</h4>
+    </header>
+
+    <!-- Main Menu
+    ------------------------------------------------------------------- -->
+    <div class="left-main-container">
+        <div class="left-nav-container">
+            <div class="left-nav-scan">
+                <a href="/Index" style="text-decoration:none;">
+                    <button id="scan-button">
+                        <h5>Scan</h5>
+                    </button>
+                </a>
+            </div>
+            <div class="left-nav-list-container">
+                <ul class="left-nav-list">
+                    <li id="Dashboard" class="page-item">
+                        <a href="/Dashboard"><img src="~/images/dashboard.svg" class="page-item-icon svg"><span>Dashboard</span></a>
+                    </li>
+                    <li id="Profile" class="page-item">
+                        <a href="/Profile"><img src="~/images/profile.svg" class="page-item-icon svg"><span>Profile</span></a>
+                    </li>
+                    <li id="Database" class="page-item">
+                        <a href="/Database"><img src="~/images/database.svg" class="page-item-icon svg"><span>Database</span></a>
+                    </li>
+                    <li id="Statistics" class="page-item">
+                        <a href="Statistics"><img src="~/images/statistics.svg" class="page-item-icon svg"><span>Statistics</span></a>
+                    </li>
+                    <li id="Settings" class="page-item">
+                        <a href="/Settings"><img src="~/images/settings.svg" class="page-item-icon svg"><span>Settings</span></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main View
+    ------------------------------------------------------------------- -->
+    <div class="right-main-container">
+        <div class="right-view-container">
+            @RenderBody()
+        </div>
+    </div>
+
+    <div id="noise"></div>
+    <script src="https://code.jquery.com/jquery-3.4.0.js"
+            integrity="sha256-DYZMCC8HTC+QDr5QNaIcfR7VSPtcISykd+6eSmBW5qo="
+            crossorigin="anonymous">
+    </script>
+    <script src="~/js/Noise/jquery/jquery.noisy.min.js"></script>
+    <script src="~/js/main.js"></script>
+    <script src="~/js/svg-img.js"></script>
+</body>
+</html>
