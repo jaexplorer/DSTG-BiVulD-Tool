@@ -1,29 +1,29 @@
 @page
 @model IndexModel
 @{
-    Layout = "Shared/_MainUI";
-    ViewData["Title"] = "Index";
+	Layout = "Shared/_MainUI";
+	ViewData["Title"] = "Index";
 }
 <h1>Deep Learning Vulnerability Detection</h1>
 <div class="settings-container">
-    <div class="settings-option">
-        <div class="setting-heading" id="file-upload-label">Upload a file</div>
-        <div class="setting-content">
-            <form method="post" enctype="multipart/form-data">
-                <label style="display: none" asp-for="FileUpload.UploadFile"></label>
-                <input style="display: none" id="file-upload" class="inputfile" asp-for="FileUpload.UploadFile" type="file" />
-                <label class="choose-upload" for="file-upload">Choose a file</label>
-                <div><span class="upload-error" asp-validation-for="FileUpload.UploadFile"></span></div>
-                <input class="upload-button" type="submit" value="Upload" />
-            </form>
-        </div>
-    </div>
+	<div class="settings-option">
+		<div class="setting-heading" id="file-upload-label">Upload a file</div>
+		<div class="setting-content">
+			<form method="post" enctype="multipart/form-data">
+				<label style="display: none" asp-for="FileUpload.UploadFile"></label>
+				<input style="display: none" id="file-upload" class="inputfile" asp-for="FileUpload.UploadFile" type="file" />
+				<label class="choose-upload" for="file-upload">Choose a file</label>
+				<div><span class="upload-error" asp-validation-for="FileUpload.UploadFile"></span></div>
+				<input class="upload-button" type="submit" value="Upload" />
+			</form>
+		</div>
+	</div>
 </div>
 <script src="~/lib/jquery/dist/jquery.js"></script>
 <script>
-    // Add the following code if you want the name of the file appear on select
-    $("#file-upload").on("change", function () {
-        var fileName = $(this).val().split("\\").pop();
-       $("#file-upload-label").html(fileName);
-    });
+	// Add the following code if you want the name of the file appear on select
+	$("#file-upload").on("change", function () {
+		var fileName = $(this).val().split("\\").pop();
+	   $("#file-upload-label").html(fileName);
+	});
 </script>

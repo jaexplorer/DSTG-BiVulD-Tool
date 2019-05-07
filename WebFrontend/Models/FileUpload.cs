@@ -8,6 +8,5 @@ namespace WebFrontend.Models
 		[Required]
 		[Display(Name="File")]
 		public IFormFile UploadFile { get; set; }
-
 	}
 }

@@ -32,7 +32,7 @@ namespace WebFrontend.Pages
 			{
 				if (ModelState.IsValid)
 				{
-					// Await response from database for valid login if successfull redirect to index page
+					// Await response from database for valid login and redirect to index page if successful
 					if (Username == "Testing" && this.Password == "Password1!")
 					{
 						return RedirectToPage("/Index");
