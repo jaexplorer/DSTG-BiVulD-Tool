@@ -1,7 +1,7 @@
 @page
 @model SettingsModel
 @{
-    Layout = "Shared/_MainUI";
+	Layout = "Shared/_MainUI";
 	ViewData["Title"] = "Settings";
 }
 <div class="settings-container">
@@ -20,7 +20,7 @@
 		<div class="setting-content">
 			<form method="post" enctype="multipart/form-data">
 
-				<label style="display: none" asp-for="FileUpload.UploadFile"></label> 
+				<label style="display: none" asp-for="FileUpload.UploadFile"></label>
 
 				<input style="display: none" class="inputfile" asp-for="FileUpload.UploadFile" type="file"/>
 				<label class="choose-upload" for="FileUpload_UploadPublicSchedule">Choose a file</label>
@@ -33,7 +33,6 @@
 		</div>
 	</div>
 </div>
-
 
 <script type="text/javascript">
 // Colour Theme Toggle
