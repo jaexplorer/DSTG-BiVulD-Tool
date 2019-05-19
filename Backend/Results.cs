@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Runtime.Serialization;
 
 namespace Backend
 {
@@ -9,15 +10,23 @@ namespace Backend
 		Binary,
 		Code
 	}
-
-	public class Results
+    [DataContract]
+    public class Results
 	{
-		public SourceType Type { get; }
-		public int TimeTaken { get; private set; }
-		public int NumFunctions { get; private set; }
-		public List<Function> Functions { get; set; } = new List<Function>();
+        [DataMember]
+		public SourceType Type { get; set; }
+        [DataMember]
+        public int TimeTaken { get; private set; }
+        [DataMember]
+        public int NumFunctions { get; private set; }
+        [DataMember]
+        public List<Function> Functions { get; set; } = new List<Function>();
 
-		public Results(string directory, SourceType type)
+        public Results()
+        {
+            
+        }
+        public Results(string directory, SourceType type)
 		{
 			Type = type;
 

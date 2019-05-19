@@ -42,20 +42,9 @@ namespace Backend
             Name = name;
             Role = UserRole.User;
         }
-        public User(int id)
+        public User()
         {
-            DatabaseManager databaseManager = new DatabaseManager();
-            databaseManager.ConnectToDatabase();
-
-            string sql = "SELECT * FROM User WHERE UserID = ?";
-
-            SQLiteParameter idParam = new SQLiteParameter();
-
-            SQLiteCommand command = new SQLiteCommand(sql, databaseManager.DBConnection);
-
-            command.Parameters.Add(idParam);
-
-            SQLiteDataReader results = command.ExecuteReader();
+            
         }
     }
 }
