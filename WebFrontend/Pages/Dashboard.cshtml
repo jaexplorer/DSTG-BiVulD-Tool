@@ -26,203 +26,194 @@ else if (Model.Display != true)
 }
 else
 {
-	/*
-	 * <div id="dotChart-container" style="position: relative; height:auto; width:100%">
-		<canvas id="functionsDotGraph"></canvas>
+	<div id="lineChart-container">
+		<div id="lineChart">
+		</div>
 	</div>
-	*/
-	<div id="lineChart-container" style="position: relative; height:auto; width:100%">
-		<div style="width: 100%">
-			<canvas id="functionsLineGraph" height="60"></canvas>
+	<div id="breakDown-container">
+		<div id="breakDownFunction">
+			<div id="functionHeading">Function:</div>
+			<div id="functionProbability">Vunerablity Probability:</div>
+		</div>
+		<div id="breakDownHeadings">
+			<div id="binaryHeading">Binary</div>
+			<div id="assemblyHeading">Assembly</div>
+			<div id="recommendationHeading">Recommendation</div>
+		</div>
+		<div id="binaryBreakDown">
+		</div>
+		<div id="assemblyBreakDown">
+		</div>
+		<div id="recommendationBreakDown">
 		</div>
 	</div>
 
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.js"></script>
-	<script type="text/javascript">
+
+<script type="text/javascript">
 // Data Visualisation
 // ------------------------------------------------------------------- //
 	document.onload = makeLineGraph();
-	//document.onload = makeDotGraph();
+	var functionsInfo = grabFunctionInfo();
 
+	function makeLineGraph() {
 
+		// foreach result in the results array
+		var chart = document.getElementById('lineChart');
+		var marginSize = 3;
+		for(var i = 0; i < @Model.Results.NumFunctions; i++)
+		{
+			// draw an empty bar and then overlay a bar with height equivent to its prob
+			chart.appendChild(drawLine(i, (@Model.Probabilities)[i]));
 
-function makeLineGraph() {
-	var ctx = document.getElementById('lineChart-container');
-	ctx.appendChild(createDiv("FP-Heading",
-	"highest probability"));
-	ctx.appendChild(createDiv("overall-FP-Value", @Model.HighProb.ToString("n2") + "%"));
-	ctx.appendChild(createDiv("totalFunctionsHeading", "total functions"));
-	ctx.appendChild(createDiv("totalIssuesHeading", "total issues"));
-	ctx.appendChild(createDiv("totalIssuesValue", @Model.TotalIssues));
-	ctx.appendChild(createDiv("totalFunctionsValue", @Model.Results.NumFunctions));
-	ctx.appendChild(createDiv("timeTaken", "@Model.FormatTime(Model.Results.TimeTaken)"));
-
-
-	var lineChart = new Chart(ctx.firstElementChild.firstElementChild, {
-		type: 'bar',
-		data: {
-			labels: @Model.FunctionAxis,
-			datasets: [
-				{
-					label: "Probability",
-					backgroundColor: '#f5f5f5',
-					hoverBackgroundColor: "#4bbbd9",
-					data: @Model.Probabilities
-				},
-			]
-		},
-		options: {
-			legend: { display: false },
-			title: {
-				display: false,
-			},
-			scales: {
-				xAxes: [{
-					barThickness: 5,
-					stacked: true,
-					ticks: {
-						display: false,
-						min: 1,
-						max: 100,
-						stepSize: 1,
-
-					},
-					gridLines: {
-						lineWidth: 4,
-						display: true,
-						offsetGridLines: false,
-						tickMarkLength: 0,
-						drawBorder: false,
-						color: 'rgba(85,85,85, 0.4)',
-						lineWidth: 5
-					},
-				}],
-				yAxes: [{
-					ticks: {
-						min: 0,
-						max: 100,
-						display: false,
-					},
-					gridLines: {
-						display: false,
-						color: 'rgba(171,171,171,0)',
-						lineWidth: 1
-					},
-				}],
-			},
-			tooltips: {
-				callbacks: {
-					title: function (tooltipItem) {
-						var title = "Function " + (tooltipItem[0].xLabel);
-						return title;
-					},
-					label: function (tooltipItem, data) {
-						var label = "Vulnerability " + data.datasets[tooltipItem.datasetIndex].label;
-
-						if (label) {
-							label += ': ';
-						}
-						label += (Math.round(tooltipItem.yLabel * 100) / 100) + "%";
-						return label;
-					},
-					footer: function (tooltipItem) {
-						var footer = []
-						@for(int i = 0; i < Model.Results.NumFunctions; i++)
-						{
-							foreach (var line in Model.Results.Functions[i].HexCode)
-							{
-								Model.HighlightedFunctionCode += line;
-								Model.HighlightedFunctionCode += ",";
-							}
-							Model.HighlightedFunctionCode += "-";
-						}
-						footer.push("Hex");
-						var codeByFunction = "@Model.HighlightedFunctionCode".split("-");
-						var codeByLine = codeByFunction[tooltipItem[0].xLabel-1].split(",");
-						codeByLine.forEach(function(line) {
-							footer.push(line);
-						});
-						return footer;
-						}
-				}
+			if (i >= 4 && i <= 6){
+				marginSize++;
 			}
 		}
-	});
+		var children = chart.children;
+		for(var i = 0; i < children.length; i++) {
+			// add event listener to each line
+			children[i].addEventListener("click", lineClicked);
 
-
-}
-
-function makeDotGraph() {
-	var ctx = document.getElementById('dotChart-container');
-
-
-
-	/*
-	var scatterChart = new Chart(ctx.firstElementChild, {
-		type: 'scatter',
-		data: {
-			datasets: [{
-				label: 'Scatter Dataset',
-				backgroundColor: 'rgba(255,255,255,0.6)',
-				data: generateData()
-			}]
-		},
-		options: {
-			scales: {
-				xAxes: [{
-					type: 'linear',
-					position: 'bottom',
-					ticks: {
-						display: false,
-					},
-					gridLines: {
-						display: false,
-						color: 'rgba(171,171,171,0)',
-						lineWidth: 1
-					},
-				}],
-				yAxes: [{
-					type: 'linear',
-					position: 'bottom',
-					ticks: {
-						min: 0,
-						max: 200,
-						display: false,
-					},
-					gridLines: {
-						display: false,
-						color: 'rgba(171,171,171,0)',
-						lineWidth: 1
-					},
-				}],
-			},
-			legend: {
-				display: false
-			},
+			// each bar will have a margin to the right, except the last element
+			if (i >= children.length - 1) {
+				break;
+			}
+			children[i].style.marginRight = "calc((100% - " + ((8*marginSize)+8) + "px) / "+ marginSize +")";
 		}
-	});
-	*/
-}
 
-function generateData() {
-	var data = [];
-	for (var i = 0; i < @Model.Results.NumFunctions; i++) {
-		data.push({
-			x: Math.floor((Math.random() * 99) + 1),
-			y: Math.floor((Math.random() * 99) + 50)
-		});
+		// add all the labels
+		var chartContainer = document.getElementById('lineChart-container');
+		chartContainer.appendChild(createDiv("FP-Heading", "highest probability"));
+		chartContainer.appendChild(createDiv("overall-FP-Value", @Model.HighProb.ToString("n2") + "%"));
+		chartContainer.appendChild(createDiv("totalFunctionsHeading", "total functions"));
+		chartContainer.appendChild(createDiv("totalFunctionsValue", @Model.Results.NumFunctions));
+		chartContainer.appendChild(createDiv("totalIssuesHeading", "total issues"));
+		chartContainer.appendChild(createDiv("totalIssuesValue", @Model.TotalIssues));
+		chartContainer.appendChild(createDiv("timeTakenHeading", "time taken"));
+		chartContainer.appendChild(createDiv("timeTaken", "@Model.FormatTime(Model.Results.TimeTaken)"));
 	}
-	return data;
+
+		function grabFunctionInfo() {
+		var hexInfo = [];
+		@for(int i = 0; i < Model.Results.NumFunctions; i++)
+		{
+			foreach (var line in Model.Results.Functions[i].HexCode)
+			{
+				Model.HighlightedFunctionCode += line;
+				Model.HighlightedFunctionCode += ",";
+			}
+			Model.HighlightedFunctionCode += "-";
+		}
+		var codeByFunction = "@Model.HighlightedFunctionCode".split("-");
+		for(var i = 0; i < @Model.Results.NumFunctions; i++)
+		{
+			hexInfo[i] = codeByFunction[i].split(",");
+		}
+		return hexInfo;
+	}
+	
+	function lineClicked(e) {
+		var children = document.getElementById('lineChart').children;
+		for(var i = 0; i < children.length; i++) {
+			children[i].className = "line";
+			if(e.currentTarget == children[i]) {
+				makeBreakDownGraph(i);
+			}
+		}
+		e.currentTarget.className += " active";
+	}
+
+	function makeBreakDownGraph(id) {
+		var breakDownC = document.getElementById('breakDown-container');
+		breakDownC.style.display = "block";
+		var functionName = document.getElementById('functionHeading');
+		var functionProb = document.getElementById('functionProbability');
+
+		functionName.innerHTML = "Function: " + (id +1);
+		functionProb.innerHTML = "Vunerablity Probability: " + (@Model.Probabilities)[id] +"%";
+
+		var binaryBreakDown = document.getElementById('binaryBreakDown');
+		binaryBreakDown.innerHTML = "";
+
+		for(var i = 0; i < functionsInfo[id].length; i++) {
+			binaryBreakDown.innerHTML += i+". "+ functionsInfo[id][i]+"<br />";
+		}
+
+		var recommendationBreakDown = document.getElementById('recommendationBreakDown');
+		recommendationBreakDown.innerHTML = "";
+		if ((@Model.Probabilities)[id] > 50) {
+			recommendationBreakDown.innerHTML = "The probability of this function is quite vunerable, may require investigation";
+		}
+	}
+
+	function drawLine(id, value) {
+		const SCALE = 2;
+		var xmlns = "http://www.w3.org/2000/svg";
+		var svg = document.createElementNS(xmlns, "svg");
+		svg.setAttributeNS(null,"width","8px");
+		svg.setAttributeNS(null,"height",10*SCALE+"rem");
+
+		var emptyLine = document.createElementNS(xmlns, "rect");
+		emptyLine.setAttributeNS(null,"x",0);
+		emptyLine.setAttributeNS(null,"y",0);
+		emptyLine.setAttributeNS(null,"width","8");
+		emptyLine.setAttributeNS(null,"height",10*SCALE+"rem");
+		emptyLine.setAttributeNS(null,"fill", "rgba(85,85,85, 1)");
+
+		var fill = document.createElementNS(xmlns, "rect");
+		fill.setAttributeNS(null,"x",0);
+		fill.setAttributeNS(null,"y",((100 - value)/10)*SCALE+"rem");
+		fill.setAttributeNS(null,"width","8");
+		fill.setAttributeNS(null,"height",(value/10)*SCALE+"rem");
+		fill.setAttributeNS(null,"fill", "#f5f5f5");
+
+		svg.appendChild(emptyLine);
+		svg.appendChild(fill);
+
+		var temp = document.createElement('div');
+		temp.className = "line";
+		temp.appendChild(svg);
+
+		return temp;
+	}
+
+	function createDiv(id, value) {
+		var temp = document.createElement('div');
+		temp.id = id;
+		temp.innerHTML = value;
+		return temp;
+	}
+</script>
 }
 
 
-function createDiv(id, value) {
-	var temp = document.createElement('div');
-	temp.id = id;
-	temp.innerHTML = value;
-	return temp;
-}
 
-	</script>
 
-}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
