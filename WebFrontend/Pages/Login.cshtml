@@ -11,7 +11,7 @@
 	<link href="@Href("~/css/login.css")" rel="stylesheet" type="text/css" />
 }
 
-<div class="from-container">
+<div class="form-container">
     <div class="login-container">
         <div class="d-flex justify-content-center h-100">
             <div class="card">
@@ -32,7 +32,7 @@
                             @Html.LabelFor(m => m.Password, new { @class = "control-label" })
                             <div class="col-md-10">
                                 @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
-                                @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                                @Html.ValidationMessageFor(m => m.Password,"", new { @class = "text-danger" })
                             </div>
                         </div>
                         <div class="form-group">
@@ -116,5 +116,21 @@
                 </div>
             </div>
         }
+    </div>
+    <div class="overlay-container">
+        <div class="overlay">
+            <div class="overlay-panel overlay-left">
+                <h1>Hello!</h1>
+                <p>To access more content please login with your personal info</p>
+                <button asp-page-handler="signInOverlay" class="panel-button" id="signIn" method="post">Sign In</button>
+            </div>
+            <div class="overlay-panel overlay-right">
+                <h1>Hello!</h1>
+                <p>Sign up to start using our product.</p>
+                <form asp-page-handler="signUpOverlay" method="post">
+                    <button class="panel-button" id="signUp">Sign Up</button>
+                </form>
+            </div>
+        </div>
     </div>
 </div>

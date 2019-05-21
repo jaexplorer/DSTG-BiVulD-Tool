@@ -28,19 +28,36 @@ span{
     align-content: center;
     position: relative;
 }
-.form-container {
+.form-container{
     background: #ffffff;
     border-radius: 10px;
     box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
-    position: center;
+    position: relative;
     height: 100%;
-    align-content: center;
     overflow: hidden;
     width: 768px;
     max-width: 100%;
     min-height: 480px;
-    margin-left: auto;
-    margin-right: auto;
+    margin-left:auto;
+    margin-right:auto;
+}
+.login-container,.signup-container{
+    position:absolute;
+    top:0;
+    height:100%;
+    display:block;
+    transition: all 0.6s ease-in-out;
+}
+.login-container {
+    left: 0;
+    width: 50%;
+    z-index: 2;
+}
+.signup-container {
+    left: 0;
+    width: 50%;
+    opacity:0;
+    z-index: 1;
 }
 a{
     color:#333;
@@ -50,8 +67,6 @@ a{
 }
 
 .card{
-    margin-top: auto;
-    margin-bottom:auto;
     width: 400px;
     background-color: rgba(0,0,0,0.5) !important;
 }
@@ -61,4 +76,63 @@ a{
 
 .card label {
     color: white;
+}
+
+.overlay-container {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 50%;
+    height: 100%;
+    overflow: hidden;
+    transition: transform 0.6s ease-in-out;
+    z-index: 100;
+}
+.panel-button {
+    border-radius: 20px;
+    border: 1px solid #333;
+    background-color: rgba(0,0,0,0.22);
+    color: #FFFFFF;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 12px 45px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    transition: transform 80ms ease-in;
+}
+.overlay {
+    background: #FF416C;
+    background: -webkit-linear-gradient(to right, rgba(0,0,0,0.25), rgba(0,0,0,0.5));
+    background: linear-gradient(to right, rgba(0,0,0,0.25), rgba(0,0,0,0.5));
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: 0 0;
+    color: #FFFFFF;
+    position: relative;
+    left: -100%;
+    height: 100%;
+    width: 200%;
+    transform: translateX(0);
+    transition: transform 0.6s ease-in-out;
+}
+.overlay-panel {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 0 40px;
+    text-align: center;
+    top: 0;
+    height: 100%;
+    width: 50%;
+    transform: translateX(0);
+    transition: transform 0.6s ease-in-out;
+}
+.overlay-left {
+    transform: translateX(-20%);
+}
+.overlay-right {
+    right: 0;
+    transform: translateX(0);
 }
