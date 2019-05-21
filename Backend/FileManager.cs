@@ -22,18 +22,18 @@ namespace Backend
 		public const string ProbName = "prob_assembly.csv";
 	}
 
-	public static class FileManager
+	public class FileManager
 	{
-		static FileManager()
+		public FileManager()
 		{
 			TempPath = "chris/";
 
 			Directory.CreateDirectory(FileNames.BiVulDDir + TempPath);
 		}
 
-		public static string TempPath { get; private set; } = "";
+		public string TempPath { get; private set; } = "";
 
-		public static FileStream GetFileStream()
+		public FileStream GetFileStream()
 		{
 			return new FileStream(FileNames.BiVulDDir + TempPath + FileNames.UploadName, FileMode.Create);
 		}
@@ -43,7 +43,7 @@ namespace Backend
 			return new FileStream(FileNames.ModelPath, FileMode.Create);
 		}
 
-		public static bool IdentifyFile()
+		public bool IdentifyFile()
 		{
 			if (Execute(FileNames.ObjdumpPath, "-d " + FileNames.BiVulDDir + TempPath + FileNames.UploadName) == "")
 			{
@@ -53,7 +53,7 @@ namespace Backend
 			return true;
 		}
 
-		public static Results AnalyseFile()
+		public Results AnalyseFile()
 		{
 			var stopwatch = new Stopwatch();
 
