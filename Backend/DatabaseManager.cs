@@ -1,10 +1,10 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
-using System.Text;
-using System.Security.Cryptography;
 using System.Data.SQLite;
 using System.IO;
 using System.Runtime.Serialization.Json;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace Backend
 {

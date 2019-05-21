@@ -1,8 +1,8 @@
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace WebFrontend.Pages
+namespace WebFrontend
 {
-	public class StatisticsModel : PageModel
+	public class DatabaseModel : Models.FileScanner
 	{
 		public void OnGet()
 		{
