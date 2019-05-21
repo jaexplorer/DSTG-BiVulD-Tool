@@ -16,8 +16,8 @@ PATIENCE = 40
 working_dir = './'
 w2v_model_path = working_dir + 'assemble_model_CBOW.txt'
 
-binary_folder_path = working_dir
-pickle_folder_path = "test_files/"
+binary_folder_path = sys.argv[1]
+pickle_folder_path = sys.argv[1]
 
 good_csv = binary_folder_path + 'binary_good.csv'
 
@@ -25,36 +25,36 @@ good_csv = binary_folder_path + 'binary_good.csv'
 
 def getData(file_path):
 
-    # The encoding has to be 'latin1' to make sure the string to float convertion to be smooth
-    # df = pd.read_csv(file_path, sep=',', encoding='latin1', low_memory=False, header=None, quoting=csv.QUOTE_NONE, error_bad_lines=False)
-    # df_list = df.values.tolist()
-    df_list = []
-    CSV = csv.reader(open(file_path, 'r', encoding='latin1'))
-    for row in CSV:
-        df_list.append(row)
-    print(len(df_list))
-    temp = []
-    for i in df_list:
-        # Get rid of 'NaN' values.
-        i = [x for x in i if str(x) != 'nan']
-        i = [str(x) for x in i]
-        new_i = []
-        for item in i:
-            sub_temp = item.split()
-            for sub_item in sub_temp:
-                new_i.append(sub_item)
-        temp.append(new_i)
+	# The encoding has to be 'latin1' to make sure the string to float convertion to be smooth
+	# df = pd.read_csv(file_path, sep=',', encoding='latin1', low_memory=False, header=None, quoting=csv.QUOTE_NONE, error_bad_lines=False)
+	# df_list = df.values.tolist()
+	df_list = []
+	CSV = csv.reader(open(file_path, 'r', encoding='latin1'))
+	for row in CSV:
+		df_list.append(row)
+	print(len(df_list))
+	temp = []
+	for i in df_list:
+		# Get rid of 'NaN' values.
+		i = [x for x in i if str(x) != 'nan']
+		i = [str(x) for x in i]
+		new_i = []
+		for item in i:
+			sub_temp = item.split()
+			for sub_item in sub_temp:
+				new_i.append(sub_item)
+		temp.append(new_i)
 
-    return temp
+	return temp
 
 
 def getID(file_path):
 
-    # The encoding has to be 'latin1' to make sure the string to float convertion to be smooth
-    df = pd.read_csv(file_path, sep=',', encoding='latin1', low_memory=False, header=None)
-    df_list = df.values.tolist()
+	# The encoding has to be 'latin1' to make sure the string to float convertion to be smooth
+	df = pd.read_csv(file_path, sep=',', encoding='latin1', low_memory=False, header=None)
+	df_list = df.values.tolist()
 
-    return df_list
+	return df_list
 
 Assembly_test_list = getData(good_csv)
 Assembly_test_label_list = [1] * len(Assembly_test_list)
@@ -67,9 +67,9 @@ total_list_id = Assembly_test_id_list
 
 # 2. Tokenization: convert the loaded text to tokens.
 def LoadSavedData(path):
-    with open(path, 'rb') as f:
-        loaded_data = pickle.load(f)
-    return loaded_data
+	with open(path, 'rb') as f:
+		loaded_data = pickle.load(f)
+	return loaded_data
 
 tokenizer = LoadSavedData(working_dir + 'assemble_tokenizer.pickle')
 
@@ -83,8 +83,8 @@ w2v_model = open(w2v_model_path)
 new_total_token_list = []
 
 for sub_list_token in total_list:
-    new_line = ','.join(sub_list_token)
-    new_total_token_list.append(new_line)
+	new_line = ','.join(sub_list_token)
+	new_total_token_list.append(new_line)
 
 
 total_sequences = tokenizer.texts_to_sequences(new_total_token_list)
@@ -112,8 +112,8 @@ print (total_sequences_pad.shape)
 #
 #test_set_x, validation_set_x, test_set_y, validation_set_y, test_set_id, validation_set_id = train_test_split(validation_set_x, validation_set_y, validation_set_id, test_size=0.5, random_state=42)
 def ListToCSV(list_to_csv, path):
-    df = pd.DataFrame(list_to_csv)
-    df.to_csv(path, index=False)
+	df = pd.DataFrame(list_to_csv)
+	df.to_csv(path, index=False)
 
 
 # ListToCSV(test_set_x.tolist(), 'TTtest_set_x.csv')
@@ -125,9 +125,9 @@ def ListToCSV(list_to_csv, path):
 # Save the test data sets.
 #--------------------------------------------------------------
 with open(pickle_folder_path +  'test_set_x.pickle', 'wb') as handle:
-    #pickle.dump(tokenizer, handle, protocol=pickle.HIGHEST_PROTOCOL)
-    pickle.dump(total_sequences_pad, handle, protocol=2)
+	#pickle.dump(tokenizer, handle, protocol=pickle.HIGHEST_PROTOCOL)
+	pickle.dump(total_sequences_pad, handle, protocol=2)
 
 with open(pickle_folder_path +  'test_set_y.pickle', 'wb') as handle:
-    #pickle.dump(tokenizer, handle, protocol=pickle.HIGHEST_PROTOCOL)
-    pickle.dump(Assembly_test_label_list, handle, protocol=2)
+	#pickle.dump(tokenizer, handle, protocol=pickle.HIGHEST_PROTOCOL)
+	pickle.dump(Assembly_test_label_list, handle, protocol=2)

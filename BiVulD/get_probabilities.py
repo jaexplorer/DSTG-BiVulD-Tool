@@ -45,13 +45,13 @@ def ListToCSV(list_to_csv, path):
     df = pd.DataFrame(list_to_csv)
     df.to_csv(path, index=False)
 
-pickle_folder_path = "test_files/"
+pickle_folder_path = sys.argv[1]
 test_set_x = LoadSavedData(pickle_folder_path + 'test_set_x.pickle')
 test_set_y = LoadSavedData(pickle_folder_path + 'test_set_y.pickle')
 
 probs = model.predict(test_set_x, batch_size = BATCH_SIZE, verbose=1)
 
-probability_folder_path = working_dir
+probability_folder_path = sys.argv[1]
 
 ListToCSV(probs.tolist(), probability_folder_path + 'prob_assembly.csv')
 
