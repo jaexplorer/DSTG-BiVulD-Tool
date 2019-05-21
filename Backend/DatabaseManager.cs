@@ -12,6 +12,9 @@ namespace Backend
     public class DatabaseManager
     {
         public SQLiteConnection DBConnection;
+        /*
+         * NOTE: All calls to method must have error handling 
+         */
         public void ConnectToDatabase()
         {
             string database = "../Backend/Automatic_Cybersecurity.sqlite";
@@ -26,6 +29,8 @@ namespace Backend
         * which user they will investigte further
         * @return
         * List<string[]> objects
+        * 
+        * NOTE: All calls to method must have error handling 
         */
         public List<string[]> GetUserList()
         {
@@ -50,13 +55,10 @@ namespace Backend
         * Add record to User table 
         * @param int userID
         * User object representing user to be added to User Table
-        * @return
-        * Integer 
-        * Case:
-        *   0 on success
-        *   1 on Exception
+        * 
+        * NOTE: All calls to method must have error handling 
         */
-        public int AddUser(User user)
+        public void AddUser(User user)
         {
             string sql = "INSERT INTO User (Email, Name, Password, Role) VALUES (?,?,?,?)";
 
@@ -76,16 +78,43 @@ namespace Backend
             emailParam.Value = user.Email;
             passwordParam.Value = user.Password;
             roleParam.Value = user.Role;
-            try
-            {
-                command.ExecuteNonQueryAsync();
-                return 0;
-            }
-            catch (Exception e)
-            {
-                return 1;
-            }
             
+            command.ExecuteNonQueryAsync();                     
+        }
+        /*
+        * UpdateUser(User user)
+        * @purpose 
+        * Update record to User table 
+        * @param int userID
+        * User object representing user to be updated in User Table
+        * 
+        * NOTE: All calls to method must have error handling 
+        */
+        public void UpdateUser(User user)
+        {
+            string sql = "UPDATE User SET Email = ?, Name = ?, Password = ?, Role = ? WHERE UserID = ?";
+
+            SQLiteParameter nameParam = new SQLiteParameter();
+            SQLiteParameter emailParam = new SQLiteParameter();
+            SQLiteParameter passwordParam = new SQLiteParameter();
+            SQLiteParameter roleParam = new SQLiteParameter();
+            SQLiteParameter idParam = new SQLiteParameter();
+
+            SQLiteCommand command = new SQLiteCommand(sql, DBConnection);
+
+            command.Parameters.Add(emailParam);
+            command.Parameters.Add(nameParam);
+            command.Parameters.Add(passwordParam);
+            command.Parameters.Add(roleParam);
+            command.Parameters.Add(idParam);
+
+            nameParam.Value = user.Name;
+            emailParam.Value = user.Email;
+            passwordParam.Value = user.Password;
+            roleParam.Value = user.Role;
+            idParam.Value = user.UserID;
+
+            command.ExecuteNonQueryAsync();      
         }
         /*
         * DeleteUser(int userID)
@@ -93,6 +122,8 @@ namespace Backend
         * Remove record associated with a given UserID from User table
         * @param int userID
         * UserID of record to be deleted
+        * 
+        * NOTE: All calls to method must have error handling 
         */
         public void DeleteUser(int userID)
         {
@@ -131,6 +162,8 @@ namespace Backend
          * @param int userID, Results result
          * Integer value identifying UserID in User table
          * Results object created from scan
+         * 
+         * NOTE: All calls to method must have error handling 
          */
         public void SaveResults(int userID, Results result)
         {
@@ -166,6 +199,8 @@ namespace Backend
          * Integer value identifying UserID in Results table
          * @return
          * List<string[]> Object
+         * 
+         * NOTE: All calls to method must have error handling 
          */
         public List<string[]> GetResultsList(int userID)
         {
@@ -201,6 +236,8 @@ namespace Backend
          * Integer value identifying ID in Results table
          * @return
          * Results object
+         * 
+         * NOTE: All calls to method must have error handling 
          */
         public Results GetResult(int id)
         {
@@ -248,6 +285,8 @@ namespace Backend
          * Integer value identifying UserID in User table
          * @return
          * User object
+         * 
+         * NOTE: All calls to method must have error handling 
          */
         public User GetUserFromDatabase(int userID)
         {
@@ -297,6 +336,8 @@ namespace Backend
          * String value password submitted by user
          * @return
          * Boolean true or false
+         * 
+         * NOTE: All calls to method must have error handling 
          */
         public bool AuthenticateUser(string email, string password)
         {
