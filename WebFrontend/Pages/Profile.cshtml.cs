@@ -1,12 +1,14 @@
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace WebFrontend.Pages
+namespace WebFrontend
 {
-	public class ProfileModel : PageModel
+	public class ProfileModel : Models.FileScanner
 	{
 		public void OnGet()
 		{
 			//
 		}
+
+
 	}
 }
