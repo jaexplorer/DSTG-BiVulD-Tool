@@ -7,12 +7,15 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items:center;
-    height: 200vh;
+    height: 100vh;
     margin: -20px 0 50px;
 }
 h1{
     font-weight:bold;
     margin:0;
+}
+h3{
+    color:#333;
 }
 p{
     font-size:14px;
@@ -68,14 +71,23 @@ a{
 
 .card{
     width: 400px;
-    background-color: rgba(0,0,0,0.5) !important;
+    background-color:#ffffff;
+}
+.card-body{
+    display:flex;
+    position:center;
+    align-content:center;
+    text-align:center;
+    margin-left:auto;
+    margin-right:auto;
 }
 .card-header h3{
-    color: white;
+    color:#000000;
+    text-align:center;
 }
 
 .card label {
-    color: white;
+    color: #000000;
 }
 
 .overlay-container {
@@ -88,10 +100,10 @@ a{
     transition: transform 0.6s ease-in-out;
     z-index: 100;
 }
-.panel-button {
+.btn-primary {
     border-radius: 20px;
     border: 1px solid #333;
-    background-color: rgba(0,0,0,0.22);
+    background: #4bbdd9;
     color: #FFFFFF;
     font-size: 12px;
     font-weight: bold;
@@ -135,4 +147,19 @@ a{
 .overlay-right {
     right: 0;
     transform: translateX(0);
+}
+.navbar-toggle {
+    border-radius: 70%;
+}
+.btn-forget-password{
+    color:#333;
+    border:none;
+    background:#ffffff;
+}
+.form-control,.form-label{
+    display:flex;
+    position:center;
+    margin-left:auto;
+    margin-right:auto;  
+    align-self:center;
 }

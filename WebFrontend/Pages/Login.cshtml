@@ -37,15 +37,11 @@
                         </div>
                         <div class="form-group">
                             <div class="col-md-offset-2 col-md-10">
+                                <button class="btn-forget-password">Forget Password?</button>
                                 <button asp-page-handler="LogIn" class="btn btn-primary">Log in</button>
                             </div>
                         </div>
                     </form>
-                </div>
-                <div class="card-footer">
-                    <div class="d-flex justify-content-center">
-                        Don't have an account? &nbsp <a href="/signup" class="badge badge-primary">Register here</a>
-                    </div>
                 </div>
             </div>
         </div>
@@ -122,13 +118,13 @@
             <div class="overlay-panel overlay-left">
                 <h1>Hello!</h1>
                 <p>To access more content please login with your personal info</p>
-                <button asp-page-handler="signInOverlay" class="panel-button" id="signIn" method="post">Sign In</button>
+                <button asp-page-handler="signInOverlay" class="panel-button btn-primary" id="signIn" method="post">Sign In</button>
             </div>
             <div class="overlay-panel overlay-right">
                 <h1>Hello!</h1>
                 <p>Sign up to start using our product.</p>
                 <form asp-page-handler="signUpOverlay" method="post">
-                    <button class="panel-button" id="signUp">Sign Up</button>
+                    <button class="panel-button btn-primary" id="signUp">Sign Up</button>
                 </form>
             </div>
         </div>
