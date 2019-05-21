@@ -10,7 +10,7 @@ namespace WebFrontend.Models
 	public class FileScanner : PageModel
 	{
 		[BindProperty]
-        [Required]
+		[Required]
 		[Display(Name="File")]
 		public IFormFile UploadFile { get; set; }
 
@@ -20,7 +20,7 @@ namespace WebFrontend.Models
 		{
 			fileManager = new FileManager();
 
-            if (UploadFile.Length == 0)
+			if (UploadFile.Length == 0)
 			{
 				ModelState.AddModelError(UploadFile.Name, "The uploaded file must be valid");
 			}

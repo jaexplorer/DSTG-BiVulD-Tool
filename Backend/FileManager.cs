@@ -1,5 +1,7 @@
+using System;
 using System.Diagnostics;
 using System.IO;
+using System.Security.Cryptography;
 
 namespace Backend
 {
@@ -26,7 +28,9 @@ namespace Backend
 	{
 		public FileManager()
 		{
-			TempPath = "chris/";
+			byte[] salt;
+			new RNGCryptoServiceProvider().GetBytes(salt = new byte[16]);
+			TempPath = BitConverter.ToUInt32(salt, 0).ToString() + "/";
 
 			Directory.CreateDirectory(FileNames.BiVulDDir + TempPath);
 		}
