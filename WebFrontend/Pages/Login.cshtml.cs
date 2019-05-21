@@ -59,19 +59,6 @@ namespace WebFrontend.Pages
             //
         }
 
-        public void OnPostsignInOverlay()
-        {
-            try
-            {
-                Message = "Test";
-            }
-            catch (Exception ex)
-            {
-                Console.Write(ex);
-            }
-            
-        }
-
         public async Task<IActionResult> OnPostSignUp()
         {
             try
