@@ -1,8 +1,8 @@
 using System.Threading.Tasks;
+using Backend;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using WebFrontend.Models;
-using static Backend.FileManager;
 
 namespace WebFrontend.Pages
 {
@@ -28,7 +28,7 @@ namespace WebFrontend.Pages
 				return Page();
 			}
 
-			using (var fileStream = GetFileStream())
+			using (var fileStream = FileManager.GetFileStream())
 			{
 				await FileUpload.UploadFile.CopyToAsync(fileStream);
 			}
