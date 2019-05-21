@@ -1,9 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace WebFrontend.Pages
+namespace WebFrontend
 {
-	public class DashboardModel : PageModel
+	public class DashboardModel : Models.FileScanner
 	{
 		public bool FileUpload { get; set; }
 		public bool Display { get; set; } = false;
