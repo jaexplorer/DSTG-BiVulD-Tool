@@ -2,7 +2,32 @@
 @model ProfileModel
 @{
 	Layout = "Shared/_MainUI";
-	ViewData["Title"] = "Profile";
+	ViewData["Title"] = "Settings";
 }
+<div class="settings-container">
+	<div class="settings-option">
+		<div class="setting-heading">Change Theme</div>
+		<div class="setting-content">
+			<div class="switch-container">
+				<input id="switchToggle" type="checkbox">
+				<label for="switchToggle"></label>
+			</div>
+		</div>
+	</div>
+</div>
 
-<h1>Profile</h1>
+<script type="text/javascript">
+// Colour Theme Toggle
+// ------------------------------------------------------------------- //
+let themeButton = document.getElementById("switchToggle");
+// Set Toggle
+document.addEventListener("DOMContentLoaded", () => {
+	themeButton.checked = document.body.classList.contains("light") ? true : false;
+});
+// Toggle Colour
+themeButton.addEventListener('click', (e) => {
+	theme = e.target.checked ? "light" : "dark";
+	localStorage.setItem('theme', theme);
+	getTheme();
+});
+</script>
