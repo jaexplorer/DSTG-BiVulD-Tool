@@ -209,11 +209,45 @@ button:focus{
     position:absolute;
     overflow:hidden;
     top:50px;
-    left:10%;
+    left:5%;
 }
 #text-danger-reset{
     left:35%;
 }
+
+.password-tooltip {
+    visibility: hidden;
+    width: 120px;
+    background-color: #555;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 50%;
+    margin-left: -60px;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.password-tooltip::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #555 transparent transparent transparent;
+}
+
+#form-control-password:hover + .password-tooltip {
+    visibility: visible;
+    opacity: 1;
+}
+
 
 /*Move login to the right*/
 .form-container.right-panel-active .login-container {
