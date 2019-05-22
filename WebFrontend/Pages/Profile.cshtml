@@ -9,28 +9,51 @@
 }
 <h1>@Model.ErrorMessage</h1>
 <div class="settings-container">
-    <form method="post" enctype="multipart/form-data">
-        <div class="formElement">
-            <div class="formLabel"><label for="profileName">Name: </label></div>
-            <div class="formInput">@Html.TextBoxFor(m => m.UserModel.Username, new { @id = "profileName" })</div>
-        </div>
-        <div class="formElement">
-            <div class="formLabel"><label for="profileEmail">Email: </label></div>
-            <div class="formInput">@Html.TextBoxFor(m => m.UserModel.Email, new { @id = "profileEmail" })</div>
-        </div>
-        <div class="formElement">
-            <button id="save-button" asp-page-handler="Save" class="btn btn-primary">Save</button>
-        </div>
-    </form>
-    <div class="settings-option">
-        <div class="setting-heading">Change Theme</div>
-        <div class="setting-content">
-            <div class="switch-container">
-                <input id="switchToggle" type="checkbox">
-                <label for="switchToggle"></label>
-            </div>
-        </div>
-    </div>
+  <form method="post" enctype="multipart/form-data">
+      <div class="formElement">
+          <div class="formLabel"><label for="profileName">Name: </label></div>
+          <div class="formInput">@Html.TextBoxFor(m => m.UserModel.Username, new { @id = "profileName" })</div>
+      </div>
+      <div class="formElement">
+          <div class="formLabel"><label for="profileEmail">Email: </label></div>
+          <div class="formInput">@Html.TextBoxFor(m => m.UserModel.Email, new { @id = "profileEmail" })</div>
+      </div>
+      <div class="formElement">
+          <button id="save-button" asp-page-handler="Save" class="btn btn-primary">Save</button>
+      </div>
+  </form>
+	<form id="passwordSettings" method="post">
+		<div class="formElement">
+			<div class="formLabel"><label for="profilePassword">Password: </label></div>
+			<div class="formInput"><input type="text" id="profilePassword" name="profilePassword"></div>
+		</div>
+		<div class="formElement">
+			<div class="formLabel"><label for="passwordConfirm">Confirm: </label></div>
+			<div class="formInput"><input type="text" id="passwordConfirm" name="passwordConfirm"></div>
+		</div>
+		<div class="formElement">
+			<button id="confirm-button" type="submit">Save</button>
+		</div>
+	</form>
+	<div id="profileSummary">
+		<div class="summaryElement">
+			<div class="summaryTitle">Last Login: </div>
+			<div class="summaryValue" id="lastLoginValue">Yesterday</div>
+		</div>
+		<div class="summaryElement">
+			<div class="summaryTitle">Total Scans: </div>
+			<div class="summaryValue" id="totalScans">43</div>
+		</div>
+	</div>
+	<div class="settings-option">
+		<div class="setting-heading">Change Theme</div>
+		<div class="setting-content">
+			<div class="switch-container">
+				<input id="switchToggle" type="checkbox">
+				<label for="switchToggle"></label>
+			</div>
+		</div>
+	</div>
 </div>
 
 <script type="text/javascript">

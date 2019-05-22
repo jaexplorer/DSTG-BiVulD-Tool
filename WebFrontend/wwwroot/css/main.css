@@ -237,15 +237,181 @@ p, h1, h2, h3, h4, h5, span {
   top: 8.3rem;
 }
 
+.settings-container #basicSettings {
+  border-radius: 50px;
+  border: 2px solid var(--greyText);
+  height: auto;
+  margin-bottom: 3.5rem;
+  padding: 1rem;
+  width: calc(100% -2rem);
+}
+
+.settings-container #basicSettings .formElement {
+  color: var(--greyText);
+  text-transform: uppercase;
+  line-height: 0;
+  font-weight: 700;
+  font-size: 12pt;
+  margin-left: 1rem;
+  margin-top: 3rem;
+  display: -ms-grid;
+  display: grid;
+  -webkit-columns: 2;
+          columns: 2;
+}
+
+.settings-container #basicSettings .formElement .formLabel {
+  -ms-grid-column: 1;
+  grid-column: 1;
+}
+
+.settings-container #basicSettings .formElement .formInput {
+  position: relative;
+  top: -1rem;
+  -ms-grid-column: 2;
+  grid-column: 2;
+  -ms-grid-column-align: right;
+      justify-self: right;
+  width: 100%;
+  margin-right: 1rem;
+}
+
+.settings-container #basicSettings .formElement .formInput input {
+  width: 100%;
+  border-radius: 25pt;
+  height: 2rem;
+  background: none;
+  border: var(--greyText) solid 1.5pt;
+}
+
+.settings-container #basicSettings .formElement #save-button {
+  height: 3rem;
+  border-radius: 50px;
+  width: 6rem;
+  margin-bottom: 1rem;
+  -ms-grid-column-align: right;
+      justify-self: right;
+  margin-right: 1rem;
+  background-color: #4bbdd9;
+  border: none;
+  color: white;
+  text-transform: uppercase;
+  line-height: 0;
+  font-weight: 700;
+  font-size: 12pt;
+}
+
+.settings-container #passwordSettings {
+  border-radius: 50px;
+  border: 2px solid var(--greyText);
+  height: 18rem;
+  margin-bottom: 3.5rem;
+  padding: 1rem;
+  width: 45%;
+  float: left;
+}
+
+.settings-container #passwordSettings .formElement {
+  color: var(--greyText);
+  text-transform: uppercase;
+  line-height: 0;
+  font-weight: 700;
+  font-size: 12pt;
+  margin-left: 1rem;
+  margin-top: 3rem;
+  display: -ms-grid;
+  display: grid;
+  -webkit-columns: 2;
+          columns: 2;
+}
+
+.settings-container #passwordSettings .formElement .formLabel {
+  -ms-grid-column: 1;
+  grid-column: 1;
+}
+
+.settings-container #passwordSettings .formElement .formInput {
+  position: relative;
+  top: -1rem;
+  -ms-grid-column: 2;
+  grid-column: 2;
+  -ms-grid-column-align: right;
+      justify-self: right;
+  width: 15rem;
+  margin-right: 1rem;
+}
+
+.settings-container #passwordSettings .formElement .formInput input {
+  width: 100%;
+  border-radius: 25pt;
+  height: 2rem;
+  background: none;
+  border: var(--greyText) solid 1.5pt;
+}
+
+.settings-container #passwordSettings .formElement #confirm-button {
+  height: 3rem;
+  border-radius: 50px;
+  width: 6rem;
+  margin-bottom: 1rem;
+  -ms-grid-column-align: right;
+      justify-self: right;
+  margin-right: 1rem;
+  background-color: #4bbdd9;
+  border: none;
+  color: white;
+  text-transform: uppercase;
+  line-height: 0;
+  font-weight: 700;
+  font-size: 12pt;
+}
+
+.settings-container #profileSummary {
+  border-radius: 50px;
+  border: 2px solid var(--greyText);
+  height: 18rem;
+  margin-bottom: 3.5rem;
+  padding: 1rem;
+  width: 40%;
+  float: right;
+}
+
+.settings-container #profileSummary .summaryElement {
+  color: var(--greyText);
+  text-transform: uppercase;
+  line-height: 0;
+  font-weight: 700;
+  font-size: 12pt;
+  margin-left: 1rem;
+  margin-top: 3rem;
+  display: -ms-grid;
+  display: grid;
+  -webkit-columns: 2;
+          columns: 2;
+}
+
+.settings-container #profileSummary .summaryElement .summaryTitle {
+  -ms-grid-column: 1;
+  grid-column: 1;
+}
+
+.settings-container #profileSummary .summaryElement .summaryValue {
+  position: relative;
+  -ms-grid-column: 2;
+  grid-column: 2;
+  -ms-grid-column-align: right;
+      justify-self: right;
+  margin-right: 1rem;
+}
+
 .settings-container .settings-option {
   border-radius: 50px;
   border: 2px solid var(--greyText);
-  height: 3rem;
   margin-bottom: 3.5rem;
   display: -ms-grid;
   display: grid;
   padding: 1rem;
-  width: calc(100% -2rem);
+  width: calc(100% - 2rem);
 }
 
 .settings-container .settings-option .setting-heading {
@@ -270,7 +436,7 @@ p, h1, h2, h3, h4, h5, span {
       align-self: center;
   -ms-grid-column-align: right;
       justify-self: right;
-  margin-right: 0.6rem;
+  margin-right: 1rem;
 }
 
 .settings-container .settings-option .setting-content form {
