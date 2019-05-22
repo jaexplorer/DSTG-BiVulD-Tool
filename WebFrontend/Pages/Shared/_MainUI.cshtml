@@ -25,11 +25,9 @@
         <div class="left-main-container">
             <div class="left-nav-container">
                 <div class="left-nav-scan">
-                    <a href="/Index" style="text-decoration:none;">
-                        <button id="scan-button">
-                            <h5>Scan</h5>
-                        </button>
-                    </a>
+					<button id="scan-button">
+						<h5>Scan</h5>
+					</button>
                 </div>
                 <div class="left-nav-list-container">
                     <ul class="left-nav-list">
@@ -61,6 +59,28 @@
         <script src="~/js/Noise/jquery/jquery.noisy.min.js"></script>
         <script src="~/js/main.js"></script>
         <script src="~/js/svg-img.js"></script>
+
+		<script type="text/javascript">
+			let scanButton = document.getElementById("scan-button");
+			scanButton.addEventListener("click", function() {
+
+				let something = document.getElementsByClassName("left-nav-scan")[0];
+				
+				var temp = document.createElement('div');
+
+				temp.innerHTML = `
+				<form method="post" enctype="multipart/form-data">
+					<label style="display: none" asp-for="UploadFile"></label>
+					<input style="display: none" id="file-upload" class="inputfile" asp-for="UploadFile" type="file" />
+					<label class="choose-upload" for="file-upload">Choose a file</label>
+					<div><span class="upload-error" asp-validation-for="UploadFile"></span></div>
+					<input asp-page-handler="Upload" class="upload-button" type="submit" value="Upload">
+				</form>
+				`;
+				something.append(temp);
+			});
+
+		</script>
         @RenderSection("Scripts", required: false)
     </body>
 </html>
