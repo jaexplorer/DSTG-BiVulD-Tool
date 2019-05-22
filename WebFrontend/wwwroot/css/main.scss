@@ -193,9 +193,16 @@ body {
 }
 // Profile
 // ------------------------------------------------------------------- //
+
 .settings-container {
   position: relative;
   top: 8.3rem;
+
+  input {
+    color: white;
+    box-sizing: border-box;
+    padding-left: 1rem;
+  }
 
   #basicSettings {
     border-radius: 50px;

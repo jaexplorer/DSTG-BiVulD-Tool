@@ -9,7 +9,7 @@
 }
 <h1>@Model.ErrorMessage</h1>
 <div class="settings-container">
-  <form method="post" enctype="multipart/form-data">
+  <form id="basicSettings" method="post" enctype="multipart/form-data">
       <div class="formElement">
           <div class="formLabel"><label for="profileName">Name: </label></div>
           <div class="formInput">@Html.TextBoxFor(m => m.UserModel.Username, new { @id = "profileName" })</div>

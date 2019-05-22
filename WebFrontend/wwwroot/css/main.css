@@ -237,6 +237,13 @@ p, h1, h2, h3, h4, h5, span {
   top: 8.3rem;
 }
 
+.settings-container input {
+  color: white;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  padding-left: 1rem;
+}
+
 .settings-container #basicSettings {
   border-radius: 50px;
   border: 2px solid var(--greyText);
