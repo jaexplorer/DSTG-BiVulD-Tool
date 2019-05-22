@@ -10,7 +10,6 @@ namespace WebFrontend.Models
 	public class FileScanner : PageModel
 	{
 		[BindProperty]
-		[Required]
 		[Display(Name="File")]
 		public IFormFile UploadFile { get; set; }
 
