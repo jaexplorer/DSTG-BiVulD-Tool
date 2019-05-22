@@ -1,4 +1,4 @@
-@model WebFrontend.Models.FileScanner
+﻿@model WebFrontend.Models.FileScanner
 <!DOCTYPE html>
 <html>
 	<head>
@@ -9,68 +9,65 @@
 		<link href="~/css/main.css" rel="stylesheet" runat="server" type="text/css" />
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.css" />
 	</head>
-	<body>
-		<!-- Profile Status
-		------------------------------------------------------------------- -->
-		<header class="p-header-container">
-			<!-- TODO: Add @ViewData Profile Pic-->
-			<div class="p-header-pic">
-				<img src="~/images/pic.jpg">
-			</div>
-			<!-- TODO: Add @ViewData Profile Name -->
-			<h4 class="p-header-name">John Smith</h4>
-		</header>
-
-		<!-- Main Menu
-		------------------------------------------------------------------- -->
-		<div class="left-main-container">
-			<div class="left-nav-container">
-				<div class="left-nav-scan">
-					<a href="/Index" style="text-decoration:none;">
-						<button id="scan-button">
-							<h5>Scan</h5>
-						</button>
-						<!-- <form method="post" enctype="multipart/form-data">
-							<label style="display: none" asp-for="UploadFile"></label>
-							<input style="display: none" id="file-upload" class="inputfile" asp-for="UploadFile" type="file" />
-							<label class="choose-upload" for="file-upload">Choose a file</label>
-							<div><span class="upload-error" asp-validation-for="UploadFile"></span></div>
-							<input asp-page-handler="Upload" class="upload-button" type="submit" value="Upload" />
-						</form> -->
-					</a>
-				</div>
-				<div class="left-nav-list-container">
-					<ul class="left-nav-list">
-						<li id="Dashboard" class="page-item">
-							<a href="/Dashboard"><img src="~/images/dashboard.svg" class="page-item-icon svg"><span>Dashboard</span></a>
-						</li>
-						<li id="Profile" class="page-item">
-							<a href="/Profile"><img src="~/images/profile.svg" class="page-item-icon svg"><span>Profile</span></a>
-						</li>
-						<li id="Reports" class="page-item">
-							<a href="/Reports"><img src="~/images/database.svg" class="page-item-icon svg"><span>Reports</span></a>
-						</li>
-					</ul>
-				</div>
-			</div>
-		</div>
-
-		<!-- Main View
-		------------------------------------------------------------------- -->
-		<div class="right-main-container">
-			<div class="right-view-container">
-				@RenderBody()
-			</div>
-		</div>
-
-		<div id="noise"></div>
-		<script src="https://code.jquery.com/jquery-3.4.0.js"
-				integrity="sha256-DYZMCC8HTC+QDr5QNaIcfR7VSPtcISykd+6eSmBW5qo="
-				crossorigin="anonymous">
-		</script>
-		<script src="~/js/Noise/jquery/jquery.noisy.min.js"></script>
-		<script src="~/js/main.js"></script>
-		<script src="~/js/svg-img.js"></script>
-		
-	</body>
+    <body>
+        <!-- Profile Status
+    ------------------------------------------------------------------- -->
+        <header class="p-header-container">
+            <!-- TODO: Add @ViewData Profile Pic-->
+            <div class="p-header-pic">
+                <img src="~/images/pic.jpg">
+            </div>
+            <!-- TODO: Add @ViewData Profile Name -->
+            <h4 class="p-header-name">John Smith</h4>
+        </header>
+        <!-- Main Menu
+    ------------------------------------------------------------------- -->
+        <div class="left-main-container">
+            <div class="left-nav-container">
+                <div class="left-nav-scan">
+                    <a href="/Index" style="text-decoration:none;">
+                        <button id="scan-button">
+                            <h5>Scan</h5>
+                        </button>
+                        <form method="post" enctype="multipart/form-data">
+                            <label style="display: none" asp-for="UploadFile"></label>
+                            <input style="display: none" id="file-upload" class="inputfile" asp-for="UploadFile" type="file" />
+                            <label class="choose-upload" for="file-upload">Choose a file</label>
+                            <div><span class="upload-error" asp-validation-for="UploadFile"></span></div>
+                            <input asp-page-handler="Upload" class="upload-button" type="submit" value="Upload" />
+                        </form>
+                    </a>
+                </div>
+                <div class="left-nav-list-container">
+                    <ul class="left-nav-list">
+                        <li id="Dashboard" class="page-item">
+                            <a href="/Dashboard"><img src="~/images/dashboard.svg" class="page-item-icon svg"><span>Dashboard</span></a>
+                        </li>
+                        <li id="Profile" class="page-item">
+                            <a href="/Profile"><img src="~/images/profile.svg" class="page-item-icon svg"><span>Profile</span></a>
+                        </li>
+                        <li id="Reports" class="page-item">
+                            <a href="/Reports"><img src="~/images/database.svg" class="page-item-icon svg"><span>Reports</span></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- Main View
+    ------------------------------------------------------------------- -->
+        <div class="right-main-container">
+            <div class="right-view-container">
+                @RenderBody()
+            </div>
+        </div>
+        <div id="noise"></div>
+        <script src="https://code.jquery.com/jquery-3.4.0.js"
+                integrity="sha256-DYZMCC8HTC+QDr5QNaIcfR7VSPtcISykd+6eSmBW5qo="
+                crossorigin="anonymous">
+        </script>
+        <script src="~/js/Noise/jquery/jquery.noisy.min.js"></script>
+        <script src="~/js/main.js"></script>
+        <script src="~/js/svg-img.js"></script>
+        @RenderSection("Scripts", required: false)
+    </body>
 </html>
