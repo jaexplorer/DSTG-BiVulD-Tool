@@ -5,6 +5,19 @@
 	ViewData["Title"] = "Settings";
 }
 <div class="settings-container">
+	<form method="post" enctype="multipart/form-data">
+		<div class="formElement">
+			<div class="formLabel"><label for="profileName">Name: </label></div>
+			<div class="formInput"><input type="text" id="profileName" name="profileName"></div>
+		</div>
+		<div class="formElement">
+			<div class="formLabel"><label for="profileEmail">Email: </label></div>
+			<div class="formInput"><input type="text" id="profileEmail" name="profileEmail"></div>
+		</div>
+		<div class="formElement">
+			<button id="save-button" type="submit">Save</button>
+		</div>
+	</form>
 	<div class="settings-option">
 		<div class="setting-heading">Change Theme</div>
 		<div class="setting-content">
