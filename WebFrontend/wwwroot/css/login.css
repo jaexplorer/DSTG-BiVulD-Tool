@@ -83,10 +83,19 @@ a:hover {
     position: center;
     align-content: center;
 }
-.card-header h3{
-    color:#000000;
-    display:inline;
-    border:none;
+.card-header{
+    text-align:left;
+}
+.card-header h3 {
+    color: #000000;
+    position: static;
+    display: inline;
+    border: none;
+    margin-left:25%;
+}
+#password-label {
+    display:inline-flex;
+    margin-left: 10%;
 }
 .card label {
     color: #000000;
@@ -118,6 +127,7 @@ a:hover {
     transform: scale(0.95);
 }
 .navbtn {
+    position:static;
     border: 1px solid #DDDDDD;
     border-radius: 50%;
     display: inline-flex;
@@ -194,6 +204,15 @@ button:focus{
     padding:13px 16px;
     margin: 8px 0;
     width:100%;
+}
+.text-danger{
+    position:absolute;
+    overflow:hidden;
+    top:50px;
+    left:10%;
+}
+#text-danger-reset{
+    left:35%;
 }
 
 /*Move login to the right*/
