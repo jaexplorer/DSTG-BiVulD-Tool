@@ -77,6 +77,7 @@ a{
     display:flex;
     position:center;
     align-content:center;
+    left:40px;
     text-align:center;
     margin-left:auto;
     margin-right:auto;
@@ -155,11 +156,4 @@ a{
     color:#333;
     border:none;
     background:#ffffff;
-}
-.form-control,.form-label{
-    display:flex;
-    position:center;
-    margin-left:auto;
-    margin-right:auto;  
-    align-self:center;
 }
