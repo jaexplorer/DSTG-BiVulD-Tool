@@ -5,7 +5,7 @@
 	ViewData["Title"] = "Settings";
 }
 <div class="settings-container">
-	<form method="post" enctype="multipart/form-data">
+	<form id="basicSettings" method="post" enctype="multipart/form-data">
 		<div class="formElement">
 			<div class="formLabel"><label for="profileName">Name: </label></div>
 			<div class="formInput"><input type="text" id="profileName" name="profileName"></div>
@@ -18,6 +18,29 @@
 			<button id="save-button" type="submit">Save</button>
 		</div>
 	</form>
+	<form id="passwordSettings" method="post">
+		<div class="formElement">
+			<div class="formLabel"><label for="profilePassword">Password: </label></div>
+			<div class="formInput"><input type="text" id="profilePassword" name="profilePassword"></div>
+		</div>
+		<div class="formElement">
+			<div class="formLabel"><label for="passwordConfirm">Confirm: </label></div>
+			<div class="formInput"><input type="text" id="passwordConfirm" name="passwordConfirm"></div>
+		</div>
+		<div class="formElement">
+			<button id="confirm-button" type="submit">Save</button>
+		</div>
+	</form>
+	<div id="profileSummary">
+		<div class="summaryElement">
+			<div class="summaryTitle">Last Login: </div>
+			<div class="summaryValue" id="lastLoginValue">Yesterday</div>
+		</div>
+		<div class="summaryElement">
+			<div class="summaryTitle">Total Scans: </div>
+			<div class="summaryValue" id="totalScans">43</div>
+		</div>
+	</div>
 	<div class="settings-option">
 		<div class="setting-heading">Change Theme</div>
 		<div class="setting-content">

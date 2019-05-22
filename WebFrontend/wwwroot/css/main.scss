@@ -197,7 +197,7 @@ body {
   position: relative;
   top: 8.3rem;
 
-  form {
+  #basicSettings {
     border-radius: 50px;
     border: 2px solid var(--greyText);
     height: auto;
@@ -252,6 +252,94 @@ body {
       }
     }
   }
+  #passwordSettings {
+    border-radius: 50px;
+    border: 2px solid var(--greyText);
+    height: 18rem;
+    margin-bottom: 3.5rem;
+    padding:1rem;
+    width: 45%;
+    float: left;
+
+    .formElement {
+      color: var(--greyText);
+      text-transform: uppercase;
+      line-height: 0;
+      font-weight: 700;
+      font-size: 12pt;
+      margin-left: 1rem;
+      margin-top: 3rem;
+      display: grid;
+      columns: 2;
+
+      .formLabel {
+        grid-column: 1;
+      }
+      .formInput {
+        position: relative;
+        top: -1rem;
+        grid-column: 2;
+        justify-self: right;
+        width: 15rem;
+        margin-right: 1rem;
+
+        input {
+          width: 100%;
+          border-radius: 25pt;
+          height: 2rem;
+          background: none;
+          border: var(--greyText) solid 1.5pt;
+        }
+      }
+      #confirm-button {
+        height: 3rem;
+        border-radius: 50px;
+        width: 6rem;
+        margin-bottom: 1rem;
+        justify-self: right;
+        margin-right: 1rem;
+        background-color: #4bbdd9;
+        border: none;
+        color: white;
+        text-transform: uppercase;
+        line-height: 0;
+        font-weight: 700;
+        font-size: 12pt;
+      }
+    }
+  }
+
+  #profileSummary {
+    border-radius: 50px;
+    border: 2px solid var(--greyText);
+    height: 18rem;
+    margin-bottom: 3.5rem;
+    padding:1rem;
+    width: 40%;
+    float: right;
+
+    .summaryElement {
+      color: var(--greyText);
+      text-transform: uppercase;
+      line-height: 0;
+      font-weight: 700;
+      font-size: 12pt;
+      margin-left: 1rem;
+      margin-top: 3rem;
+      display: grid;
+      columns: 2;
+
+      .summaryTitle {
+        grid-column: 1;
+      }
+      .summaryValue {
+        position: relative;
+        grid-column: 2;
+        justify-self: right;
+        margin-right: 1rem;
+      }
+    }
+  }
 
   .settings-option {
     border-radius: 50px;
@@ -259,7 +347,7 @@ body {
     margin-bottom: 3.5rem;
     display: grid;
     padding:1rem;
-    width: calc(100% -2rem);
+    width: calc(100% - 2rem);
 
     .setting-heading {
       grid-column: 1;
