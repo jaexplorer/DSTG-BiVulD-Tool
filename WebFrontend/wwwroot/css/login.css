@@ -72,15 +72,10 @@ a{
 .card{
     width: 400px;
     background-color:#ffffff;
+    text-align:center;
 }
 .card-body{
-    display:flex;
-    position:center;
     align-content:center;
-    left:40px;
-    text-align:center;
-    margin-left:auto;
-    margin-right:auto;
 }
 .card-header h3{
     color:#000000;
@@ -156,4 +151,49 @@ a{
     color:#333;
     border:none;
     background:#ffffff;
+}
+.col-md{
+    display:inline-block;
+    position:center;
+    margin-left:auto;
+    margin-right:auto;
+}
+
+/*Move login to the right*/
+.form-container.right-panel-active .login-container {
+    transform: translateX(100%);
+}
+
+/*Show signup over login*/
+.form-container.right-panel-active .signup-container {
+    transform: translateX(100%);
+    opacity: 1;
+    z-index: 5;
+    animation: show 0.6s;
+}
+
+/*Move signup to the left*/
+.form-container.right-panel-active .overlay-container {
+    transform: translateX(-100%);
+}
+
+/*Move overlay back to the right*/
+.form-container.right-panel-active .overlay {
+    transform: translateX(50%);
+}
+
+/*Centers left overlay after animation*/
+.form-container.right-panel-active .overlay-left {
+    transform: translateX(0);
+}
+
+/*Centers right overlay after animation*/
+.form-overlay-right {
+    right: 0;
+    transform: translateX(0);
+}
+
+/*Create a more smooth animation for right overlay*/
+.form-container.right-panel-active .overlay-right {
+    transform: translateX(20%);
 }
