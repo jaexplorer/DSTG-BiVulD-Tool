@@ -114,7 +114,7 @@ namespace Backend
             roleParam.Value = user.Role;
             idParam.Value = user.UserID;
 
-            command.ExecuteNonQueryAsync();      
+            command.ExecuteNonQuery();      
         }
         /*
         * DeleteUser(int userID)
