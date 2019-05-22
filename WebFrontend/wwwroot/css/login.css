@@ -2,12 +2,12 @@
     box-sizing: border-box;
 }
 body {
-    background:rgba(0,0,0,0.25);
-    display:flex;
+    background: #555555;
+    display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items:center;
-    height: 100vh;
+    align-items: center;
+    height: 75vh;
     margin: -20px 0 50px;
 }
 h1{
@@ -48,7 +48,6 @@ span{
     position:absolute;
     top:0;
     height:100%;
-    display:block;
     transition: all 0.6s ease-in-out;
 }
 .login-container {
@@ -65,23 +64,30 @@ span{
 a{
     color:#333;
     font-size:14px;
+    font-style:normal;
     text-decoration:none;
     margin:15px;
 }
+a:hover {
+    font-style: normal;
+    text-decoration: none;
+}
 
 .card{
+
     width: 400px;
     background-color:#ffffff;
     text-align:center;
 }
-.card-body{
-    align-content:center;
+.card-body {
+    position: center;
+    align-content: center;
 }
 .card-header h3{
     color:#000000;
-    text-align:center;
+    display:inline;
+    border:none;
 }
-
 .card label {
     color: #000000;
 }
@@ -108,9 +114,34 @@ a{
     text-transform: uppercase;
     transition: transform 80ms ease-in;
 }
+.btn-primary:active {
+    transform: scale(0.95);
+}
+.navbtn {
+    border: 1px solid #DDDDDD;
+    border-radius: 50%;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 5px;
+    height: 40px;
+    width: 40px;
+}
+.btn-forget-password {
+    color: rgba(0,0,0,0.5);
+    display: block;
+    font-size: 16px;
+    margin-left: auto;
+    margin-right: auto;
+    border: none;
+    background: #ffffff;
+}
+button:focus{
+    outline:none;
+}
 .overlay {
     background: #FF416C;
-    background: -webkit-linear-gradient(to right, rgba(0,0,0,0.25), rgba(0,0,0,0.5));
+    background: -webkit-linear-gradient(to right, rgba(0,0,0,0.25),#000000);
     background: linear-gradient(to right, rgba(0,0,0,0.25), rgba(0,0,0,0.5));
     background-repeat: no-repeat;
     background-size: cover;
@@ -147,16 +178,22 @@ a{
 .navbar-toggle {
     border-radius: 70%;
 }
-.btn-forget-password{
-    color:#333;
-    border:none;
-    background:#ffffff;
+
+.form-group{
+    display:flex;
+    text-align:center;
 }
-.col-md{
-    display:inline-block;
-    position:center;
+.col-md-10{
     margin-left:auto;
     margin-right:auto;
+    position:center;
+}
+.form-control{
+    background:#f3f3f3;
+    border:none;
+    padding:13px 16px;
+    margin: 8px 0;
+    width:100%;
 }
 
 /*Move login to the right*/

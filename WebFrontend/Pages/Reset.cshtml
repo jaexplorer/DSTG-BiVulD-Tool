@@ -28,11 +28,8 @@
 					<form method="post">
 						@Html.ValidationSummary(true, "", new { @class = "text-danger" })
 						<div class="input-group form-group">
-							<div class="col-md-3">
-								@Html.LabelFor(m => m.Email)
-							</div>
 							<div class="col-md-10">
-								@Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+								@Html.TextBoxFor(m => m.Email, new { @class = "form-control" ,Placeholder="Email"})
 								@Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
 							</div>
 						</div>
