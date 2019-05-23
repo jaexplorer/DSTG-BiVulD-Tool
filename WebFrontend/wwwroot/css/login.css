@@ -207,7 +207,7 @@ button:focus{
 }
 .text-danger{
     position:absolute;
-    overflow:hidden;
+    overflow:visible;
     top:50px;
     left:5%;
 }
@@ -215,6 +215,7 @@ button:focus{
     left:35%;
 }
 
+/*Tooltip properties*/
 .password-tooltip {
     visibility: hidden;
     width: 120px;
@@ -223,26 +224,32 @@ button:focus{
     text-align: center;
     border-radius: 6px;
     padding: 5px 0;
+
+    /*position tooltip text*/
     position: absolute;
-    z-index: 1;
-    bottom: 125%;
-    left: 50%;
-    margin-left: -60px;
+    z-index: 500000;
+    top: 10%;
+    left: 100%;
+    margin-left: 0px;
+
+    /*fade in tooltip*/
     opacity: 0;
     transition: opacity 0.3s;
 }
 
+/*tooltip arrow */
 .password-tooltip::after {
     content: "";
     position: absolute;
-    top: 100%;
-    left: 50%;
-    margin-left: -5px;
+    top: 50%;
+    right: 95%;
+    margin-top: -5px;
     border-width: 5px;
     border-style: solid;
     border-color: #555 transparent transparent transparent;
 }
 
+/*Make tool tip visible when hover over error message*/
 #form-control-password:hover + .password-tooltip {
     visibility: visible;
     opacity: 1;

@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using System.Text.RegularExpressions;
 
 namespace WebFrontend.Pages
 {
@@ -107,6 +108,43 @@ namespace WebFrontend.Pages
         [Compare("Password", ErrorMessage = "Passwords must match.")]
         [Display(Name = "Retype Password")]
         public string ConfirmPassword { get; set; }
+
+        public class CheckPassAttribute : ValidationAttribute
+        {
+            private string pass;
+
+            protected override ValidationResult IsValid(object value, ValidationContext validationContext)
+            {
+                pass = value.ToString();
+                if (pass.Length == 0)
+                {
+                    return new ValidationResult("Password must be at least 8 characters long");
+                }else if(!(Regex.Match(pass, @"/[a-z]+/")).Success)
+                {
+                    return new ValidationResult("Password must contain atleast 1 lowercase");
+                }
+                else if (!(Regex.Match(pass, @"/[A-Z]+/")).Success)
+                {
+                    return new ValidationResult("Password must contain atleast 1 uppercase");
+                }
+                else if (!(Regex.Match(pass, @"/[0-9]+/")).Success)
+                {
+                    return new ValidationResult("Password must contain atleast 1 number");
+                }
+                else if (!(Regex.Match(pass, @"/?=.*?[#?!@$%^&*-]")).Success)
+                {
+                    return new ValidationResult("Password must contain atleast 1 symbol");
+                }
+                else
+                {
+                    return ValidationResult.Success;
+                }   
+            }
+        }
+
+        [Required(ErrorMessage = "Password is required")]
+        [CheckPass]
+        public string CheckPass { get; set; }
     }
 
     public class SignupModel : PageModel

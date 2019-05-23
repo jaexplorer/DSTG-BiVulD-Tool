@@ -77,9 +77,10 @@
                             </div>
                             <div class="input-group form-group">
                                 <div class="col-md-10">
-                                    @Html.PasswordFor(m => m.UserModel.Password, new { @class = "form-control", Placeholder="Password"})
-                                    @Html.ValidationMessageFor(m => m.UserModel.Password, "", new { @class = "text-danger" , @id="form-control-password"})
-                                    <span class="password-tooltip">fsdfa</span>
+                                    @Html.PasswordFor(m => m.UserModel.CheckPass, new { @class = "form-control", Placeholder = "Password" })
+                                    @Html.ValidationMessageFor(m => m.UserModel.CheckPass, "", new { @class = "text-danger", @id = "form-control-password" })
+
+                                    @Html.ValidationMessageFor(m => m.UserModel.CheckPass, "", new { @class = "password-tooltip" })
                                 </div>
                             </div>
                             <div class="input-group form-group">
