@@ -106,12 +106,12 @@
             <div class="overlay-panel overlay-left">
                 <h1>Hello!</h1>
                 <p>To access more content please login with your personal info</p>
-                <button class="panel-button btn-primary" id="signIn" >Sign In</button>
+                <button asp-page-handler="signin-overlay" class="panel-button btn-primary" id="signIn">Sign In</button>
             </div>
             <div class="overlay-panel overlay-right">
                 <h1>Hello!</h1>
                 <p>Sign up to start using our product.</p>
-                <button class="panel-button btn-primary" asp-route-sessioncount="20" id="signUp">Sign Up</button>
+                <button asp-page-handler="signup-overlay" class="panel-button btn-primary" asp-route-sessioncount="20" id="signUp">Sign Up</button>
             </div>
         </div>
     </div>
