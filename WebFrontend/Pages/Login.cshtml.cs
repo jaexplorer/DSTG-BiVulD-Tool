@@ -7,43 +7,43 @@ using System.Text.RegularExpressions;
 
 namespace WebFrontend.Pages
 {
-	public class LoginModel : PageModel
-	{
-		[BindProperty]
-		[Required(ErrorMessage = "Username is required")]
-		[MinLength(6, ErrorMessage = "Invalid username")]
-		[Display(Name = "Username")]
-		public string Username { get; set; }
+    public class LoginModel : PageModel
+    {
+        [BindProperty]
+        [Required(ErrorMessage = "Username is required")]
+        [MinLength(6, ErrorMessage = "Invalid username")]
+        [Display(Name = "Username")]
+        public string Username { get; set; }
 
-		[BindProperty]
-		[Required(ErrorMessage = "Password is required")]
-		[RegularExpression(@"^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*?[#?!@$%^&*-]).{6,20}$", ErrorMessage = "Invalid Password")]
-		[MinLength(8)]
-		[DataType(DataType.Password)]
-		[Display(Name = "Password")]
-		public string Password { get; set; }
+        [BindProperty]
+        [Required(ErrorMessage = "Password is required")]
+        [RegularExpression(@"^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*?[#?!@$%^&*-]).{6,20}$", ErrorMessage = "Invalid Password")]
+        [MinLength(8)]
+        [DataType(DataType.Password)]
+        [Display(Name = "Password")]
+        public string Password { get; set; }
 
-		[BindProperty]
-		[Display(Name = "Status")]
-		public string Status { get; set; }
+        [BindProperty]
+        [Display(Name = "Status")]
+        public string Status { get; set; }
 
-		public async Task<IActionResult> OnPostLogIn()
-		{
-                try
+        public async Task<IActionResult> OnPostLogIn()
+        {
+            try
+            {
+                // Await response from database for valid login and redirect to index page if successful
+                if (Username == "Testing" && this.Password == "Password1!")
                 {
-                    // Await response from database for valid login and redirect to index page if successful
-                    if (Username == "Testing" && this.Password == "Password1!")
-                    {
-                        return RedirectToPage("/Index");
-                    }
-                    ModelState.AddModelError(string.Empty, "Invalid username or password.");
+                    return RedirectToPage("/Index");
                 }
-                catch (Exception ex)
-                {
-                    Console.Write(ex);
-                }
-                return Page();
-		}
+                ModelState.AddModelError(string.Empty, "Invalid username or password.");
+            }
+            catch (Exception ex)
+            {
+                Console.Write(ex);
+            }
+            return Page();
+        }
         [BindProperty]
         public UserModel UserModel { get; set; }
 
@@ -59,7 +59,7 @@ namespace WebFrontend.Pages
                 {
                     Message = "An email has been sent to your email address. Follow the link to activate your account.";
 
-                    return Page(); 
+                    return Page();
                 }
             }
             catch (Exception ex)
@@ -69,6 +69,7 @@ namespace WebFrontend.Pages
             return Page();
         }
     }
+
     public class UserModel
     {
         [Required(ErrorMessage = "Username is required")]
@@ -125,6 +126,7 @@ namespace WebFrontend.Pages
                     return new ValidationResult("Password must contain atleast 1 symbol");
                 }
                 return ValidationResult.Success;
+
             }
         }
     }

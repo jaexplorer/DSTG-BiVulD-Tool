@@ -214,6 +214,9 @@ button:focus{
 #text-danger-reset{
     left:35%;
 }
+.model-message{
+    left:10%;
+}
 
 /*Tooltip properties*/
 .password-tooltip {
