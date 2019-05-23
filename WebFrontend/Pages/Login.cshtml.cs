@@ -29,25 +29,20 @@ namespace WebFrontend.Pages
 
 		public async Task<IActionResult> OnPostLogIn()
 		{
-			try
-			{
-				if (ModelState.IsValid)
-				{
-					// Await response from database for valid login and redirect to index page if successful
-					if (Username == "Testing" && this.Password == "Password1!")
-					{
-						return RedirectToPage("/Index");
-					}
-
-					ModelState.AddModelError(string.Empty, "Invalid username or password.");
-				}
-			}
-			catch (Exception ex)
-			{
-				Console.Write(ex);
-			}
-
-			return Page();
+                try
+                {
+                    // Await response from database for valid login and redirect to index page if successful
+                    if (Username == "Testing" && this.Password == "Password1!")
+                    {
+                        return RedirectToPage("/Index");
+                    }
+                    ModelState.AddModelError(string.Empty, "Invalid username or password.");
+                }
+                catch (Exception ex)
+                {
+                    Console.Write(ex);
+                }
+                return Page();
 		}
         [BindProperty]
         public UserModel UserModel { get; set; }
@@ -55,33 +50,22 @@ namespace WebFrontend.Pages
         [TempData]
         public string Message { get; set; }
 
-        public void OnGet()
-        {
-            //
-        }
-
         public async Task<IActionResult> OnPostSignUp()
         {
             try
             {
-                if (ModelState.IsValid)
+                // Await response from database for confirmation of email sent
+                if (UserModel.Username == "Testing" && UserModel.CheckPassword == "Password1!" && UserModel.ConfirmPassword == UserModel.CheckPassword)
                 {
-                    // Await response from database for confirmation of email sent
-                    if (UserModel.Username == "Testing" && UserModel.Password == "Password1!" && UserModel.ConfirmPassword == UserModel.Password)
-                    {
-                        Message = "An email has been sent to your email address. Follow the link to activate your account.";
+                    Message = "An email has been sent to your email address. Follow the link to activate your account.";
 
-                        return Page();
-                    }
-
-                    ModelState.AddModelError(string.Empty, "Account creation failed");
+                    return Page(); 
                 }
             }
             catch (Exception ex)
             {
                 Console.Write(ex);
             }
-
             return Page();
         }
     }
@@ -109,17 +93,22 @@ namespace WebFrontend.Pages
         [Display(Name = "Retype Password")]
         public string ConfirmPassword { get; set; }
 
+        [Required(ErrorMessage = "Password is required")]
+        [CheckPass]
+        [MinLength(8, ErrorMessage = "Password must be at least 8 characters long")]
+        [DataType(DataType.Password)]
+        [Display(Name = "Password")]
+        public string CheckPassword { get; set; }
         public class CheckPassAttribute : ValidationAttribute
         {
-            private string pass;
-
             protected override ValidationResult IsValid(object value, ValidationContext validationContext)
             {
-                pass = value.ToString();
-                if (pass.Length == 0)
+                string pass = "";
+                if(value != null)
                 {
-                    return new ValidationResult("Password must be at least 8 characters long");
-                }else if(!(Regex.Match(pass, @"/[a-z]+/")).Success)
+                    pass = value.ToString();
+                }
+                else if(!(Regex.Match(pass, @"/[a-z]+/")).Success)
                 {
                     return new ValidationResult("Password must contain atleast 1 lowercase");
                 }
@@ -135,20 +124,8 @@ namespace WebFrontend.Pages
                 {
                     return new ValidationResult("Password must contain atleast 1 symbol");
                 }
-                else
-                {
-                    return ValidationResult.Success;
-                }   
+                return ValidationResult.Success;
             }
         }
-
-        [Required(ErrorMessage = "Password is required")]
-        [CheckPass]
-        public string CheckPass { get; set; }
-    }
-
-    public class SignupModel : PageModel
-    {
-
     }
 }
