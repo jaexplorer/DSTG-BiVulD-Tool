@@ -34,8 +34,9 @@ namespace Backend
 			string passwordHash = Convert.ToBase64String(hashBytes);
 			return passwordHash;
 		}
-		public User(string email, string name, string password){
-			Email = email;
+		public User(int userID, string email, string name, string password){
+            UserID = userID;
+            Email = email;
 			Password = HashPassword(password);
 			Name = name;
 			Role = UserRole.User;
