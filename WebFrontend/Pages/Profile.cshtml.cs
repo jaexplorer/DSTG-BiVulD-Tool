@@ -19,12 +19,30 @@ namespace WebFrontend
         [Display(Name = "Email")]
         public string Email { get; set; }
     }
+    public class PasswordModel
+    {
+        [Required(ErrorMessage = "Password is required")]
+        [RegularExpression(@"^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*?[#?!@$%^&*-]).{6,20}$", 
+            ErrorMessage = "Password must contain at least one lowercase, UPPERCASE, number and symbol")]
+        [MinLength(8, ErrorMessage = "Password must be at least 8 characters long")]
+        [DataType(DataType.Password)]
+        [Display(Name = "Password")]
+        public string Password { get; set; }
+
+        [Required(ErrorMessage = "Retype Password")]
+        [Compare("Password", ErrorMessage = "Passwords must match.")]
+        [Display(Name = "Retype Password")]
+        public string ConfirmPassword { get; set; }
+    }
     public class ProfileModel : Models.FileScanner
     {
         [BindProperty]
         public UserModel UserModel { get; set; }
-
         [BindProperty]
+        public PasswordModel PasswordModel { get; set; }
+        [BindProperty]
+        public string LastLogin { get; set; }
+        public int TotalScans { get; set; }
         public User User { get; set; }
         private DatabaseManager databaseManager { get; set; }
         public string ErrorMessage { get; set; }
@@ -41,15 +59,36 @@ namespace WebFrontend
             }
             catch (Exception e)
             {
-                ErrorMessage = "Failed to find user";
+                ErrorMessage = "Failed to find user. Error Message: " + e.Message;
                 databaseManager.DBConnection.Close();
             }
             return user;
         }
+        private void getUserInfo()
+        {
+            databaseManager = new DatabaseManager();
+            databaseManager.ConnectToDatabase();
+            try
+            {
+                //TO DO: Add userID identifer from cookie as parameter
+                LastLogin = databaseManager.GetLastLogin(1);
+                TotalScans = databaseManager.GetTotalScans(1);
+                databaseManager.DBConnection.Close();
+            }
+            catch (Exception e)
+            {
+                ErrorMessage = "Failed to find user. Error Message: " + e.Message;
+                databaseManager.DBConnection.Close();
+            }
+        }
         public void OnGet()
         {
+            getUserInfo();
             User = getUserFromCookie();
             UserModel = new UserModel();
+            PasswordModel = new PasswordModel();
+            PasswordModel.Password = "";
+            PasswordModel.ConfirmPassword =  "";
             UserModel.Email = User.Email;
             UserModel.Username = User.Name;
         }
@@ -64,15 +103,34 @@ namespace WebFrontend
             {
                 databaseManager.UpdateUser(User);
                 databaseManager.DBConnection.Close();
-                return Page();
+                return RedirectToPage("/Profile");
             }
             catch (Exception e)
             {
-                ErrorMessage = "User Update Failed";
+                ErrorMessage = "User Update Failed. Error Message: " + e.Message;
                 databaseManager.DBConnection.Close();
             }
-            
-            return Page();
+
+            return RedirectToPage("/Profile");
+        }
+        public IActionResult OnPostSavePassword()
+        {
+            User = getUserFromCookie();
+            databaseManager = new DatabaseManager();
+            databaseManager.ConnectToDatabase();
+            User updateUser = new User(User.UserID, User.Email, User.Name, PasswordModel.Password);
+            try
+            {
+                databaseManager.UpdateUser(updateUser);
+                databaseManager.DBConnection.Close();
+                return RedirectToPage("/Profile");
+            }
+            catch (Exception e)
+            {
+                ErrorMessage = "User Update Failed. Error Message: " + e.Message;
+                databaseManager.DBConnection.Close();
+            }
+            return RedirectToPage("/Profile");
         }
     }
 }
