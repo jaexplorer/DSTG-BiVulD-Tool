@@ -1,14 +1,15 @@
+using System;
 using System.Diagnostics;
 using System.IO;
+using System.Security.Cryptography;
 
 namespace Backend
 {
 	struct FileNames
 	{
-		public const string BiVulDDir = "../BiVulD";
+		public const string BiVulDDir = "../BiVulD/";
 
-		public const string UploadName = "sample/upload.bin";
-		public const string UploadPath = BiVulDDir + "/" + UploadName;
+		public const string UploadName = "upload.bin";
 
 		public const string ModelPath = "../BiVulD/model.h5";
 
@@ -23,11 +24,22 @@ namespace Backend
 		public const string ProbName = "prob_assembly.csv";
 	}
 
-	public static class FileManager
+	public class FileManager
 	{
-		public static FileStream GetFileStream()
+		public FileManager()
 		{
-			return new FileStream(FileNames.UploadPath, FileMode.Create);
+			byte[] salt;
+			new RNGCryptoServiceProvider().GetBytes(salt = new byte[16]);
+			TempPath = BitConverter.ToUInt32(salt, 0).ToString() + "/";
+
+			Directory.CreateDirectory(FileNames.BiVulDDir + TempPath);
+		}
+
+		public string TempPath { get; private set; } = "";
+
+		public FileStream GetFileStream()
+		{
+			return new FileStream(FileNames.BiVulDDir + TempPath + FileNames.UploadName, FileMode.Create);
 		}
 
 		public static FileStream GetModelStream()
@@ -35,9 +47,9 @@ namespace Backend
 			return new FileStream(FileNames.ModelPath, FileMode.Create);
 		}
 
-		public static bool IdentifyFile()
+		public bool IdentifyFile()
 		{
-			if (Execute(FileNames.ObjdumpPath, "-d " + FileNames.UploadPath) == "")
+			if (Execute(FileNames.ObjdumpPath, "-d " + FileNames.BiVulDDir + TempPath + FileNames.UploadName) == "")
 			{
 				return false;
 			}
@@ -45,13 +57,13 @@ namespace Backend
 			return true;
 		}
 
-		public static Results AnalyseFile()
+		public Results AnalyseFile()
 		{
 			var stopwatch = new Stopwatch();
 
 			stopwatch.Restart();
 
-			Directory.SetCurrentDirectory(FileNames.BiVulDDir);
+			Directory.SetCurrentDirectory(FileNames.BiVulDDir + TempPath);
 
 			string objdump = Execute(FileNames.ObjdumpPath, "-d " + FileNames.UploadName);
 			string dumpName = FileNames.UploadName.Substring(0, FileNames.UploadName.Length - 3) + "objdump";
@@ -61,25 +73,27 @@ namespace Backend
 				streamWriter.Write(objdump);
 			}
 
-			Execute(FileNames.PythonPath, FileNames.CreateCSVPath + " " + dumpName);
-			Execute(FileNames.PythonPath, FileNames.CreateTestFilesPath);
-			Execute(FileNames.PythonPath, FileNames.GetProbabilitiesPath);
+			Directory.SetCurrentDirectory("..");
+
+			Execute(FileNames.PythonPath, FileNames.CreateCSVPath + " " + TempPath + " " + dumpName);
+			Execute(FileNames.PythonPath, FileNames.CreateTestFilesPath + " " + TempPath);
+			Execute(FileNames.PythonPath, FileNames.GetProbabilitiesPath + " " + TempPath);
 
 			string probAssembly;
 
-			using (var streamReader = new StreamReader(FileNames.ProbName))
+			using (var streamReader = new StreamReader(TempPath + FileNames.ProbName))
 			{
 				probAssembly = streamReader.ReadToEnd();
 			}
 
 			stopwatch.Stop();
 
-			using (var streamWriter = new StreamWriter(FileNames.ProbName))
+			using (var streamWriter = new StreamWriter(TempPath + FileNames.ProbName))
 			{
 				streamWriter.Write(stopwatch.ElapsedMilliseconds + probAssembly.Substring(1));
 			}
 
-			return new Results(FileNames.BiVulDDir, SourceType.Binary);
+			return new Results(FileNames.BiVulDDir + TempPath, SourceType.Binary);
 		}
 
 		static string Execute(string fileName, string arguments)

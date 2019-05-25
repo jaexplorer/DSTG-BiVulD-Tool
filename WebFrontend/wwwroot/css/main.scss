@@ -191,20 +191,170 @@ body {
     height: calc(100%);
   }
 }
-// Settings
+// Profile
 // ------------------------------------------------------------------- //
+
 .settings-container {
   position: relative;
   top: 8.3rem;
 
+  input {
+    color: white;
+    box-sizing: border-box;
+    padding-left: 1rem;
+  }
+
+  #basicSettings {
+    border-radius: 50px;
+    border: 2px solid var(--greyText);
+    height: auto;
+    margin-bottom: 3.5rem;
+    padding:1rem;
+    width: calc(100% -2rem);
+
+    .formElement {
+      color: var(--greyText);
+      text-transform: uppercase;
+      line-height: 0;
+      font-weight: 700;
+      font-size: 12pt;
+      margin-left: 1rem;
+      margin-top: 3rem;
+      display: grid;
+      columns: 2;
+
+      .formLabel {
+        grid-column: 1;
+      }
+      .formInput {
+        position: relative;
+        top: -1rem;
+        grid-column: 2;
+        justify-self: right;
+        width: 100%;
+        margin-right: 1rem;
+
+        input {
+          width: 100%;
+          border-radius: 25pt;
+          height: 2rem;
+          background: none;
+          border: var(--greyText) solid 1.5pt;
+        }
+      }
+      #save-button {
+        height: 3rem;
+        border-radius: 50px;
+        width: 6rem;
+        margin-bottom: 1rem;
+        justify-self: right;
+        margin-right: 1rem;
+        background-color: #4bbdd9;
+        border: none;
+        color: white;
+        text-transform: uppercase;
+        line-height: 0;
+        font-weight: 700;
+        font-size: 12pt;
+      }
+    }
+  }
+  #passwordSettings {
+    border-radius: 50px;
+    border: 2px solid var(--greyText);
+    height: 18rem;
+    margin-bottom: 3.5rem;
+    padding:1rem;
+    width: 45%;
+    float: left;
+
+    .formElement {
+      color: var(--greyText);
+      text-transform: uppercase;
+      line-height: 0;
+      font-weight: 700;
+      font-size: 12pt;
+      margin-left: 1rem;
+      margin-top: 3rem;
+      display: grid;
+      columns: 2;
+
+      .formLabel {
+        grid-column: 1;
+      }
+      .formInput {
+        position: relative;
+        top: -1rem;
+        grid-column: 2;
+        justify-self: right;
+        width: 15rem;
+        margin-right: 1rem;
+
+        input {
+          width: 100%;
+          border-radius: 25pt;
+          height: 2rem;
+          background: none;
+          border: var(--greyText) solid 1.5pt;
+        }
+      }
+      #confirm-button {
+        height: 3rem;
+        border-radius: 50px;
+        width: 6rem;
+        margin-bottom: 1rem;
+        justify-self: right;
+        margin-right: 1rem;
+        background-color: #4bbdd9;
+        border: none;
+        color: white;
+        text-transform: uppercase;
+        line-height: 0;
+        font-weight: 700;
+        font-size: 12pt;
+      }
+    }
+  }
+
+  #profileSummary {
+    border-radius: 50px;
+    border: 2px solid var(--greyText);
+    height: 18rem;
+    margin-bottom: 3.5rem;
+    padding:1rem;
+    width: 40%;
+    float: right;
+
+    .summaryElement {
+      color: var(--greyText);
+      text-transform: uppercase;
+      line-height: 0;
+      font-weight: 700;
+      font-size: 12pt;
+      margin-left: 1rem;
+      margin-top: 3rem;
+      display: grid;
+      columns: 2;
+
+      .summaryTitle {
+        grid-column: 1;
+      }
+      .summaryValue {
+        position: relative;
+        grid-column: 2;
+        justify-self: right;
+        margin-right: 1rem;
+      }
+    }
+  }
+
   .settings-option {
     border-radius: 50px;
     border: 2px solid var(--greyText);
-    height: 3rem;
     margin-bottom: 3.5rem;
     display: grid;
     padding:1rem;
-    width: calc(100% -2rem);
+    width: calc(100% - 2rem);
 
     .setting-heading {
       grid-column: 1;
@@ -220,7 +370,7 @@ body {
       grid-column: 2;
       align-self: center;
       justify-self: right;
-      margin-right: 0.6rem;
+      margin-right: 1rem;
 
       form {
         display: grid;
@@ -328,95 +478,224 @@ body {
 
 // Dashboard
 // ------------------------------------------------------------------- //
-// Dot
-
-#totalFunctionsHeading {
-  position: absolute;
-  top:  - 0.5rem;
-  left: 1.5rem;
-
-  color: var(--greyText);
-  text-transform: uppercase;
-  font-weight: 700;
-  font-size: 12pt;
-}
-
-#totalIssuesHeading {
-  position: absolute;
-  top: - 0.5rem;
-  right: 1rem;
-  color: var(--greyText);
-  text-transform: uppercase;
-  font-weight: 700;
-  font-size: 12pt;
-}
-
-#totalIssuesValue {
-  position: absolute;
-  top: 1rem;
-  right: 4.2rem;
-  color: var(--whiteText);
-  font-weight: 600;
-  font-size: 26pt;
-}
-
-#totalFunctionsValue {
-  position: absolute;
-  bottom: 2.5rem;
-  left: 1.5rem;
-
-  color: var(--whiteText);
-  font-weight: 600;
-  font-size: 26pt;
-}
-
-#timeTaken {
-  position: absolute;
-  bottom: 1rem;
-  left: 1.5rem;
-
-  color: var(--greyText);
-  text-transform: lowercase;
-  font-weight: 400;
-  font-size: 12pt;
-}
-
 // Line
 #lineChart-container {
   position:relative; 
   top: 6rem;
+
+  #lineChart {
+    width: 100%;
+    height: 23rem;
+    overflow-x: scroll;
+    white-space: nowrap;
+    line-height: 0;
+  
+    .line {
+      display: inline;
+      line-height: 0;
+      &:hover {
+        svg {
+          rect:nth-child(2) {
+            fill: var(--primaryAccent);
+          }
+        }
+      }
+      &.active {
+        svg {
+          rect:nth-child(2) {
+            fill: var(--primaryAccent);
+          }
+        }
+      }
+    }
+    &::-webkit-scrollbar {
+      width: 10px;
+      height: 10px;
+    }
+  
+    &::-webkit-scrollbar-track {
+      background-color: rgba(85,85,85,0.4);
+      border-radius: 8px;
+    }
+    
+    &::-webkit-scrollbar-thumb {
+      border-radius: 10px;
+      background-color: #f5f5f5;
+    }
+  }
+
+  #totalFunctionsHeading {
+    position: absolute;
+    top:  -5rem;
+    color: var(--greyText);
+    text-transform: uppercase;
+    font-weight: 700;
+    font-size: 12pt;
+  }
+  
+  #totalFunctionsValue {
+    position: absolute;
+    top: -4rem;
+    color: var(--whiteText);
+    font-weight: 600;
+    font-size: 26pt;
+  }
+  
+  #totalIssuesHeading {
+    position: absolute;
+    top: -5rem;
+    right: 0rem;
+    color: var(--greyText);
+    text-transform: uppercase;
+    font-weight: 700;
+    font-size: 12pt;
+  }
+  
+  #totalIssuesValue {
+    position: absolute;
+    top: -4rem;
+    right: 0rem;
+    color: var(--whiteText);
+    font-weight: 600;
+    font-size: 26pt;
+  }
+  
+  #timeTakenHeading {
+    position: absolute;
+    bottom: -3rem;
+    right: 0rem;
+    color: var(--greyText);
+    text-transform: uppercase;
+    font-weight: 700;
+    font-size: 12pt;
+  }
+  
+  #timeTaken {
+    position: absolute;
+    bottom: -5rem;
+    right: 0rem;
+  
+    color: var(--greyText);
+    text-transform: lowercase;
+    font-weight: 400;
+    font-size: 12pt;
+  }
+
+  #FP-Heading {
+    position: absolute;
+    bottom: -3rem;
+    color: var(--greyText);
+    text-transform: uppercase;
+    font-weight: 700;
+    font-size: 12pt;
+  }
+  
+  #overall-FP-Value {
+    position: absolute;
+    bottom: -5.5rem;
+    color: var(--inactiveDark);
+    background-color: var(--greyText);
+    padding: 8px 16px 8px 16px;
+    border-radius: 5px;
+    text-transform: uppercase;
+    font-weight: 700;
+    font-size: 12pt;
+  }
+}
+
+// BreakDownGraph
+
+#breakDown-container {
+  position: relative;
+  top: 16rem;
+  width: 100%;
+  white-space: nowrap;
+  border-style: solid;
+  border-color: var(--primaryAccent);
+  border-radius: 15px;
   overflow: hidden;
-  overflow-x: scroll;
+  display: none;
+
+  #breakDownFunction {
+    width: 100%;
+    background: var(--rightGradient);
+    height: 2rem;
+
+    color: var(--greyText);
+    text-transform: uppercase;
+    font-weight: 700;
+    font-size: 12pt;
+
+    #functionHeading {
+      position: absolute;
+      top: 0.4rem;
+      left: 1rem;
+    }
+
+    #functionProbability {
+      position: absolute;
+      top: 0.4rem;
+      left: calc(60% + 1rem);
+    }
+  }
+
+  #breakDownHeadings {
+    width: 100%;
+    background: var(--leftGradient);
+    height: 3rem;
+
+    color: var(--greyText);
+    text-transform: uppercase;
+    font-weight: 700;
+    font-size: 12pt;
+
+    #binaryHeading {
+      position: absolute;
+      top: 3rem;
+      left: 1rem;
+    }
+
+    #assemblyHeading {
+      position: absolute;
+      top: 3rem;
+      left: calc(25% + 1rem);
+    }
+
+    #recommendationHeading {
+      position: absolute;
+      top: 3rem;
+      left: calc(60% + 1rem);
+    }
+  }
+
+  #binaryBreakDown {
+    float: left;
+    width: calc(25% - 2rem);;
+    background: var(--leftGradient);
+    height: 35rem;
+    overflow: scroll;
+    padding: 1rem;
+  }
+
+  #assemblyBreakDown {
+    float: left;
+    width: calc(35% - 2rem);;
+    background: var(--leftGradient);
+    height: 35rem;
+    overflow: scroll;
+    padding: 1rem;
+  }
+
+  #recommendationBreakDown {
+    float: left;
+    width: calc(40% - 2rem);;
+    background: var(--leftGradient);
+    height: 35rem;
+    overflow: scroll;
+    padding: 1rem;
+    white-space: pre-line;
+  }
 }
-
-#functionsLineGraph {
-  overflow-x: scroll;
-}
-
-
-#FP-Heading {
-  position: absolute;
-  top:  - 4rem;
-  left: 1.5rem;
-  color: var(--greyText);
-  text-transform: uppercase;
-  font-weight: 700;
-  font-size: 12pt;
-}
-
-#overall-FP-Value {
-  position: absolute;
-  top:  - 4.5rem;
-  right: 1.4rem;
-  color: var(--inactiveDark);
-  background-color: var(--greyText);
-  padding: 8px 16px 8px 16px;
-  border-radius: 5px;
-  text-transform: uppercase;
-  font-weight: 700;
-  font-size: 12pt;
-}
-
 
 
 

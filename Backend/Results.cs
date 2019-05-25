@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Runtime.Serialization;
 
 namespace Backend
 {
@@ -9,14 +10,22 @@ namespace Backend
 		Binary,
 		Code
 	}
-
+	[DataContract]
 	public class Results
 	{
-		public SourceType Type { get; }
+		[DataMember]
+		public SourceType Type { get; set; }
+		[DataMember]
 		public int TimeTaken { get; private set; }
+		[DataMember]
 		public int NumFunctions { get; private set; }
+		[DataMember]
 		public List<Function> Functions { get; set; } = new List<Function>();
 
+		public Results()
+		{
+
+		}
 		public Results(string directory, SourceType type)
 		{
 			Type = type;
@@ -28,7 +37,7 @@ namespace Backend
 		void ReadProbs(string directory)
 		{
 			NumFunctions = 0;
-			var probs = new StreamReader(directory + "/" + FileNames.ProbName);
+			var probs = new StreamReader(directory + FileNames.ProbName);
 
 			using (probs)
 			{
@@ -57,7 +66,7 @@ namespace Backend
 
 		void ReadHexCode(string directory)
 		{
-			StreamReader functions = new StreamReader(directory + "/" + FileNames.FuncName);
+			StreamReader functions = new StreamReader(directory + FileNames.FuncName);
 
 			using (functions)
 			{

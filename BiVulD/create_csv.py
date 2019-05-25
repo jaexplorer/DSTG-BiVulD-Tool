@@ -1,7 +1,7 @@
 import csv
 import sys
 
-objdump = open(sys.argv[1], "r")
+objdump = open(sys.argv[1] + sys.argv[2], "r")
 functions = []
 
 for line in objdump:
@@ -22,7 +22,7 @@ for line in objdump:
 
 objdump.close()
 
-output = open("binary_good.csv", "w")
+output = open(sys.argv[1] + "binary_good.csv", "w")
 csvWriter = csv.writer(output)
 
 for function in functions:

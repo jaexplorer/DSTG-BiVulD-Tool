@@ -1,8 +1,97 @@
-@page
+@page "{handler?}"
 @model ProfileModel
 @{
-	Layout = "Shared/_MainUI";
-	ViewData["Title"] = "Profile";
+    Layout = "Shared/_MainUI";
+    ViewData["Title"] = "Settings";
 }
+@section scripts{
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+}
+<h1>@Model.ErrorMessage</h1>
+<div class="settings-container">
+    <form id="basicSettings" method="post" enctype="multipart/form-data">
+        <div class="formElement">
+            <div class="formLabel"><label for="profileName">Name: </label></div>
+            <div class="formInput">@Html.TextBoxFor(m => m.UserModel.Username, new { @id = "profileName" })</div>
+        </div>
+        <!--Remove inline CSS-->
+        <div style="font-size:small">
+            @Html.ValidationMessageFor(m => m.UserModel.Username, "", new { @class = "text-error" })
+        </div>
+        <div class="formElement">
+            <div class="formLabel"><label for="profileEmail">Email: </label></div>
+            <div class="formInput">
+                @Html.TextBoxFor(m => m.UserModel.Email, new { @id = "profileEmail" })
+            </div>
+        </div>
+        <!--Remove inline CSS-->
+        <div style="font-size:small">
+            @Html.ValidationMessageFor(m => m.UserModel.Email, "", new { @class = "text-error" })
+        </div>
+        <div class="formElement">
+            <button id="save-button" asp-page-handler="Save" class="btn btn-primary">Save</button>
+        </div>
+    </form>
+  <form id="passwordSettings" method="post">
+      <div class="formElement">
+          <div class="formLabel"><label for="profilePassword">Password: </label></div>
+          <div class="formInput">
+              @Html.PasswordFor(m => m.PasswordModel.Password, new { @id = "profilePassword" })
+          </div>
+      </div>
+      <!--Remove inline CSS-->
+      <div style="font-size:small">
+          @Html.ValidationMessageFor(m => m.PasswordModel.Password, "", new { @class = "text-error" })
 
-<h1>Profile</h1>
+      </div>
+      <div class="formElement">
+          <div class="formLabel"><label for="passwordConfirm">Confirm: </label></div>
+          <div class="formInput">
+              @Html.PasswordFor(m => m.PasswordModel.ConfirmPassword, new { @id = "passwordConfirm" })
+          </div>
+      </div>
+      <!--Remove inline CSS-->
+      <div style="font-size:small">
+          @Html.ValidationMessageFor(m => m.PasswordModel.ConfirmPassword, "", new { @class = "text-error" })
+
+      </div>
+      <div class="formElement">
+          <button id="confirm-button" asp-page-handler="SavePassword" class="btn btn-primary">Save</button>
+      </div>
+  </form>
+	<div id="profileSummary">
+		<div class="summaryElement">
+			<div class="summaryTitle">Last Login: </div>
+			<div class="summaryValue" id="lastLoginValue">@Model.LastLogin</div>
+		</div>
+		<div class="summaryElement">
+			<div class="summaryTitle">Total Scans: </div>
+            <div class="summaryValue" id="totalScans">@Model.TotalScans</div>
+		</div>
+	</div>
+	<div class="settings-option">
+		<div class="setting-heading">Change Theme</div>
+		<div class="setting-content">
+			<div class="switch-container">
+				<input id="switchToggle" type="checkbox">
+				<label for="switchToggle"></label>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+    // Colour Theme Toggle
+    // ------------------------------------------------------------------- //
+    let themeButton = document.getElementById("switchToggle");
+    // Set Toggle
+    document.addEventListener("DOMContentLoaded", () => {
+        themeButton.checked = document.body.classList.contains("light") ? true : false;
+    });
+    // Toggle Colour
+    themeButton.addEventListener('click', (e) => {
+        theme = e.target.checked ? "light" : "dark";
+        localStorage.setItem('theme', theme);
+        getTheme();
+    });
+</script>

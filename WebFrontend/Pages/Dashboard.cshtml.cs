@@ -1,14 +1,14 @@
+using Backend;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace WebFrontend.Pages
+namespace WebFrontend
 {
-	public class DashboardModel : PageModel
+	public class DashboardModel : Models.FileScanner
 	{
 		public bool FileUpload { get; set; }
 		public bool Display { get; set; } = false;
 		public string Probabilities { get; set; } = "[";
-		public Backend.Results Results { get; set; }
+		public Results Results { get; set; }
 		public string FunctionAxis { get; set; } = "[";
 		public int TotalIssues { get; set; } = 0;
 		public float HighProb { get; set; }
@@ -18,14 +18,14 @@ namespace WebFrontend.Pages
 
 		public void OnGet()
 		{
-			FileUpload = HttpContext.Request.Query["upload"] == "Success" ? true : false;
+			FileUpload = HttpContext.Request.Query["upload"] == "Success";
 		}
 
 		public void OnPostScan()
 		{
 			FileUpload = true;
 
-			if (Backend.FileManager.IdentifyFile())
+			if (fileManager.IdentifyFile())
 			{
 				FileUpload = true;
 				Display = true;
@@ -36,7 +36,7 @@ namespace WebFrontend.Pages
 
 		public void PrintResults()
 		{
-			Results = Backend.FileManager.AnalyseFile();
+			Results = fileManager.AnalyseFile();
 			HighProb = 0;
 
 			foreach (Backend.Function function in Results.Functions)
