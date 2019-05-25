@@ -65,10 +65,31 @@ namespace Backend
 			{
 				for (int i = 0; !asm.EndOfStream; ++i)
 				{
-					foreach (string value in asm.ReadLine().Split(","))
+					bool ignoringComma = false;
+					string temp = "";
+
+					foreach (char c in asm.ReadLine())
 					{
-						Functions[i].AsmCode.Add(value);
+						if (c == '"')
+						{
+							ignoringComma = !ignoringComma;
+						}
+						else
+						{
+							if ((c != ',') || ignoringComma)
+							{
+								temp += c;
+							}
+							else
+							{
+								Functions[i].AsmCode.Add(temp);
+
+								temp = "";
+							}
+						}
 					}
+
+					Functions[i].AsmCode.Add(temp);
 				}
 			}
 		}
