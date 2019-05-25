@@ -1,19 +1,299 @@
-﻿body {
+﻿*{
+    box-sizing: border-box;
 }
-.container{
-    height: 100%;
+body {
+    background: #555555;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 75vh;
+    margin: -20px 0 50px;
+}
+h1{
+    font-weight:bold;
+    margin:0;
+}
+h3{
+    color:#333;
+}
+p{
+    font-size:14px;
+    font-weight:100;
+    line-height:20px;
+    letter-spacing:0.5px;
+    margin:20px 0 30px;
+}
+span{
+    font-size:12px;
+}
+.container {
     align-content: center;
+    position: relative;
 }
-.card{
-    margin-top: auto;
-    margin-bottom:auto;
-    width: 400px;
-    background-color: rgba(0,0,0,0.5) !important;
+.form-container{
+    background: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+    position: relative;
+    height: 100%;
+    overflow: hidden;
+    width: 768px;
+    max-width: 100%;
+    min-height: 480px;
+    margin-left:auto;
+    margin-right:auto;
 }
-.card-header h3{
-    color: white;
+.login-container,.signup-container{
+    position:absolute;
+    top:0;
+    height:100%;
+    transition: all 0.6s ease-in-out;
+}
+.login-container {
+    left: 0;
+    width: 50%;
+    z-index: 2;
+}
+.signup-container {
+    left: 0;
+    width: 50%;
+    opacity:0;
+    z-index: 1;
+}
+a{
+    color:#333;
+    font-size:14px;
+    font-style:normal;
+    text-decoration:none;
+    margin:15px;
+}
+a:hover {
+    font-style: normal;
+    text-decoration: none;
 }
 
+.card{
+
+    width: 400px;
+    background-color:#ffffff;
+    text-align:center;
+}
+.card-body {
+    position: center;
+    align-content: center;
+}
+.card-header{
+    text-align:left;
+}
+.card-header h3 {
+    color: #000000;
+    position: static;
+    display: inline;
+    border: none;
+    margin-left:25%;
+}
+#password-label {
+    display:inline-flex;
+    margin-left: 10%;
+}
 .card label {
-    color: white;
+    color: #000000;
+}
+
+.overlay-container {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 50%;
+    height: 100%;
+    overflow: hidden;
+    transition: transform 0.6s ease-in-out;
+    z-index: 100;
+}
+.btn-primary {
+    border-radius: 20px;
+    border: 1px solid #333;
+    background: #4bbdd9;
+    color: #FFFFFF;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 12px 45px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    transition: transform 80ms ease-in;
+}
+.btn-primary:active {
+    transform: scale(0.95);
+}
+.navbtn {
+    position:static;
+    border: 1px solid #DDDDDD;
+    border-radius: 50%;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 5px;
+    height: 40px;
+    width: 40px;
+}
+.btn-forget-password {
+    color: rgba(0,0,0,0.5);
+    display: block;
+    font-size: 16px;
+    margin-left: auto;
+    margin-right: auto;
+    border: none;
+    background: #ffffff;
+}
+button:focus{
+    outline:none;
+}
+.overlay {
+    background: #FF416C;
+    background: -webkit-linear-gradient(to right, rgba(0,0,0,0.25),#000000);
+    background: linear-gradient(to right, rgba(0,0,0,0.25), rgba(0,0,0,0.5));
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: 0 0;
+    color: #FFFFFF;
+    position: relative;
+    left: -100%;
+    height: 100%;
+    width: 200%;
+    transform: translateX(0);
+    transition: transform 0.6s ease-in-out;
+}
+.overlay-panel {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 0 40px;
+    text-align: center;
+    top: 0;
+    height: 100%;
+    width: 50%;
+    transform: translateX(0);
+    transition: transform 0.6s ease-in-out;
+}
+.overlay-left {
+    transform: translateX(-20%);
+}
+.overlay-right {
+    right: 0;
+    transform: translateX(0);
+}
+.navbar-toggle {
+    border-radius: 70%;
+}
+
+.form-group{
+    display:flex;
+    text-align:center;
+}
+.col-md-10{
+    margin-left:auto;
+    margin-right:auto;
+    position:center;
+}
+.form-control{
+    background:#f3f3f3;
+    border:none;
+    padding:13px 16px;
+    margin: 8px 0;
+    width:100%;
+}
+.text-danger{
+    position:absolute;
+    overflow:visible;
+    top:50px;
+    left:5%;
+}
+#text-danger-reset{
+    left:35%;
+}
+.model-message{
+    left:10%;
+}
+
+/*Tooltip properties*/
+.password-tooltip {
+    visibility: hidden;
+    width: 120px;
+    background-color: #555;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+
+    /*position tooltip text*/
+    position: absolute;
+    z-index: 500000;
+    top: 10%;
+    left: 100%;
+    margin-left: 0px;
+
+    /*fade in tooltip*/
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+/*tooltip arrow */
+.password-tooltip::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    right: 95%;
+    margin-top: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #555 transparent transparent transparent;
+}
+
+/*Make tool tip visible when hover over error message*/
+#form-control-password:hover + .password-tooltip {
+    visibility: visible;
+    opacity: 1;
+}
+
+
+/*Move login to the right*/
+.form-container.right-panel-active .login-container {
+    transform: translateX(100%);
+}
+
+/*Show signup over login*/
+.form-container.right-panel-active .signup-container {
+    transform: translateX(100%);
+    opacity: 1;
+    z-index: 5;
+    animation: show 0.6s;
+}
+
+/*Move signup to the left*/
+.form-container.right-panel-active .overlay-container {
+    transform: translateX(-100%);
+}
+
+/*Move overlay back to the right*/
+.form-container.right-panel-active .overlay {
+    transform: translateX(50%);
+}
+
+/*Centers left overlay after animation*/
+.form-container.right-panel-active .overlay-left {
+    transform: translateX(0);
+}
+
+/*Centers right overlay after animation*/
+.form-overlay-right {
+    right: 0;
+    transform: translateX(0);
+}
+
+/*Create a more smooth animation for right overlay*/
+.form-container.right-panel-active .overlay-right {
+    transform: translateX(20%);
 }
