@@ -6,49 +6,118 @@
 }
 @section scripts{
 	@await Html.PartialAsync("_ValidationScriptsPartial")
+    <script type="text/javascript" src="~/js/login.js"></script>
 }
 @section Styles{
 	<link href="@Href("~/css/login.css")" rel="stylesheet" type="text/css" />
 }
+<div class="form-container" id="form-container">
+    <div class="login-container">
+        <div class="d-flex justify-content-center h-100">
+            <div class="card">
+                <div class="card-header">
+                    <a asp-page="/Index" class="navbtn"><img src="~/images/home.svg"></a>
+                    <h3>Log In</h3>
+                </div>
+                <div class="card-body">
+                    <form method="post">
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <div class="input-group form-group">
+                            <div class="col-md-10">
+                                @Html.TextBoxFor(m => m.Username, new { @class = "form-control", Placeholder = "Username" })
+                                @Html.ValidationMessageFor(m => m.Username, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="input-group form-group">
+                            <div class="col-md-10">
+                                @Html.PasswordFor(m => m.Password, new { @class = "form-control", Placeholder = "Password" })
+                                @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <a asp-page="/Reset" class="btn-forget-password">Forget Password?</a>
+                                <button asp-page-handler="LogIn" class="btn btn-primary">Log in</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="signup-container">
+        <div class="d-flex justify-content-center h-100">
+            <div class="card">
+                <div class="card-header">
+                    <a asp-page="/Index" class="navbtn"><img src="~/images/home.svg"></a>
+                    <h3>Signup</h3>
+                </div>
+                <div class="card-body">
+                    @if (Model.Message != null)
+                    {
+                        <script>
+                            document.getElementById("form-container").classList.add("right-panel-active");
+                        </script>
+                        <div class="d-flex justify-content-center h-100">
+                            <p class="model-message">@Model.Message</p>
+                        </div>
+                        @Model.Message.Replace(Model.Message, null)
+                    }
+                    <form method="post">
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <div class="input-group form-group">
+                            <div class="col-md-10">
+                                @Html.TextBoxFor(m => m.UserModel.Username, new { @class = "form-control", Placeholder = "Username" })
+                                @Html.ValidationMessageFor(m => m.UserModel.Username, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="input-group form-group">
+                            <div class="col-md-10">
+                                @Html.TextBoxFor(m => m.UserModel.Email, new { @class = "form-control", Placeholder = "Email" })
+                                @Html.ValidationMessageFor(m => m.UserModel.Email, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="input-group form-group">
+                            <div class="col-md-10">
+                                @Html.PasswordFor(m => m.UserModel.CheckPassword, new { @class = "form-control", Placeholder = "Password" })
+                                @Html.ValidationMessageFor(m => m.UserModel.CheckPassword, "", new { @class = "text-danger", @id = "form-control-password" })
 
-<div class="container">
-	<div class="d-flex justify-content-center h-100">
-		<div class="card">
-			<div class="card-header">
-				<h3>Log In</h3>
-			</div>
-			<div class="card-body">
-				<form method="post">
-					@Html.ValidationSummary(true, "", new { @class = "text-danger" })
-					<div class="input-group form-group">
-						@Html.LabelFor(m => m.Username, new { @class = "control-label" })
-						<div class="col-md-10">
-							@Html.TextBoxFor(m => m.Username, new { @class = "form-control" })
-							@Html.ValidationMessageFor(m => m.Username, "", new { @class = "text-danger" })
-						</div>
-					</div>
-					<div class="input-group form-group">
-						@Html.LabelFor(m => m.Password, new { @class = "control-label" })
-						<div class="col-md-10">
-							@Html.PasswordFor(m => m.Password, new { @class = "form-control" })
-							@Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
-						</div>
-					</div>
-					<div class="form-group">
-						<div class="col-md-offset-2 col-md-10">
-							<button asp-page-handler="LogIn" class="btn btn-primary">Log in</button>
-						</div>
-					</div>
-				</form>
-			</div>
-			<div class="card-footer">
-				<div class="d-flex justify-content-center">
-					Don't have an account? &nbsp <a href="/signup" class="badge badge-primary">Register here</a>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="d-flex justify-content-center">
-		<p><a href="/reset" class="badge badge-primary">Forgot Password?</a></p>
-	</div>
+                                @Html.ValidationMessageFor(m => m.UserModel.CheckPassword, "", new { @class = "password-tooltip" })
+                            </div>
+                        </div>
+                        <div class="input-group form-group">
+                            <div class="col-md-10">
+                                @Html.PasswordFor(m => m.UserModel.ConfirmPassword, new { @class = "form-control", Placeholder = "Retype Password" })
+                                @Html.ValidationMessageFor(m => m.UserModel.ConfirmPassword, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <button asp-page-handler="SignUp" class="btn btn-primary">Sign Up</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="overlay-container">
+        <div class="overlay">
+            <div class="overlay-panel overlay-left">
+                <h1>Hello!</h1>
+                <p>To access more content please login with your personal info</p>
+                <button asp-page-handler="signin-overlay" class="panel-button btn-primary" id="signIn">Sign In</button>
+            </div>
+            <div class="overlay-panel overlay-right">
+                <h1>Hello!</h1>
+                <p>Sign up to start using our product.</p>
+                <button asp-page-handler="signup-overlay" class="panel-button btn-primary" asp-route-sessioncount="20" id="signUp">Sign Up</button>
+            </div>
+        </div>
+    </div>
 </div>
+<footer>
+    <!--
+        Home Icon made by Typicons from https://www.iconfinder.com/icons/216242/home_icon
+    -->
+</footer>
