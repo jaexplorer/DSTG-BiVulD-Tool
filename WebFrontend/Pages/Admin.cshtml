@@ -1,0 +1,21 @@
+@page
+@model AdminModel
+@{
+	Layout = "Shared/_MainUI";
+	ViewData["Title"] = "Admin";
+}
+
+<div class="settings-container">
+	<div class="settings-option">
+		<div class="setting-heading" id="model-upload-label">Upload a New Model</div>
+		<div class="setting-content">
+			<form method="post" enctype="multipart/form-data">
+				<label style="display: none" asp-for="UploadModel"></label>
+				<input style="display: none" id="model-upload" class="inputfile" asp-for="UploadModel" type="file" />
+				<label class="choose-upload" for="model-upload">Choose a file</label>
+				<div><span class="upload-error" asp-validation-for="UploadModel"></span></div>
+				<input class="upload-button" asp-page-handler="UploadModel" type="submit" value="Upload" />
+			</form>
+		</div>
+	</div>
+</div>
