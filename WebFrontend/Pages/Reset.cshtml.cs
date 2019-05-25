@@ -27,7 +27,6 @@ namespace WebFrontend.Pages
 		{
 			// If email exists, send password reset email to address
 			Message = "An email has been sent to your email address. Follow the link to reset your password.";
-
 			return Page();
 		}
 	}
