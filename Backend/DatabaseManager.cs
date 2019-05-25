@@ -362,5 +362,32 @@ namespace Backend
             }
             
         }
+        public string GetLastLogin(int userID)
+        {
+            string sql = "SELECT LastLogin FROM User WHERE UserID = @id";
+            SQLiteCommand command = new SQLiteCommand(sql, DBConnection);
+
+            command.Parameters.AddWithValue("@id", userID);
+
+            SQLiteDataReader results = command.ExecuteReader();
+            results.Read();
+
+            string lastLogin = results["LastLogin"].ToString();
+            return lastLogin;
+        }
+        public int GetTotalScans(int userID)
+        {
+            string sql = "SELECT COUNT(ID) FROM REsults WHERE UserID = @id";
+            SQLiteCommand command = new SQLiteCommand(sql, DBConnection);
+
+            command.Parameters.AddWithValue("@id", userID);
+
+            SQLiteDataReader results = command.ExecuteReader();
+            results.Read();
+
+            int totalScan = results.GetInt32(0);
+            return totalScan;
+        }
+
     }
 }
