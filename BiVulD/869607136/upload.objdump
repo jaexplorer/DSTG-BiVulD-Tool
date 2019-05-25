@@ -1,0 +1,84 @@
+
+upload.bin:	file format COFF-x86-64
+
+Disassembly of section .text:
+TIFFScanlineSize:
+       0:	55 	pushq	%rbp
+       1:	48 89 e5 	movq	%rsp, %rbp
+       4:	5d 	popq	%rbp
+       5:	c3 	retq
+
+TIFFTileRowSize:
+       6:	55 	pushq	%rbp
+       7:	48 89 e5 	movq	%rsp, %rbp
+       a:	5d 	popq	%rbp
+       b:	c3 	retq
+
+isTiled:
+       c:	55 	pushq	%rbp
+       d:	48 89 e5 	movq	%rsp, %rbp
+      10:	5d 	popq	%rbp
+      11:	c3 	retq
+
+_TIFFmalloc:
+      12:	55 	pushq	%rbp
+      13:	48 89 e5 	movq	%rsp, %rbp
+      16:	5d 	popq	%rbp
+      17:	c3 	retq
+
+PackBitsPreEncode:
+      18:	55 	pushq	%rbp
+      19:	53 	pushq	%rbx
+      1a:	48 83 ec 28 	subq	$40, %rsp
+      1e:	48 8d ac 24 80 00 00 00 	leaq	128(%rsp), %rbp
+      26:	48 89 4d c0 	movq	%rcx, -64(%rbp)
+      2a:	b9 04 00 00 00 	movl	$4, %ecx
+      2f:	e8 de ff ff ff 	callq	-34 <_TIFFmalloc>
+      34:	48 8b 55 c0 	movq	-64(%rbp), %rdx
+      38:	89 02 	movl	%eax, (%rdx)
+      3a:	48 8b 45 c0 	movq	-64(%rbp), %rax
+      3e:	8b 00 	movl	(%rax), %eax
+      40:	85 c0 	testl	%eax, %eax
+      42:	75 07 	jne	7 <PackBitsPreEncode+0x33>
+      44:	b8 00 00 00 00 	movl	$0, %eax
+      49:	eb 40 	jmp	64 <PackBitsPreEncode+0x73>
+      4b:	48 8b 4d c0 	movq	-64(%rbp), %rcx
+      4f:	e8 b8 ff ff ff 	callq	-72 <isTiled>
+      54:	85 c0 	testl	%eax, %eax
+      56:	74 18 	je	24 <PackBitsPreEncode+0x58>
+      58:	48 8b 45 c0 	movq	-64(%rbp), %rax
+      5c:	8b 00 	movl	(%rax), %eax
+      5e:	48 98 	cltq
+      60:	48 89 c3 	movq	%rax, %rbx
+      63:	48 8b 4d c0 	movq	-64(%rbp), %rcx
+      67:	e8 9a ff ff ff 	callq	-102 <TIFFTileRowSize>
+      6c:	89 03 	movl	%eax, (%rbx)
+      6e:	eb 16 	jmp	22 <PackBitsPreEncode+0x6e>
+      70:	48 8b 45 c0 	movq	-64(%rbp), %rax
+      74:	8b 00 	movl	(%rax), %eax
+      76:	48 98 	cltq
+      78:	48 89 c3 	movq	%rax, %rbx
+      7b:	48 8b 4d c0 	movq	-64(%rbp), %rcx
+      7f:	e8 7c ff ff ff 	callq	-132 <TIFFScanlineSize>
+      84:	89 03 	movl	%eax, (%rbx)
+      86:	b8 01 00 00 00 	movl	$1, %eax
+      8b:	48 83 c4 28 	addq	$40, %rsp
+      8f:	5b 	popq	%rbx
+      90:	5d 	popq	%rbp
+      91:	c3 	retq
+
+main:
+      92:	55 	pushq	%rbp
+      93:	48 89 e5 	movq	%rsp, %rbp
+      96:	48 83 ec 20 	subq	$32, %rsp
+      9a:	e8 00 00 00 00 	callq	0 <main+0xd>
+      9f:	b8 00 00 00 00 	movl	$0, %eax
+      a4:	48 83 c4 20 	addq	$32, %rsp
+      a8:	5d 	popq	%rbp
+      a9:	c3 	retq
+      aa:	90 	nop
+      ab:	90 	nop
+      ac:	90 	nop
+      ad:	90 	nop
+      ae:	90 	nop
+      af:	90 	nop

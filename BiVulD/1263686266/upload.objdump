@@ -1,0 +1,76 @@
+
+upload.bin:	file format COFF-x86-64
+
+Disassembly of section .text:
+OJPEGLibjpegSessionAbort:
+       0:	55 	pushq	%rbp
+       1:	48 89 e5 	movq	%rsp, %rbp
+       4:	5d 	popq	%rbp
+       5:	c3 	retq
+
+assert:
+       6:	55 	pushq	%rbp
+       7:	48 89 e5 	movq	%rsp, %rbp
+       a:	5d 	popq	%rbp
+       b:	c3 	retq
+
+OJPEGPostDecode:
+       c:	55 	pushq	%rbp
+       d:	48 89 e5 	movq	%rsp, %rbp
+      10:	48 83 ec 30 	subq	$48, %rsp
+      14:	48 89 4d 10 	movq	%rcx, 16(%rbp)
+      18:	48 8b 45 10 	movq	16(%rbp), %rax
+      1c:	8b 40 04 	movl	4(%rax), %eax
+      1f:	48 98 	cltq
+      21:	48 89 45 f8 	movq	%rax, -8(%rbp)
+      25:	48 8b 45 f8 	movq	-8(%rbp), %rax
+      29:	8b 40 08 	movl	8(%rax), %eax
+      2c:	8d 50 01 	leal	1(%rax), %edx
+      2f:	48 8b 45 f8 	movq	-8(%rbp), %rax
+      33:	89 50 08 	movl	%edx, 8(%rax)
+      36:	48 8b 45 f8 	movq	-8(%rbp), %rax
+      3a:	8b 40 08 	movl	8(%rax), %eax
+      3d:	48 8b 55 10 	movq	16(%rbp), %rdx
+      41:	8b 0a 	movl	(%rdx), %ecx
+      43:	99 	cltd
+      44:	f7 f9 	idivl	%ecx
+      46:	89 d0 	movl	%edx, %eax
+      48:	85 c0 	testl	%eax, %eax
+      4a:	75 29 	jne	41 <OJPEGPostDecode+0x69>
+      4c:	48 8b 45 f8 	movq	-8(%rbp), %rax
+      50:	8b 40 04 	movl	4(%rax), %eax
+      53:	85 c0 	testl	%eax, %eax
+      55:	0f 95 c0 	setne	%al
+      58:	0f b6 c0 	movzbl	%al, %eax
+      5b:	89 c1 	movl	%eax, %ecx
+      5d:	e8 a4 ff ff ff 	callq	-92 <assert>
+      62:	48 8b 4d 10 	movq	16(%rbp), %rcx
+      66:	e8 95 ff ff ff 	callq	-107 <OJPEGLibjpegSessionAbort>
+      6b:	48 8b 45 f8 	movq	-8(%rbp), %rax
+      6f:	c7 00 00 00 00 00 	movl	$0, (%rax)
+      75:	48 83 c4 30 	addq	$48, %rsp
+      79:	5d 	popq	%rbp
+      7a:	c3 	retq
+
+main:
+      7b:	55 	pushq	%rbp
+      7c:	48 89 e5 	movq	%rsp, %rbp
+      7f:	48 83 ec 20 	subq	$32, %rsp
+      83:	e8 00 00 00 00 	callq	0 <main+0xd>
+      88:	b8 00 00 00 00 	movl	$0, %eax
+      8d:	48 83 c4 20 	addq	$32, %rsp
+      91:	5d 	popq	%rbp
+      92:	c3 	retq
+      93:	90 	nop
+      94:	90 	nop
+      95:	90 	nop
+      96:	90 	nop
+      97:	90 	nop
+      98:	90 	nop
+      99:	90 	nop
+      9a:	90 	nop
+      9b:	90 	nop
+      9c:	90 	nop
+      9d:	90 	nop
+      9e:	90 	nop
+      9f:	90 	nop

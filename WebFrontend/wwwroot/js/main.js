@@ -13,9 +13,10 @@ function getLink(currentPage) {
     };
     return null;
 }
-
-currentLink.className += " current";
-currentLink.getElementsByTagName("img")[0].className += " current";
+if(currentLink != null) {
+	currentLink.className += " current";
+	currentLink.getElementsByTagName("img")[0].className += " current";
+}
 var ctx = document.getElementById('dotChart-container');
 
 // Get Color Theme

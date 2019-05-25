@@ -1,0 +1,288 @@
+
+upload.bin:	file format COFF-x86-64
+
+Disassembly of section .text:
+_TIFFfree:
+       0:	55 	pushq	%rbp
+       1:	48 89 e5 	movq	%rsp, %rbp
+       4:	5d 	popq	%rbp
+       5:	c3 	retq
+
+TIFFWriteEncodedTile:
+       6:	55 	pushq	%rbp
+       7:	48 89 e5 	movq	%rsp, %rbp
+       a:	5d 	popq	%rbp
+       b:	c3 	retq
+
+TIFFComputeTile:
+       c:	55 	pushq	%rbp
+       d:	48 89 e5 	movq	%rsp, %rbp
+      10:	5d 	popq	%rbp
+      11:	c3 	retq
+
+_TIFFmemcpy:
+      12:	55 	pushq	%rbp
+      13:	48 89 e5 	movq	%rsp, %rbp
+      16:	5d 	popq	%rbp
+      17:	c3 	retq
+
+TIFFReadRGBATile:
+      18:	55 	pushq	%rbp
+      19:	48 89 e5 	movq	%rsp, %rbp
+      1c:	5d 	popq	%rbp
+      1d:	c3 	retq
+
+_TIFFmalloc:
+      1e:	55 	pushq	%rbp
+      1f:	48 89 e5 	movq	%rsp, %rbp
+      22:	5d 	popq	%rbp
+      23:	c3 	retq
+
+TIFFSetField:
+      24:	55 	pushq	%rbp
+      25:	48 89 e5 	movq	%rsp, %rbp
+      28:	5d 	popq	%rbp
+      29:	c3 	retq
+
+TIFFError:
+      2a:	55 	pushq	%rbp
+      2b:	48 89 e5 	movq	%rsp, %rbp
+      2e:	5d 	popq	%rbp
+      2f:	c3 	retq
+
+TIFFFileName:
+      30:	55 	pushq	%rbp
+      31:	48 89 e5 	movq	%rsp, %rbp
+      34:	5d 	popq	%rbp
+      35:	c3 	retq
+
+TIFFGetField:
+      36:	55 	pushq	%rbp
+      37:	48 89 e5 	movq	%rsp, %rbp
+      3a:	5d 	popq	%rbp
+      3b:	c3 	retq
+
+cvt_by_tile:
+      3c:	55 	pushq	%rbp
+      3d:	53 	pushq	%rbx
+      3e:	48 83 ec 78 	subq	$120, %rsp
+      42:	48 8d ac 24 80 00 00 00 	leaq	128(%rsp), %rbp
+      4a:	48 89 4d 10 	movq	%rcx, 16(%rbp)
+      4e:	48 89 55 18 	movq	%rdx, 24(%rbp)
+      52:	c7 45 e4 01 00 00 00 	movl	$1, -28(%rbp)
+      59:	48 8d 05 00 00 00 00 	leaq	(%rip), %rax
+      60:	8b 00 	movl	(%rax), %eax
+      62:	48 8d 55 bc 	leaq	-68(%rbp), %rdx
+      66:	49 89 d0 	movq	%rdx, %r8
+      69:	89 c2 	movl	%eax, %edx
+      6b:	48 8b 4d 10 	movq	16(%rbp), %rcx
+      6f:	e8 c2 ff ff ff 	callq	-62 <TIFFGetField>
+      74:	48 8d 05 00 00 00 00 	leaq	(%rip), %rax
+      7b:	8b 00 	movl	(%rax), %eax
+      7d:	48 8d 55 b8 	leaq	-72(%rbp), %rdx
+      81:	49 89 d0 	movq	%rdx, %r8
+      84:	89 c2 	movl	%eax, %edx
+      86:	48 8b 4d 10 	movq	16(%rbp), %rcx
+      8a:	e8 a7 ff ff ff 	callq	-89 <TIFFGetField>
+      8f:	48 8d 05 00 00 00 00 	leaq	(%rip), %rax
+      96:	8b 00 	movl	(%rax), %eax
+      98:	48 8d 55 b4 	leaq	-76(%rbp), %rdx
+      9c:	49 89 d0 	movq	%rdx, %r8
+      9f:	89 c2 	movl	%eax, %edx
+      a1:	48 8b 4d 10 	movq	16(%rbp), %rcx
+      a5:	e8 8c ff ff ff 	callq	-116 <TIFFGetField>
+      aa:	85 c0 	testl	%eax, %eax
+      ac:	74 1f 	je	31 <cvt_by_tile+0x91>
+      ae:	48 8d 05 00 00 00 00 	leaq	(%rip), %rax
+      b5:	8b 00 	movl	(%rax), %eax
+      b7:	48 8d 55 b0 	leaq	-80(%rbp), %rdx
+      bb:	49 89 d0 	movq	%rdx, %r8
+      be:	89 c2 	movl	%eax, %edx
+      c0:	48 8b 4d 10 	movq	16(%rbp), %rcx
+      c4:	e8 6d ff ff ff 	callq	-147 <TIFFGetField>
+      c9:	85 c0 	testl	%eax, %eax
+      cb:	75 21 	jne	33 <cvt_by_tile+0xb2>
+      cd:	48 8b 4d 10 	movq	16(%rbp), %rcx
+      d1:	e8 5a ff ff ff 	callq	-166 <TIFFFileName>
+      d6:	48 8d 15 00 00 00 00 	leaq	(%rip), %rdx
+      dd:	89 c1 	movl	%eax, %ecx
+      df:	e8 46 ff ff ff 	callq	-186 <TIFFError>
+      e4:	b8 00 00 00 00 	movl	$0, %eax
+      e9:	e9 5c 02 00 00 	jmp	604 <cvt_by_tile+0x30e>
+      ee:	8b 4d b4 	movl	-76(%rbp), %ecx
+      f1:	48 8d 05 00 00 00 00 	leaq	(%rip), %rax
+      f8:	8b 10 	movl	(%rax), %edx
+      fa:	48 8b 45 18 	movq	24(%rbp), %rax
+      fe:	41 89 c8 	movl	%ecx, %r8d
+     101:	48 89 c1 	movq	%rax, %rcx
+     104:	e8 1b ff ff ff 	callq	-229 <TIFFSetField>
+     109:	8b 4d b0 	movl	-80(%rbp), %ecx
+     10c:	48 8d 05 00 00 00 00 	leaq	(%rip), %rax
+     113:	8b 10 	movl	(%rax), %edx
+     115:	48 8b 45 18 	movq	24(%rbp), %rax
+     119:	41 89 c8 	movl	%ecx, %r8d
+     11c:	48 89 c1 	movq	%rax, %rcx
+     11f:	e8 00 ff ff ff 	callq	-256 <TIFFSetField>
+     124:	8b 55 b4 	movl	-76(%rbp), %edx
+     127:	8b 45 b0 	movl	-80(%rbp), %eax
+     12a:	0f af c2 	imull	%edx, %eax
+     12d:	48 98 	cltq
+     12f:	48 c1 e0 02 	shlq	$2, %rax
+     133:	48 89 c1 	movq	%rax, %rcx
+     136:	e8 e3 fe ff ff 	callq	-285 <_TIFFmalloc>
+     13b:	48 98 	cltq
+     13d:	48 89 45 d8 	movq	%rax, -40(%rbp)
+     141:	48 83 7d d8 00 	cmpq	$0, -40(%rbp)
+     146:	75 21 	jne	33 <cvt_by_tile+0x12d>
+     148:	48 8b 4d 10 	movq	16(%rbp), %rcx
+     14c:	e8 df fe ff ff 	callq	-289 <TIFFFileName>
+     151:	48 8d 15 17 00 00 00 	leaq	23(%rip), %rdx
+     158:	89 c1 	movl	%eax, %ecx
+     15a:	e8 cb fe ff ff 	callq	-309 <TIFFError>
+     15f:	b8 00 00 00 00 	movl	$0, %eax
+     164:	e9 e1 01 00 00 	jmp	481 <cvt_by_tile+0x30e>
+     169:	8b 45 b4 	movl	-76(%rbp), %eax
+     16c:	48 98 	cltq
+     16e:	48 c1 e0 02 	shlq	$2, %rax
+     172:	48 89 c1 	movq	%rax, %rcx
+     175:	e8 a4 fe ff ff 	callq	-348 <_TIFFmalloc>
+     17a:	48 98 	cltq
+     17c:	48 89 45 d0 	movq	%rax, -48(%rbp)
+     180:	48 83 7d d0 00 	cmpq	$0, -48(%rbp)
+     185:	75 1e 	jne	30 <cvt_by_tile+0x169>
+     187:	48 8b 4d 10 	movq	16(%rbp), %rcx
+     18b:	e8 a0 fe ff ff 	callq	-352 <TIFFFileName>
+     190:	48 8d 15 38 00 00 00 	leaq	56(%rip), %rdx
+     197:	89 c1 	movl	%eax, %ecx
+     199:	e8 8c fe ff ff 	callq	-372 <TIFFError>
+     19e:	c7 45 e4 00 00 00 00 	movl	$0, -28(%rbp)
+     1a5:	c7 45 ec 00 00 00 00 	movl	$0, -20(%rbp)
+     1ac:	e9 6c 01 00 00 	jmp	364 <cvt_by_tile+0x2e1>
+     1b1:	c7 45 e8 00 00 00 00 	movl	$0, -24(%rbp)
+     1b8:	e9 48 01 00 00 	jmp	328 <cvt_by_tile+0x2c9>
+     1bd:	48 8b 4d d8 	movq	-40(%rbp), %rcx
+     1c1:	8b 55 ec 	movl	-20(%rbp), %edx
+     1c4:	8b 45 e8 	movl	-24(%rbp), %eax
+     1c7:	49 89 c9 	movq	%rcx, %r9
+     1ca:	41 89 d0 	movl	%edx, %r8d
+     1cd:	89 c2 	movl	%eax, %edx
+     1cf:	48 8b 4d 10 	movq	16(%rbp), %rcx
+     1d3:	e8 40 fe ff ff 	callq	-448 <TIFFReadRGBATile>
+     1d8:	85 c0 	testl	%eax, %eax
+     1da:	75 0c 	jne	12 <cvt_by_tile+0x1ac>
+     1dc:	c7 45 e4 00 00 00 00 	movl	$0, -28(%rbp)
+     1e3:	e9 2f 01 00 00 	jmp	303 <cvt_by_tile+0x2db>
+     1e8:	c7 45 e0 00 00 00 00 	movl	$0, -32(%rbp)
+     1ef:	e9 9b 00 00 00 	jmp	155 <cvt_by_tile+0x253>
+     1f4:	8b 45 b4 	movl	-76(%rbp), %eax
+     1f7:	0f af 45 e0 	imull	-32(%rbp), %eax
+     1fb:	48 98 	cltq
+     1fd:	48 8d 14 85 00 00 00 00 	leaq	(,%rax,4), %rdx
+     205:	48 8b 45 d8 	movq	-40(%rbp), %rax
+     209:	48 01 d0 	addq	%rdx, %rax
+     20c:	48 89 45 c8 	movq	%rax, -56(%rbp)
+     210:	8b 45 b0 	movl	-80(%rbp), %eax
+     213:	2b 45 e0 	subl	-32(%rbp), %eax
+     216:	8d 50 ff 	leal	-1(%rax), %edx
+     219:	8b 45 b4 	movl	-76(%rbp), %eax
+     21c:	0f af c2 	imull	%edx, %eax
+     21f:	48 98 	cltq
+     221:	48 8d 14 85 00 00 00 00 	leaq	(,%rax,4), %rdx
+     229:	48 8b 45 d8 	movq	-40(%rbp), %rax
+     22d:	48 01 d0 	addq	%rdx, %rax
+     230:	48 89 45 c0 	movq	%rax, -64(%rbp)
+     234:	8b 45 b4 	movl	-76(%rbp), %eax
+     237:	8d 0c 85 00 00 00 00 	leal	(,%rax,4), %ecx
+     23e:	48 8b 55 c8 	movq	-56(%rbp), %rdx
+     242:	48 8b 45 d0 	movq	-48(%rbp), %rax
+     246:	41 89 c8 	movl	%ecx, %r8d
+     249:	48 89 c1 	movq	%rax, %rcx
+     24c:	e8 c1 fd ff ff 	callq	-575 <_TIFFmemcpy>
+     251:	8b 45 b4 	movl	-76(%rbp), %eax
+     254:	8d 0c 85 00 00 00 00 	leal	(,%rax,4), %ecx
+     25b:	48 8b 55 c0 	movq	-64(%rbp), %rdx
+     25f:	48 8b 45 c8 	movq	-56(%rbp), %rax
+     263:	41 89 c8 	movl	%ecx, %r8d
+     266:	48 89 c1 	movq	%rax, %rcx
+     269:	e8 a4 fd ff ff 	callq	-604 <_TIFFmemcpy>
+     26e:	8b 45 b4 	movl	-76(%rbp), %eax
+     271:	8d 0c 85 00 00 00 00 	leal	(,%rax,4), %ecx
+     278:	48 8b 55 d0 	movq	-48(%rbp), %rdx
+     27c:	48 8b 45 c0 	movq	-64(%rbp), %rax
+     280:	41 89 c8 	movl	%ecx, %r8d
+     283:	48 89 c1 	movq	%rax, %rcx
+     286:	e8 87 fd ff ff 	callq	-633 <_TIFFmemcpy>
+     28b:	83 45 e0 01 	addl	$1, -32(%rbp)
+     28f:	8b 45 b0 	movl	-80(%rbp), %eax
+     292:	89 c2 	movl	%eax, %edx
+     294:	c1 ea 1f 	shrl	$31, %edx
+     297:	01 d0 	addl	%edx, %eax
+     299:	d1 f8 	sarl	%eax
+     29b:	3b 45 e0 	cmpl	-32(%rbp), %eax
+     29e:	0f 8f 50 ff ff ff 	jg	-176 <cvt_by_tile+0x1b8>
+     2a4:	8b 45 b4 	movl	-76(%rbp), %eax
+     2a7:	8d 14 85 00 00 00 00 	leal	(,%rax,4), %edx
+     2ae:	8b 45 b0 	movl	-80(%rbp), %eax
+     2b1:	89 d3 	movl	%edx, %ebx
+     2b3:	0f af d8 	imull	%eax, %ebx
+     2b6:	8b 4d ec 	movl	-20(%rbp), %ecx
+     2b9:	8b 55 e8 	movl	-24(%rbp), %edx
+     2bc:	48 8b 45 18 	movq	24(%rbp), %rax
+     2c0:	c7 44 24 20 00 00 00 00 	movl	$0, 32(%rsp)
+     2c8:	41 b9 00 00 00 00 	movl	$0, %r9d
+     2ce:	41 89 c8 	movl	%ecx, %r8d
+     2d1:	48 89 c1 	movq	%rax, %rcx
+     2d4:	e8 33 fd ff ff 	callq	-717 <TIFFComputeTile>
+     2d9:	89 c2 	movl	%eax, %edx
+     2db:	48 8b 4d d8 	movq	-40(%rbp), %rcx
+     2df:	48 8b 45 18 	movq	24(%rbp), %rax
+     2e3:	41 89 d9 	movl	%ebx, %r9d
+     2e6:	49 89 c8 	movq	%rcx, %r8
+     2e9:	48 89 c1 	movq	%rax, %rcx
+     2ec:	e8 15 fd ff ff 	callq	-747 <TIFFWriteEncodedTile>
+     2f1:	83 f8 ff 	cmpl	$-1, %eax
+     2f4:	75 09 	jne	9 <cvt_by_tile+0x2c3>
+     2f6:	c7 45 e4 00 00 00 00 	movl	$0, -28(%rbp)
+     2fd:	eb 18 	jmp	24 <cvt_by_tile+0x2db>
+     2ff:	8b 45 b4 	movl	-76(%rbp), %eax
+     302:	01 45 e8 	addl	%eax, -24(%rbp)
+     305:	83 7d e4 00 	cmpl	$0, -28(%rbp)
+     309:	74 0c 	je	12 <cvt_by_tile+0x2db>
+     30b:	8b 45 bc 	movl	-68(%rbp), %eax
+     30e:	39 45 e8 	cmpl	%eax, -24(%rbp)
+     311:	0f 8c a6 fe ff ff 	jl	-346 <cvt_by_tile+0x181>
+     317:	8b 45 b0 	movl	-80(%rbp), %eax
+     31a:	01 45 ec 	addl	%eax, -20(%rbp)
+     31d:	83 7d e4 00 	cmpl	$0, -28(%rbp)
+     321:	74 0c 	je	12 <cvt_by_tile+0x2f3>
+     323:	8b 45 b8 	movl	-72(%rbp), %eax
+     326:	39 45 ec 	cmpl	%eax, -20(%rbp)
+     329:	0f 8c 82 fe ff ff 	jl	-382 <cvt_by_tile+0x175>
+     32f:	48 8b 45 d8 	movq	-40(%rbp), %rax
+     333:	48 89 c1 	movq	%rax, %rcx
+     336:	e8 c5 fc ff ff 	callq	-827 <_TIFFfree>
+     33b:	48 8b 45 d0 	movq	-48(%rbp), %rax
+     33f:	48 89 c1 	movq	%rax, %rcx
+     342:	e8 b9 fc ff ff 	callq	-839 <_TIFFfree>
+     347:	8b 45 e4 	movl	-28(%rbp), %eax
+     34a:	48 83 c4 78 	addq	$120, %rsp
+     34e:	5b 	popq	%rbx
+     34f:	5d 	popq	%rbp
+     350:	c3 	retq
+
+main:
+     351:	55 	pushq	%rbp
+     352:	48 89 e5 	movq	%rsp, %rbp
+     355:	48 83 ec 20 	subq	$32, %rsp
+     359:	e8 00 00 00 00 	callq	0 <main+0xd>
+     35e:	b8 00 00 00 00 	movl	$0, %eax
+     363:	48 83 c4 20 	addq	$32, %rsp
+     367:	5d 	popq	%rbp
+     368:	c3 	retq
+     369:	90 	nop
+     36a:	90 	nop
+     36b:	90 	nop
+     36c:	90 	nop
+     36d:	90 	nop
+     36e:	90 	nop
+     36f:	90 	nop
