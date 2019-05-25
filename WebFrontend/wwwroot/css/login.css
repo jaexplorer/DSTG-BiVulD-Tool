@@ -211,53 +211,15 @@ button:focus{
     top:50px;
     left:5%;
 }
+#form-control-password{
+    position:static;
+}
 #text-danger-reset{
     left:35%;
 }
 .model-message{
     left:10%;
 }
-
-/*Tooltip properties*/
-.password-tooltip {
-    visibility: hidden;
-    width: 120px;
-    background-color: #555;
-    color: #fff;
-    text-align: center;
-    border-radius: 6px;
-    padding: 5px 0;
-
-    /*position tooltip text*/
-    position: absolute;
-    z-index: 500000;
-    top: 10%;
-    left: 100%;
-    margin-left: 0px;
-
-    /*fade in tooltip*/
-    opacity: 0;
-    transition: opacity 0.3s;
-}
-
-/*tooltip arrow */
-.password-tooltip::after {
-    content: "";
-    position: absolute;
-    top: 50%;
-    right: 95%;
-    margin-top: -5px;
-    border-width: 5px;
-    border-style: solid;
-    border-color: #555 transparent transparent transparent;
-}
-
-/*Make tool tip visible when hover over error message*/
-#form-control-password:hover + .password-tooltip {
-    visibility: visible;
-    opacity: 1;
-}
-
 
 /*Move login to the right*/
 .form-container.right-panel-active .login-container {
