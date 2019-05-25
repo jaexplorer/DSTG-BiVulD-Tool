@@ -10,22 +10,15 @@ namespace Backend
 		Binary,
 		Code
 	}
+
 	[DataContract]
 	public class Results
 	{
-		[DataMember]
-		public SourceType Type { get; set; }
-		[DataMember]
-		public int TimeTaken { get; private set; }
-		[DataMember]
-		public int NumFunctions { get; private set; }
-		[DataMember]
-		public List<Function> Functions { get; set; } = new List<Function>();
-
 		public Results()
 		{
-
+			//
 		}
+
 		public Results(string directory, SourceType type)
 		{
 			Type = type;
@@ -33,6 +26,18 @@ namespace Backend
 			ReadProbs(directory);
 			ReadHexCode(directory);
 		}
+
+		[DataMember]
+		public SourceType Type { get; set; }
+
+		[DataMember]
+		public int TimeTaken { get; private set; }
+
+		[DataMember]
+		public int NumFunctions { get; private set; }
+
+		[DataMember]
+		public List<Function> Functions { get; set; } = new List<Function>();
 
 		void ReadProbs(string directory)
 		{

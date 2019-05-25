@@ -28,6 +28,7 @@ namespace Backend
 	{
 		public FileManager()
 		{
+			// Generate a random name for the temporary directory
 			byte[] salt;
 			new RNGCryptoServiceProvider().GetBytes(salt = new byte[16]);
 			TempPath = BitConverter.ToUInt32(salt, 0).ToString() + "/";
@@ -49,6 +50,7 @@ namespace Backend
 
 		public bool IdentifyFile()
 		{
+			// If objdump returns nothing, it can't read the file
 			if (Execute(FileNames.ObjdumpPath, "-d " + FileNames.BiVulDDir + TempPath + FileNames.UploadName) == "")
 			{
 				return false;
@@ -61,10 +63,9 @@ namespace Backend
 		{
 			var stopwatch = new Stopwatch();
 
-			stopwatch.Restart();
-
 			Directory.SetCurrentDirectory(FileNames.BiVulDDir + TempPath);
 
+			// Disassemble the file for the Python scripts
 			string objdump = Execute(FileNames.ObjdumpPath, "-d " + FileNames.UploadName);
 			string dumpName = FileNames.UploadName.Substring(0, FileNames.UploadName.Length - 3) + "objdump";
 
@@ -75,12 +76,14 @@ namespace Backend
 
 			Directory.SetCurrentDirectory("..");
 
+			// Run the Python scripts on the diassembled file
 			Execute(FileNames.PythonPath, FileNames.CreateCSVPath + " " + TempPath + " " + dumpName);
 			Execute(FileNames.PythonPath, FileNames.CreateTestFilesPath + " " + TempPath);
 			Execute(FileNames.PythonPath, FileNames.GetProbabilitiesPath + " " + TempPath);
 
 			string probAssembly;
 
+			// Read the results of the Python scripts
 			using (var streamReader = new StreamReader(TempPath + FileNames.ProbName))
 			{
 				probAssembly = streamReader.ReadToEnd();
@@ -88,6 +91,7 @@ namespace Backend
 
 			stopwatch.Stop();
 
+			// Insert the time taken to run the scripts into the results file
 			using (var streamWriter = new StreamWriter(TempPath + FileNames.ProbName))
 			{
 				streamWriter.Write(stopwatch.ElapsedMilliseconds + probAssembly.Substring(1));
