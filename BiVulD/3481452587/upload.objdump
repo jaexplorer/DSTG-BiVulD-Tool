@@ -1,0 +1,89 @@
+
+upload.bin:	file format COFF-x86-64
+
+Disassembly of section .text:
+TIFFSetField:
+       0:	55 	pushq	%rbp
+       1:	48 89 e5 	movq	%rsp, %rbp
+       4:	5d 	popq	%rbp
+       5:	c3 	retq
+
+cvtRational:
+       6:	55 	pushq	%rbp
+       7:	48 89 e5 	movq	%rsp, %rbp
+       a:	5d 	popq	%rbp
+       b:	c3 	retq
+
+TIFFFetchData:
+       c:	55 	pushq	%rbp
+       d:	48 89 e5 	movq	%rsp, %rbp
+      10:	5d 	popq	%rbp
+      11:	c3 	retq
+
+TIFFFetchSubjectDistance:
+      12:	55 	pushq	%rbp
+      13:	48 89 e5 	movq	%rsp, %rbp
+      16:	48 83 ec 60 	subq	$96, %rsp
+      1a:	48 89 4d 10 	movq	%rcx, 16(%rbp)
+      1e:	48 89 55 18 	movq	%rdx, 24(%rbp)
+      22:	c7 45 fc 00 00 00 00 	movl	$0, -4(%rbp)
+      29:	48 8d 55 e0 	leaq	-32(%rbp), %rdx
+      2d:	48 8b 45 18 	movq	24(%rbp), %rax
+      31:	49 89 d0 	movq	%rdx, %r8
+      34:	48 89 c2 	movq	%rax, %rdx
+      37:	48 8b 4d 10 	movq	16(%rbp), %rcx
+      3b:	e8 cc ff ff ff 	callq	-52 <TIFFFetchData>
+      40:	85 c0 	testl	%eax, %eax
+      42:	74 74 	je	116 <TIFFFetchSubjectDistance+0xa6>
+      44:	4c 8b 45 e8 	movq	-24(%rbp), %r8
+      48:	48 8b 4d e0 	movq	-32(%rbp), %rcx
+      4c:	48 8b 45 18 	movq	24(%rbp), %rax
+      50:	48 8d 55 dc 	leaq	-36(%rbp), %rdx
+      54:	48 89 54 24 20 	movq	%rdx, 32(%rsp)
+      59:	4d 89 c1 	movq	%r8, %r9
+      5c:	49 89 c8 	movq	%rcx, %r8
+      5f:	48 89 c2 	movq	%rax, %rdx
+      62:	48 8b 4d 10 	movq	16(%rbp), %rcx
+      66:	e8 9b ff ff ff 	callq	-101 <cvtRational>
+      6b:	85 c0 	testl	%eax, %eax
+      6d:	74 49 	je	73 <TIFFFetchSubjectDistance+0xa6>
+      6f:	48 8b 55 e0 	movq	-32(%rbp), %rdx
+      73:	b8 ff ff ff ff 	movl	$4294967295, %eax
+      78:	48 39 c2 	cmpq	%rax, %rdx
+      7b:	75 12 	jne	18 <TIFFFetchSubjectDistance+0x7d>
+      7d:	8b 45 dc 	movl	-36(%rbp), %eax
+      80:	f3 0f 10 05 00 00 00 00 	movss	(%rip), %xmm0
+      88:	35 00 00 00 80 	xorl	$2147483648, %eax
+      8d:	eb 03 	jmp	3 <TIFFFetchSubjectDistance+0x80>
+      8f:	8b 45 dc 	movl	-36(%rbp), %eax
+      92:	66 0f 6e d8 	movd	%eax, %xmm3
+      96:	0f 14 db 	unpcklps	%xmm3, %xmm3
+      99:	0f 5a cb 	cvtps2pd	%xmm3, %xmm1
+      9c:	66 48 0f 7e c8 	movq	%xmm1, %rax
+      a1:	48 8b 55 18 	movq	24(%rbp), %rdx
+      a5:	8b 12 	movl	(%rdx), %edx
+      a7:	66 48 0f 6e d0 	movq	%rax, %xmm2
+      ac:	48 8b 4d 10 	movq	16(%rbp), %rcx
+      b0:	e8 4b ff ff ff 	callq	-181 <TIFFSetField>
+      b5:	89 45 fc 	movl	%eax, -4(%rbp)
+      b8:	8b 45 fc 	movl	-4(%rbp), %eax
+      bb:	48 83 c4 60 	addq	$96, %rsp
+      bf:	5d 	popq	%rbp
+      c0:	c3 	retq
+
+main:
+      c1:	55 	pushq	%rbp
+      c2:	48 89 e5 	movq	%rsp, %rbp
+      c5:	48 83 ec 20 	subq	$32, %rsp
+      c9:	e8 00 00 00 00 	callq	0 <main+0xd>
+      ce:	b8 00 00 00 00 	movl	$0, %eax
+      d3:	48 83 c4 20 	addq	$32, %rsp
+      d7:	5d 	popq	%rbp
+      d8:	c3 	retq
+      d9:	90 	nop
+      da:	90 	nop
+      db:	90 	nop
+      dc:	90 	nop
+      dd:	90 	nop
+      de:	90 	nop
+      df:	90 	nop

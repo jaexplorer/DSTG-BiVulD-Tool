@@ -11,7 +11,7 @@ function getLink(currentPage) {
 			return l;
 		}
     };
-    return links[0];
+    return null;
 }
 
 currentLink.className += " current";

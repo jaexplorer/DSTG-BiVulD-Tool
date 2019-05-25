@@ -25,9 +25,21 @@
         <div class="left-main-container">
             <div class="left-nav-container">
                 <div class="left-nav-scan">
-					<button id="scan-button">
-						<h5>Scan</h5>
-					</button>
+                    @if (Model.FileUpload != true)
+                    {
+                    <form method="post" enctype="multipart/form-data" asp-page-handler="Upload">
+                        <!-- Choose File button -->
+                        <input style="display: none" id="file-upload" class="inputfile" asp-for="UploadFile" type="file" value="Upload" onchange="this.form.submit()"/>
+                        <label id="chooseFile-button" for="file-upload"><h5>Choose a file</h5></label>
+                    </form>
+                    } else if (Model.FileUpload == true)
+                    {
+                    <form method="post" enctype="multipart/form-data">
+                        <!-- Upload -->
+                        <input style="display: none" asp-page-handler="Scan" id="file-scan" type="submit" value="Scan">
+                        <label id="scanFile-button" for="file-scan"><h5>Scan</h5></label>
+                    </form>
+                    }
                 </div>
                 <div class="left-nav-list-container">
                     <ul class="left-nav-list">
@@ -46,6 +58,9 @@
         </div>
         <!-- Main View
     ------------------------------------------------------------------- -->
+        <div id="preloader-container">
+            <div id="preloader"></div>
+        </div>
         <div class="right-main-container">
             <div class="right-view-container">
                 @RenderBody()
@@ -61,24 +76,19 @@
         <script src="~/js/svg-img.js"></script>
 
 		<script type="text/javascript">
-			let scanButton = document.getElementById("scan-button");
-			scanButton.addEventListener("click", function() {
+            let scanBtn = document.getElementById("scanFile-button");
+            $(window).on('load', function() {
+                $('#preloader-container').delay(1500).fadeOut(1500);
+            });
+            // scanBtn.addEventListener("click", function() {
+            //     $('#preloader-container');
+            //     $(window).on('load', function() {
+            //         $('#preloader-container').delay(1500).fadeOut(1500);
+            //     });
+            // });
 
-				let something = document.getElementsByClassName("left-nav-scan")[0];
-				
-				var temp = document.createElement('div');
 
-				temp.innerHTML = `
-				<form method="post" enctype="multipart/form-data">
-					<label style="display: none" asp-for="UploadFile"></label>
-					<input style="display: none" id="file-upload" class="inputfile" asp-for="UploadFile" type="file" />
-					<label class="choose-upload" for="file-upload">Choose a file</label>
-					<div><span class="upload-error" asp-validation-for="UploadFile"></span></div>
-					<input asp-page-handler="Upload" class="upload-button" type="submit" value="Upload">
-				</form>
-				`;
-				something.append(temp);
-			});
+
 
 		</script>
         @RenderSection("Scripts", required: false)

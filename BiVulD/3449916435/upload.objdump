@@ -1,0 +1,262 @@
+
+upload.bin:	file format COFF-x86-64
+
+Disassembly of section .text:
+TIFFErrorExt:
+       0:	55 	pushq	%rbp
+       1:	48 89 e5 	movq	%rsp, %rbp
+       4:	5d 	popq	%rbp
+       5:	c3 	retq
+
+SETPIXEL:
+       6:	55 	pushq	%rbp
+       7:	48 89 e5 	movq	%rsp, %rbp
+       a:	5d 	popq	%rbp
+       b:	c3 	retq
+
+ThunderDecode:
+       c:	55 	pushq	%rbp
+       d:	56 	pushq	%rsi
+       e:	53 	pushq	%rbx
+       f:	48 89 e5 	movq	%rsp, %rbp
+      12:	48 83 ec 50 	subq	$80, %rsp
+      16:	48 89 4d 20 	movq	%rcx, 32(%rbp)
+      1a:	48 89 55 28 	movq	%rdx, 40(%rbp)
+      1e:	44 89 45 30 	movl	%r8d, 48(%rbp)
+      22:	48 8b 45 20 	movq	32(%rbp), %rax
+      26:	8b 40 10 	movl	16(%rax), %eax
+      29:	48 98 	cltq
+      2b:	48 89 c6 	movq	%rax, %rsi
+      2e:	48 8b 45 20 	movq	32(%rbp), %rax
+      32:	8b 58 0c 	movl	12(%rax), %ebx
+      35:	c7 45 fc 00 00 00 00 	movl	$0, -4(%rbp)
+      3c:	c7 45 f8 00 00 00 00 	movl	$0, -8(%rbp)
+      43:	e9 4e 02 00 00 	jmp	590 <ThunderDecode+0x28a>
+      48:	48 89 f0 	movq	%rsi, %rax
+      4b:	48 8d 70 01 	leaq	1(%rax), %rsi
+      4f:	0f b6 00 	movzbl	(%rax), %eax
+      52:	0f b6 c0 	movzbl	%al, %eax
+      55:	89 45 f4 	movl	%eax, -12(%rbp)
+      58:	83 eb 01 	subl	$1, %ebx
+      5b:	48 8d 05 00 00 00 00 	leaq	(%rip), %rax
+      62:	8b 00 	movl	(%rax), %eax
+      64:	23 45 f4 	andl	-12(%rbp), %eax
+      67:	83 f8 01 	cmpl	$1, %eax
+      6a:	0f 84 89 01 00 00 	je	393 <ThunderDecode+0x1ed>
+      70:	83 f8 01 	cmpl	$1, %eax
+      73:	7f 0d 	jg	13 <ThunderDecode+0x76>
+      75:	85 c0 	testl	%eax, %eax
+      77:	0f 84 09 02 00 00 	je	521 <ThunderDecode+0x27a>
+      7d:	e9 14 02 00 00 	jmp	532 <ThunderDecode+0x28a>
+      82:	83 f8 02 	cmpl	$2, %eax
+      85:	0f 84 95 00 00 00 	je	149 <ThunderDecode+0x114>
+      8b:	83 f8 03 	cmpl	$3, %eax
+      8e:	0f 85 02 02 00 00 	jne	514 <ThunderDecode+0x28a>
+      94:	8b 45 f8 	movl	-8(%rbp), %eax
+      97:	83 e0 01 	andl	$1, %eax
+      9a:	85 c0 	testl	%eax, %eax
+      9c:	74 2c 	je	44 <ThunderDecode+0xbe>
+      9e:	48 8b 45 28 	movq	40(%rbp), %rax
+      a2:	8b 00 	movl	(%rax), %eax
+      a4:	0b 45 fc 	orl	-4(%rbp), %eax
+      a7:	89 c2 	movl	%eax, %edx
+      a9:	48 8b 45 28 	movq	40(%rbp), %rax
+      ad:	89 10 	movl	%edx, (%rax)
+      af:	48 8b 45 28 	movq	40(%rbp), %rax
+      b3:	48 8d 50 04 	leaq	4(%rax), %rdx
+      b7:	48 89 55 28 	movq	%rdx, 40(%rbp)
+      bb:	8b 00 	movl	(%rax), %eax
+      bd:	89 45 fc 	movl	%eax, -4(%rbp)
+      c0:	83 45 f8 01 	addl	$1, -8(%rbp)
+      c4:	83 6d f4 01 	subl	$1, -12(%rbp)
+      c8:	eb 09 	jmp	9 <ThunderDecode+0xc7>
+      ca:	8b 45 fc 	movl	-4(%rbp), %eax
+      cd:	c1 e0 04 	shll	$4, %eax
+      d0:	09 45 fc 	orl	%eax, -4(%rbp)
+      d3:	8b 45 f4 	movl	-12(%rbp), %eax
+      d6:	01 45 f8 	addl	%eax, -8(%rbp)
+      d9:	8b 45 f8 	movl	-8(%rbp), %eax
+      dc:	3b 45 30 	cmpl	48(%rbp), %eax
+      df:	7d 1d 	jge	29 <ThunderDecode+0xf2>
+      e1:	eb 15 	jmp	21 <ThunderDecode+0xec>
+      e3:	48 8b 45 28 	movq	40(%rbp), %rax
+      e7:	48 8d 50 04 	leaq	4(%rax), %rdx
+      eb:	48 89 55 28 	movq	%rdx, 40(%rbp)
+      ef:	8b 55 fc 	movl	-4(%rbp), %edx
+      f2:	89 10 	movl	%edx, (%rax)
+      f4:	83 6d f4 02 	subl	$2, -12(%rbp)
+      f8:	83 7d f4 00 	cmpl	$0, -12(%rbp)
+      fc:	7f e5 	jg	-27 <ThunderDecode+0xd7>
+      fe:	83 7d f4 ff 	cmpl	$-1, -12(%rbp)
+     102:	75 13 	jne	19 <ThunderDecode+0x10b>
+     104:	48 83 6d 28 04 	subq	$4, 40(%rbp)
+     109:	48 8b 45 28 	movq	40(%rbp), %rax
+     10d:	8b 10 	movl	(%rax), %edx
+     10f:	81 e2 f0 00 00 00 	andl	$240, %edx
+     115:	89 10 	movl	%edx, (%rax)
+     117:	83 65 fc 0f 	andl	$15, -4(%rbp)
+     11b:	e9 76 01 00 00 	jmp	374 <ThunderDecode+0x28a>
+     120:	8b 45 f4 	movl	-12(%rbp), %eax
+     123:	c1 f8 04 	sarl	$4, %eax
+     126:	83 e0 03 	andl	$3, %eax
+     129:	89 45 f0 	movl	%eax, -16(%rbp)
+     12c:	48 8d 05 00 00 00 00 	leaq	(%rip), %rax
+     133:	8b 00 	movl	(%rax), %eax
+     135:	39 45 f0 	cmpl	%eax, -16(%rbp)
+     138:	74 2c 	je	44 <ThunderDecode+0x15a>
+     13a:	48 8d 05 00 00 00 00 	leaq	(%rip), %rax
+     141:	48 8b 00 	movq	(%rax), %rax
+     144:	8b 55 f0 	movl	-16(%rbp), %edx
+     147:	48 63 d2 	movslq	%edx, %rdx
+     14a:	48 c1 e2 02 	shlq	$2, %rdx
+     14e:	48 01 d0 	addq	%rdx, %rax
+     151:	8b 00 	movl	(%rax), %eax
+     153:	89 c2 	movl	%eax, %edx
+     155:	8b 45 fc 	movl	-4(%rbp), %eax
+     158:	01 c2 	addl	%eax, %edx
+     15a:	48 8b 45 28 	movq	40(%rbp), %rax
+     15e:	48 89 c1 	movq	%rax, %rcx
+     161:	e8 a0 fe ff ff 	callq	-352 <SETPIXEL>
+     166:	8b 45 f4 	movl	-12(%rbp), %eax
+     169:	c1 f8 02 	sarl	$2, %eax
+     16c:	83 e0 03 	andl	$3, %eax
+     16f:	89 45 f0 	movl	%eax, -16(%rbp)
+     172:	48 8d 05 00 00 00 00 	leaq	(%rip), %rax
+     179:	8b 00 	movl	(%rax), %eax
+     17b:	39 45 f0 	cmpl	%eax, -16(%rbp)
+     17e:	74 2c 	je	44 <ThunderDecode+0x1a0>
+     180:	48 8d 05 00 00 00 00 	leaq	(%rip), %rax
+     187:	48 8b 00 	movq	(%rax), %rax
+     18a:	8b 55 f0 	movl	-16(%rbp), %edx
+     18d:	48 63 d2 	movslq	%edx, %rdx
+     190:	48 c1 e2 02 	shlq	$2, %rdx
+     194:	48 01 d0 	addq	%rdx, %rax
+     197:	8b 00 	movl	(%rax), %eax
+     199:	89 c2 	movl	%eax, %edx
+     19b:	8b 45 fc 	movl	-4(%rbp), %eax
+     19e:	01 c2 	addl	%eax, %edx
+     1a0:	48 8b 45 28 	movq	40(%rbp), %rax
+     1a4:	48 89 c1 	movq	%rax, %rcx
+     1a7:	e8 5a fe ff ff 	callq	-422 <SETPIXEL>
+     1ac:	8b 45 f4 	movl	-12(%rbp), %eax
+     1af:	83 e0 03 	andl	$3, %eax
+     1b2:	89 45 f0 	movl	%eax, -16(%rbp)
+     1b5:	48 8d 05 00 00 00 00 	leaq	(%rip), %rax
+     1bc:	8b 00 	movl	(%rax), %eax
+     1be:	39 45 f0 	cmpl	%eax, -16(%rbp)
+     1c1:	74 31 	je	49 <ThunderDecode+0x1e8>
+     1c3:	48 8d 05 00 00 00 00 	leaq	(%rip), %rax
+     1ca:	48 8b 00 	movq	(%rax), %rax
+     1cd:	8b 55 f0 	movl	-16(%rbp), %edx
+     1d0:	48 63 d2 	movslq	%edx, %rdx
+     1d3:	48 c1 e2 02 	shlq	$2, %rdx
+     1d7:	48 01 d0 	addq	%rdx, %rax
+     1da:	8b 00 	movl	(%rax), %eax
+     1dc:	89 c2 	movl	%eax, %edx
+     1de:	8b 45 fc 	movl	-4(%rbp), %eax
+     1e1:	01 c2 	addl	%eax, %edx
+     1e3:	48 8b 45 28 	movq	40(%rbp), %rax
+     1e7:	48 89 c1 	movq	%rax, %rcx
+     1ea:	e8 17 fe ff ff 	callq	-489 <SETPIXEL>
+     1ef:	e9 a2 00 00 00 	jmp	162 <ThunderDecode+0x28a>
+     1f4:	e9 9d 00 00 00 	jmp	157 <ThunderDecode+0x28a>
+     1f9:	8b 45 f4 	movl	-12(%rbp), %eax
+     1fc:	c1 f8 03 	sarl	$3, %eax
+     1ff:	83 e0 07 	andl	$7, %eax
+     202:	89 45 f0 	movl	%eax, -16(%rbp)
+     205:	48 8d 05 00 00 00 00 	leaq	(%rip), %rax
+     20c:	8b 00 	movl	(%rax), %eax
+     20e:	39 45 f0 	cmpl	%eax, -16(%rbp)
+     211:	74 2c 	je	44 <ThunderDecode+0x233>
+     213:	48 8d 05 00 00 00 00 	leaq	(%rip), %rax
+     21a:	48 8b 00 	movq	(%rax), %rax
+     21d:	8b 55 f0 	movl	-16(%rbp), %edx
+     220:	48 63 d2 	movslq	%edx, %rdx
+     223:	48 c1 e2 02 	shlq	$2, %rdx
+     227:	48 01 d0 	addq	%rdx, %rax
+     22a:	8b 00 	movl	(%rax), %eax
+     22c:	89 c2 	movl	%eax, %edx
+     22e:	8b 45 fc 	movl	-4(%rbp), %eax
+     231:	01 c2 	addl	%eax, %edx
+     233:	48 8b 45 28 	movq	40(%rbp), %rax
+     237:	48 89 c1 	movq	%rax, %rcx
+     23a:	e8 c7 fd ff ff 	callq	-569 <SETPIXEL>
+     23f:	8b 45 f4 	movl	-12(%rbp), %eax
+     242:	83 e0 07 	andl	$7, %eax
+     245:	89 45 f0 	movl	%eax, -16(%rbp)
+     248:	48 8d 05 00 00 00 00 	leaq	(%rip), %rax
+     24f:	8b 00 	movl	(%rax), %eax
+     251:	39 45 f0 	cmpl	%eax, -16(%rbp)
+     254:	74 2e 	je	46 <ThunderDecode+0x278>
+     256:	48 8d 05 00 00 00 00 	leaq	(%rip), %rax
+     25d:	48 8b 00 	movq	(%rax), %rax
+     260:	8b 55 f0 	movl	-16(%rbp), %edx
+     263:	48 63 d2 	movslq	%edx, %rdx
+     266:	48 c1 e2 02 	shlq	$2, %rdx
+     26a:	48 01 d0 	addq	%rdx, %rax
+     26d:	8b 00 	movl	(%rax), %eax
+     26f:	89 c2 	movl	%eax, %edx
+     271:	8b 45 fc 	movl	-4(%rbp), %eax
+     274:	01 c2 	addl	%eax, %edx
+     276:	48 8b 45 28 	movq	40(%rbp), %rax
+     27a:	48 89 c1 	movq	%rax, %rcx
+     27d:	e8 84 fd ff ff 	callq	-636 <SETPIXEL>
+     282:	eb 12 	jmp	18 <ThunderDecode+0x28a>
+     284:	eb 10 	jmp	16 <ThunderDecode+0x28a>
+     286:	8b 55 f4 	movl	-12(%rbp), %edx
+     289:	48 8b 45 28 	movq	40(%rbp), %rax
+     28d:	48 89 c1 	movq	%rax, %rcx
+     290:	e8 71 fd ff ff 	callq	-655 <SETPIXEL>
+     295:	90 	nop
+     296:	85 db 	testl	%ebx, %ebx
+     298:	7e 0c 	jle	12 <ThunderDecode+0x29a>
+     29a:	8b 45 f8 	movl	-8(%rbp), %eax
+     29d:	3b 45 30 	cmpl	48(%rbp), %eax
+     2a0:	0f 8c a2 fd ff ff 	jl	-606 <ThunderDecode+0x3c>
+     2a6:	48 89 f0 	movq	%rsi, %rax
+     2a9:	89 c2 	movl	%eax, %edx
+     2ab:	48 8b 45 20 	movq	32(%rbp), %rax
+     2af:	89 50 10 	movl	%edx, 16(%rax)
+     2b2:	48 8b 45 20 	movq	32(%rbp), %rax
+     2b6:	89 58 0c 	movl	%ebx, 12(%rax)
+     2b9:	8b 45 f8 	movl	-8(%rbp), %eax
+     2bc:	3b 45 30 	cmpl	48(%rbp), %eax
+     2bf:	74 5a 	je	90 <ThunderDecode+0x30f>
+     2c1:	48 8b 45 20 	movq	32(%rbp), %rax
+     2c5:	44 8b 00 	movl	(%rax), %r8d
+     2c8:	8b 45 f8 	movl	-8(%rbp), %eax
+     2cb:	3b 45 30 	cmpl	48(%rbp), %eax
+     2ce:	7d 09 	jge	9 <ThunderDecode+0x2cd>
+     2d0:	48 8d 05 00 00 00 00 	leaq	(%rip), %rax
+     2d7:	eb 07 	jmp	7 <ThunderDecode+0x2d4>
+     2d9:	48 8d 05 0b 00 00 00 	leaq	11(%rip), %rax
+     2e0:	48 8b 55 20 	movq	32(%rbp), %rdx
+     2e4:	8b 52 04 	movl	4(%rdx), %edx
+     2e7:	48 8b 4d 20 	movq	32(%rbp), %rcx
+     2eb:	8b 49 08 	movl	8(%rcx), %ecx
+     2ee:	44 8b 4d 30 	movl	48(%rbp), %r9d
+     2f2:	44 89 4c 24 30 	movl	%r9d, 48(%rsp)
+     2f7:	44 8b 4d f8 	movl	-8(%rbp), %r9d
+     2fb:	44 89 4c 24 28 	movl	%r9d, 40(%rsp)
+     300:	44 89 44 24 20 	movl	%r8d, 32(%rsp)
+     305:	49 89 c1 	movq	%rax, %r9
+     308:	4c 8d 05 18 00 00 00 	leaq	24(%rip), %r8
+     30f:	e8 ec fc ff ff 	callq	-788 <TIFFErrorExt>
+     314:	b8 00 00 00 00 	movl	$0, %eax
+     319:	eb 05 	jmp	5 <ThunderDecode+0x314>
+     31b:	b8 01 00 00 00 	movl	$1, %eax
+     320:	48 83 c4 50 	addq	$80, %rsp
+     324:	5b 	popq	%rbx
+     325:	5e 	popq	%rsi
+     326:	5d 	popq	%rbp
+     327:	c3 	retq
+
+main:
+     328:	55 	pushq	%rbp
+     329:	48 89 e5 	movq	%rsp, %rbp
+     32c:	48 83 ec 20 	subq	$32, %rsp
+     330:	e8 00 00 00 00 	callq	0 <main+0xd>
+     335:	b8 00 00 00 00 	movl	$0, %eax
+     33a:	48 83 c4 20 	addq	$32, %rsp
+     33e:	5d 	popq	%rbp
+     33f:	c3 	retq

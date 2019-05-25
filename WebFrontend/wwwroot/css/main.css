@@ -115,9 +115,8 @@ p, h1, h2, h3, h4, h5, span {
   display: block;
 }
 
-.left-main-container .left-nav-scan #scan-button {
-  display: -ms-grid;
-  display: grid;
+.left-main-container .left-nav-scan form #chooseFile-button {
+  display: block;
   width: 80%;
   height: 1.4rem;
   border-radius: 10px;
@@ -126,17 +125,32 @@ p, h1, h2, h3, h4, h5, span {
   padding: 5px;
 }
 
-.left-main-container .left-nav-scan #scan-button h5 {
+.left-main-container .left-nav-scan form #chooseFile-button h5 {
   -ms-flex-item-align: start;
       -ms-grid-row-align: start;
       align-self: start;
-  -ms-grid-column-align: start;
-      justify-self: start;
   color: var(--whiteText);
   text-transform: uppercase;
-  line-height: 0;
-  text-align: left;
-  padding-left: 45px;
+  text-align: center;
+}
+
+.left-main-container .left-nav-scan form #scanFile-button {
+  display: block;
+  width: 80%;
+  height: 1.4rem;
+  border-radius: 10px;
+  border-width: 0;
+  background: #62c77a;
+  padding: 5px;
+}
+
+.left-main-container .left-nav-scan form #scanFile-button h5 {
+  -ms-flex-item-align: start;
+      -ms-grid-row-align: start;
+      align-self: start;
+  color: var(--whiteText);
+  text-transform: uppercase;
+  text-align: center;
 }
 
 .left-main-container .left-nav-list-container {
@@ -764,6 +778,55 @@ p, h1, h2, h3, h4, h5, span {
   overflow: scroll;
   padding: 1rem;
   white-space: pre-line;
+}
+
+#preloader-container {
+  background: var(--rightGradient);
+  left: 20rem;
+  width: calc(100% - 27rem);
+  min-width: 60%;
+  height: calc(100% - 7rem);
+  position: absolute;
+  padding: 3.5rem;
+  z-index: 50;
+}
+
+#preloader-container #preloader {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 30px;
+  width: 30px;
+  margin: auto;
+  border: 5px solid var(--inactiveDark);
+  border-top: 5px solid var(--primaryAccent);
+  border-radius: 50%;
+  -webkit-animation: rotate 1s infinite linear;
+          animation: rotate 1s infinite linear;
+}
+
+@-webkit-keyframes rotate {
+  0% {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+  }
+}
+
+@keyframes rotate {
+  0% {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+  }
 }
 
 #noise {

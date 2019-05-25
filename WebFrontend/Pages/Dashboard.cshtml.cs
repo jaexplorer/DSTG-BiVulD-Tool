@@ -5,7 +5,6 @@ namespace WebFrontend
 {
 	public class DashboardModel : Models.FileScanner
 	{
-		public bool FileUpload { get; set; }
 		public bool Display { get; set; } = false;
 		public string Probabilities { get; set; } = "[";
 		public Results Results { get; set; }
@@ -18,18 +17,8 @@ namespace WebFrontend
 
 		public void OnGet()
 		{
-			FileUpload = HttpContext.Request.Query["upload"] == "Success";
-		}
-
-		public void OnPostScan()
-		{
-			FileUpload = true;
-
-			if (fileManager.IdentifyFile())
-			{
-				FileUpload = true;
-				Display = true;
-
+			Display = HttpContext.Request.Query["Upload"] == "Success";
+			if (Display) {
 				PrintResults();
 			}
 		}
