@@ -1,0 +1,66 @@
+
+upload.bin:	file format COFF-x86-64
+
+Disassembly of section .text:
+readextension:
+       0:	55 	pushq	%rbp
+       1:	48 81 ec 40 01 00 00 	subq	$320, %rsp
+       8:	48 8d ac 24 80 00 00 00 	leaq	128(%rsp), %rbp
+      10:	c7 85 bc 00 00 00 01 00 00 00 	movl	$1, 188(%rbp)
+      1a:	8b 85 b8 00 00 00 	movl	184(%rbp), %eax
+      20:	89 c1 	movl	%eax, %ecx
+      22:	e8 00 00 00 00 	callq	0 <readextension+0x27>
+      27:	eb 6f 	jmp	111 <readextension+0x98>
+      29:	8b 8d b8 00 00 00 	movl	184(%rbp), %ecx
+      2f:	8b 95 b4 00 00 00 	movl	180(%rbp), %edx
+      35:	48 8d 45 a0 	leaq	-96(%rbp), %rax
+      39:	41 89 c9 	movl	%ecx, %r9d
+      3c:	41 89 d0 	movl	%edx, %r8d
+      3f:	ba 01 00 00 00 	movl	$1, %edx
+      44:	48 89 c1 	movq	%rax, %rcx
+      47:	e8 00 00 00 00 	callq	0 <readextension+0x4c>
+      4c:	3b 85 b4 00 00 00 	cmpl	180(%rbp), %eax
+      52:	74 44 	je	68 <readextension+0x98>
+      54:	48 8b 05 00 00 00 00 	movq	(%rip), %rax
+      5b:	ff d0 	callq	*%rax
+      5d:	8b 00 	movl	(%rax), %eax
+      5f:	89 c1 	movl	%eax, %ecx
+      61:	e8 00 00 00 00 	callq	0 <readextension+0x66>
+      66:	48 89 c2 	movq	%rax, %rdx
+      69:	8b 85 b0 00 00 00 	movl	176(%rbp), %eax
+      6f:	48 98 	cltq
+      71:	8b 8d ac 00 00 00 	movl	172(%rbp), %ecx
+      77:	49 89 d1 	movq	%rdx, %r9
+      7a:	41 89 c8 	movl	%ecx, %r8d
+      7d:	48 8d 15 00 00 00 00 	leaq	(%rip), %rdx
+      84:	48 89 c1 	movq	%rax, %rcx
+      87:	e8 00 00 00 00 	callq	0 <readextension+0x8c>
+      8c:	c7 85 bc 00 00 00 00 00 00 00 	movl	$0, 188(%rbp)
+      96:	eb 2c 	jmp	44 <readextension+0xc4>
+      98:	8b 85 b8 00 00 00 	movl	184(%rbp), %eax
+      9e:	89 c1 	movl	%eax, %ecx
+      a0:	e8 00 00 00 00 	callq	0 <readextension+0xa5>
+      a5:	89 85 b4 00 00 00 	movl	%eax, 180(%rbp)
+      ab:	83 bd b4 00 00 00 00 	cmpl	$0, 180(%rbp)
+      b2:	74 10 	je	16 <readextension+0xc4>
+      b4:	81 bd b4 00 00 00 ff 00 00 00 	cmpl	$255, 180(%rbp)
+      be:	0f 8e 65 ff ff ff 	jle	-155 <readextension+0x29>
+      c4:	8b 85 bc 00 00 00 	movl	188(%rbp), %eax
+      ca:	48 81 c4 40 01 00 00 	addq	$320, %rsp
+      d1:	5d 	popq	%rbp
+      d2:	c3 	retq
+
+main:
+      d3:	55 	pushq	%rbp
+      d4:	48 89 e5 	movq	%rsp, %rbp
+      d7:	48 83 ec 20 	subq	$32, %rsp
+      db:	e8 00 00 00 00 	callq	0 <main+0xd>
+      e0:	b8 00 00 00 00 	movl	$0, %eax
+      e5:	48 83 c4 20 	addq	$32, %rsp
+      e9:	5d 	popq	%rbp
+      ea:	c3 	retq
+      eb:	90 	nop
+      ec:	90 	nop
+      ed:	90 	nop
+      ee:	90 	nop
+      ef:	90 	nop

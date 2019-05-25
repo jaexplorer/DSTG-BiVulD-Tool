@@ -1,0 +1,337 @@
+
+upload.bin:	file format COFF-x86-64
+
+Disassembly of section .text:
+cvtRaster:
+       0:	55 	pushq	%rbp
+       1:	48 89 e5 	movq	%rsp, %rbp
+       4:	5d 	popq	%rbp
+       5:	c3 	retq
+
+TIFFDefaultStripSize:
+       6:	55 	pushq	%rbp
+       7:	48 89 e5 	movq	%rsp, %rbp
+       a:	5d 	popq	%rbp
+       b:	c3 	retq
+
+TIFFGetVersion:
+       c:	55 	pushq	%rbp
+       d:	48 89 e5 	movq	%rsp, %rbp
+      10:	5d 	popq	%rbp
+      11:	c3 	retq
+
+TIFFSetField:
+      12:	55 	pushq	%rbp
+      13:	48 89 e5 	movq	%rsp, %rbp
+      16:	5d 	popq	%rbp
+      17:	c3 	retq
+
+CopyField:
+      18:	55 	pushq	%rbp
+      19:	48 89 e5 	movq	%rsp, %rbp
+      1c:	5d 	popq	%rbp
+      1d:	c3 	retq
+
+_TIFFfree:
+      1e:	55 	pushq	%rbp
+      1f:	48 89 e5 	movq	%rsp, %rbp
+      22:	5d 	popq	%rbp
+      23:	c3 	retq
+
+TIFFReadRGBAImage:
+      24:	55 	pushq	%rbp
+      25:	48 89 e5 	movq	%rsp, %rbp
+      28:	5d 	popq	%rbp
+      29:	c3 	retq
+
+TIFFError:
+      2a:	55 	pushq	%rbp
+      2b:	48 89 e5 	movq	%rsp, %rbp
+      2e:	5d 	popq	%rbp
+      2f:	c3 	retq
+
+TIFFFileName:
+      30:	55 	pushq	%rbp
+      31:	48 89 e5 	movq	%rsp, %rbp
+      34:	5d 	popq	%rbp
+      35:	c3 	retq
+
+_TIFFmalloc:
+      36:	55 	pushq	%rbp
+      37:	48 89 e5 	movq	%rsp, %rbp
+      3a:	5d 	popq	%rbp
+      3b:	c3 	retq
+
+TIFFGetField:
+      3c:	55 	pushq	%rbp
+      3d:	48 89 e5 	movq	%rsp, %rbp
+      40:	5d 	popq	%rbp
+      41:	c3 	retq
+
+tiffcvt:
+      42:	55 	pushq	%rbp
+      43:	48 81 ec 70 08 00 00 	subq	$2160, %rsp
+      4a:	48 8d ac 24 80 00 00 00 	leaq	128(%rsp), %rbp
+      52:	48 89 8d 00 08 00 00 	movq	%rcx, 2048(%rbp)
+      59:	48 89 95 08 08 00 00 	movq	%rdx, 2056(%rbp)
+      60:	48 8d 05 00 00 00 00 	leaq	(%rip), %rax
+      67:	8b 00 	movl	(%rax), %eax
+      69:	48 8d 95 cc 07 00 00 	leaq	1996(%rbp), %rdx
+      70:	49 89 d0 	movq	%rdx, %r8
+      73:	89 c2 	movl	%eax, %edx
+      75:	48 8b 8d 00 08 00 00 	movq	2048(%rbp), %rcx
+      7c:	e8 bb ff ff ff 	callq	-69 <TIFFGetField>
+      81:	48 8d 05 00 00 00 00 	leaq	(%rip), %rax
+      88:	8b 00 	movl	(%rax), %eax
+      8a:	48 8d 95 c8 07 00 00 	leaq	1992(%rbp), %rdx
+      91:	49 89 d0 	movq	%rdx, %r8
+      94:	89 c2 	movl	%eax, %edx
+      96:	48 8b 8d 00 08 00 00 	movq	2048(%rbp), %rcx
+      9d:	e8 9a ff ff ff 	callq	-102 <TIFFGetField>
+      a2:	8b 95 cc 07 00 00 	movl	1996(%rbp), %edx
+      a8:	8b 85 c8 07 00 00 	movl	1992(%rbp), %eax
+      ae:	0f af c2 	imull	%edx, %eax
+      b1:	48 98 	cltq
+      b3:	48 c1 e0 02 	shlq	$2, %rax
+      b7:	48 89 c1 	movq	%rax, %rcx
+      ba:	e8 77 ff ff ff 	callq	-137 <_TIFFmalloc>
+      bf:	48 98 	cltq
+      c1:	48 89 85 e8 07 00 00 	movq	%rax, 2024(%rbp)
+      c8:	48 83 bd e8 07 00 00 00 	cmpq	$0, 2024(%rbp)
+      d0:	75 24 	jne	36 <tiffcvt+0xb4>
+      d2:	48 8b 8d 00 08 00 00 	movq	2048(%rbp), %rcx
+      d9:	e8 52 ff ff ff 	callq	-174 <TIFFFileName>
+      de:	48 8d 15 00 00 00 00 	leaq	(%rip), %rdx
+      e5:	89 c1 	movl	%eax, %ecx
+      e7:	e8 3e ff ff ff 	callq	-194 <TIFFError>
+      ec:	b8 00 00 00 00 	movl	$0, %eax
+      f1:	e9 d9 03 00 00 	jmp	985 <tiffcvt+0x48d>
+      f6:	8b 95 c8 07 00 00 	movl	1992(%rbp), %edx
+      fc:	8b 85 cc 07 00 00 	movl	1996(%rbp), %eax
+     102:	48 8b 8d e8 07 00 00 	movq	2024(%rbp), %rcx
+     109:	c7 44 24 20 00 00 00 00 	movl	$0, 32(%rsp)
+     111:	49 89 c9 	movq	%rcx, %r9
+     114:	41 89 d0 	movl	%edx, %r8d
+     117:	89 c2 	movl	%eax, %edx
+     119:	48 8b 8d 00 08 00 00 	movq	2048(%rbp), %rcx
+     120:	e8 ff fe ff ff 	callq	-257 <TIFFReadRGBAImage>
+     125:	85 c0 	testl	%eax, %eax
+     127:	75 19 	jne	25 <tiffcvt+0x100>
+     129:	48 8b 85 e8 07 00 00 	movq	2024(%rbp), %rax
+     130:	48 89 c1 	movq	%rax, %rcx
+     133:	e8 e6 fe ff ff 	callq	-282 <_TIFFfree>
+     138:	b8 00 00 00 00 	movl	$0, %eax
+     13d:	e9 8d 03 00 00 	jmp	909 <tiffcvt+0x48d>
+     142:	48 8d 05 00 00 00 00 	leaq	(%rip), %rax
+     149:	8b 00 	movl	(%rax), %eax
+     14b:	8b 95 e4 07 00 00 	movl	2020(%rbp), %edx
+     151:	89 c1 	movl	%eax, %ecx
+     153:	e8 c0 fe ff ff 	callq	-320 <CopyField>
+     158:	8b 8d cc 07 00 00 	movl	1996(%rbp), %ecx
+     15e:	48 8d 05 00 00 00 00 	leaq	(%rip), %rax
+     165:	8b 10 	movl	(%rax), %edx
+     167:	48 8b 85 08 08 00 00 	movq	2056(%rbp), %rax
+     16e:	41 89 c8 	movl	%ecx, %r8d
+     171:	48 89 c1 	movq	%rax, %rcx
+     174:	e8 99 fe ff ff 	callq	-359 <TIFFSetField>
+     179:	8b 8d c8 07 00 00 	movl	1992(%rbp), %ecx
+     17f:	48 8d 05 00 00 00 00 	leaq	(%rip), %rax
+     186:	8b 10 	movl	(%rax), %edx
+     188:	48 8b 85 08 08 00 00 	movq	2056(%rbp), %rax
+     18f:	41 89 c8 	movl	%ecx, %r8d
+     192:	48 89 c1 	movq	%rax, %rcx
+     195:	e8 78 fe ff ff 	callq	-392 <TIFFSetField>
+     19a:	48 8d 05 00 00 00 00 	leaq	(%rip), %rax
+     1a1:	8b 10 	movl	(%rax), %edx
+     1a3:	48 8b 85 08 08 00 00 	movq	2056(%rbp), %rax
+     1aa:	41 b8 08 00 00 00 	movl	$8, %r8d
+     1b0:	48 89 c1 	movq	%rax, %rcx
+     1b3:	e8 5a fe ff ff 	callq	-422 <TIFFSetField>
+     1b8:	48 8d 05 00 00 00 00 	leaq	(%rip), %rax
+     1bf:	8b 08 	movl	(%rax), %ecx
+     1c1:	48 8d 05 00 00 00 00 	leaq	(%rip), %rax
+     1c8:	8b 10 	movl	(%rax), %edx
+     1ca:	48 8b 85 08 08 00 00 	movq	2056(%rbp), %rax
+     1d1:	41 89 c8 	movl	%ecx, %r8d
+     1d4:	48 89 c1 	movq	%rax, %rcx
+     1d7:	e8 36 fe ff ff 	callq	-458 <TIFFSetField>
+     1dc:	48 8d 05 00 00 00 00 	leaq	(%rip), %rax
+     1e3:	8b 08 	movl	(%rax), %ecx
+     1e5:	48 8d 05 00 00 00 00 	leaq	(%rip), %rax
+     1ec:	8b 10 	movl	(%rax), %edx
+     1ee:	48 8b 85 08 08 00 00 	movq	2056(%rbp), %rax
+     1f5:	41 89 c8 	movl	%ecx, %r8d
+     1f8:	48 89 c1 	movq	%rax, %rcx
+     1fb:	e8 12 fe ff ff 	callq	-494 <TIFFSetField>
+     200:	48 8d 05 00 00 00 00 	leaq	(%rip), %rax
+     207:	8b 10 	movl	(%rax), %edx
+     209:	48 8d 05 00 00 00 00 	leaq	(%rip), %rax
+     210:	8b 00 	movl	(%rax), %eax
+     212:	39 c2 	cmpl	%eax, %edx
+     214:	75 24 	jne	36 <tiffcvt+0x1f8>
+     216:	48 8d 05 00 00 00 00 	leaq	(%rip), %rax
+     21d:	8b 08 	movl	(%rax), %ecx
+     21f:	48 8d 05 00 00 00 00 	leaq	(%rip), %rax
+     226:	8b 10 	movl	(%rax), %edx
+     228:	48 8b 85 08 08 00 00 	movq	2056(%rbp), %rax
+     22f:	41 89 c8 	movl	%ecx, %r8d
+     232:	48 89 c1 	movq	%rax, %rcx
+     235:	e8 d8 fd ff ff 	callq	-552 <TIFFSetField>
+     23a:	48 8d 05 00 00 00 00 	leaq	(%rip), %rax
+     241:	8b 00 	movl	(%rax), %eax
+     243:	48 8d 55 b0 	leaq	-80(%rbp), %rdx
+     247:	89 c1 	movl	%eax, %ecx
+     249:	e8 ca fd ff ff 	callq	-566 <CopyField>
+     24e:	48 8d 05 00 00 00 00 	leaq	(%rip), %rax
+     255:	8b 08 	movl	(%rax), %ecx
+     257:	48 8d 05 00 00 00 00 	leaq	(%rip), %rax
+     25e:	8b 10 	movl	(%rax), %edx
+     260:	48 8b 85 08 08 00 00 	movq	2056(%rbp), %rax
+     267:	41 89 c8 	movl	%ecx, %r8d
+     26a:	48 89 c1 	movq	%rax, %rcx
+     26d:	e8 a0 fd ff ff 	callq	-608 <TIFFSetField>
+     272:	48 8d 05 00 00 00 00 	leaq	(%rip), %rax
+     279:	8b 10 	movl	(%rax), %edx
+     27b:	48 8b 85 08 08 00 00 	movq	2056(%rbp), %rax
+     282:	41 b8 03 00 00 00 	movl	$3, %r8d
+     288:	48 89 c1 	movq	%rax, %rcx
+     28b:	e8 82 fd ff ff 	callq	-638 <TIFFSetField>
+     290:	f3 0f 10 85 e0 07 00 00 	movss	2016(%rbp), %xmm0
+     298:	0f 5a c0 	cvtps2pd	%xmm0, %xmm0
+     29b:	66 48 0f 7e c0 	movq	%xmm0, %rax
+     2a0:	48 8d 15 00 00 00 00 	leaq	(%rip), %rdx
+     2a7:	8b 12 	movl	(%rdx), %edx
+     2a9:	66 48 0f 6e c8 	movq	%rax, %xmm1
+     2ae:	89 d1 	movl	%edx, %ecx
+     2b0:	e8 63 fd ff ff 	callq	-669 <CopyField>
+     2b5:	f3 0f 10 95 e0 07 00 00 	movss	2016(%rbp), %xmm2
+     2bd:	0f 5a d2 	cvtps2pd	%xmm2, %xmm2
+     2c0:	66 48 0f 7e d0 	movq	%xmm2, %rax
+     2c5:	48 8d 15 00 00 00 00 	leaq	(%rip), %rdx
+     2cc:	8b 12 	movl	(%rdx), %edx
+     2ce:	66 48 0f 6e c8 	movq	%rax, %xmm1
+     2d3:	89 d1 	movl	%edx, %ecx
+     2d5:	e8 3e fd ff ff 	callq	-706 <CopyField>
+     2da:	48 8d 05 00 00 00 00 	leaq	(%rip), %rax
+     2e1:	8b 00 	movl	(%rax), %eax
+     2e3:	48 8d 55 b0 	leaq	-80(%rbp), %rdx
+     2e7:	89 c1 	movl	%eax, %ecx
+     2e9:	e8 2a fd ff ff 	callq	-726 <CopyField>
+     2ee:	48 8d 05 00 00 00 00 	leaq	(%rip), %rax
+     2f5:	8b 08 	movl	(%rax), %ecx
+     2f7:	48 8d 05 00 00 00 00 	leaq	(%rip), %rax
+     2fe:	8b 10 	movl	(%rax), %edx
+     300:	48 8b 85 08 08 00 00 	movq	2056(%rbp), %rax
+     307:	41 89 c8 	movl	%ecx, %r8d
+     30a:	48 89 c1 	movq	%rax, %rcx
+     30d:	e8 00 fd ff ff 	callq	-768 <TIFFSetField>
+     312:	48 8b 8d 00 08 00 00 	movq	2048(%rbp), %rcx
+     319:	e8 12 fd ff ff 	callq	-750 <TIFFFileName>
+     31e:	48 98 	cltq
+     320:	ba 2f 00 00 00 	movl	$47, %edx
+     325:	48 89 c1 	movq	%rax, %rcx
+     328:	e8 00 00 00 00 	callq	0 <tiffcvt+0x2eb>
+     32d:	48 89 85 d8 07 00 00 	movq	%rax, 2008(%rbp)
+     334:	48 83 bd d8 07 00 00 00 	cmpq	$0, 2008(%rbp)
+     33c:	74 0d 	je	13 <tiffcvt+0x309>
+     33e:	48 8b 85 d8 07 00 00 	movq	2008(%rbp), %rax
+     345:	48 83 c0 01 	addq	$1, %rax
+     349:	eb 0e 	jmp	14 <tiffcvt+0x317>
+     34b:	48 8b 8d 00 08 00 00 	movq	2048(%rbp), %rcx
+     352:	e8 d9 fc ff ff 	callq	-807 <TIFFFileName>
+     357:	48 98 	cltq
+     359:	48 8d 4d c0 	leaq	-64(%rbp), %rcx
+     35d:	49 89 c0 	movq	%rax, %r8
+     360:	48 8d 15 1b 00 00 00 	leaq	27(%rip), %rdx
+     367:	e8 00 00 00 00 	callq	0 <tiffcvt+0x32a>
+     36c:	48 8d 05 00 00 00 00 	leaq	(%rip), %rax
+     373:	8b 10 	movl	(%rax), %edx
+     375:	48 8d 4d c0 	leaq	-64(%rbp), %rcx
+     379:	48 8b 85 08 08 00 00 	movq	2056(%rbp), %rax
+     380:	49 89 c8 	movq	%rcx, %r8
+     383:	48 89 c1 	movq	%rax, %rcx
+     386:	e8 87 fc ff ff 	callq	-889 <TIFFSetField>
+     38b:	e8 7c fc ff ff 	callq	-900 <TIFFGetVersion>
+     390:	89 c1 	movl	%eax, %ecx
+     392:	48 8d 05 00 00 00 00 	leaq	(%rip), %rax
+     399:	8b 10 	movl	(%rax), %edx
+     39b:	48 8b 85 08 08 00 00 	movq	2056(%rbp), %rax
+     3a2:	41 89 c8 	movl	%ecx, %r8d
+     3a5:	48 89 c1 	movq	%rax, %rcx
+     3a8:	e8 65 fc ff ff 	callq	-923 <TIFFSetField>
+     3ad:	48 8d 05 00 00 00 00 	leaq	(%rip), %rax
+     3b4:	8b 00 	movl	(%rax), %eax
+     3b6:	48 8b 95 d0 07 00 00 	movq	2000(%rbp), %rdx
+     3bd:	89 c1 	movl	%eax, %ecx
+     3bf:	e8 54 fc ff ff 	callq	-940 <CopyField>
+     3c4:	48 8d 05 00 00 00 00 	leaq	(%rip), %rax
+     3cb:	8b 08 	movl	(%rax), %ecx
+     3cd:	48 8d 05 00 00 00 00 	leaq	(%rip), %rax
+     3d4:	8b 10 	movl	(%rax), %edx
+     3d6:	48 8b 85 08 08 00 00 	movq	2056(%rbp), %rax
+     3dd:	41 89 c8 	movl	%ecx, %r8d
+     3e0:	48 89 c1 	movq	%rax, %rcx
+     3e3:	e8 2a fc ff ff 	callq	-982 <TIFFSetField>
+     3e8:	48 8d 05 00 00 00 00 	leaq	(%rip), %rax
+     3ef:	44 8b 00 	movl	(%rax), %r8d
+     3f2:	48 8d 05 00 00 00 00 	leaq	(%rip), %rax
+     3f9:	8b 08 	movl	(%rax), %ecx
+     3fb:	48 8d 05 00 00 00 00 	leaq	(%rip), %rax
+     402:	8b 10 	movl	(%rax), %edx
+     404:	48 8b 85 08 08 00 00 	movq	2056(%rbp), %rax
+     40b:	45 89 c1 	movl	%r8d, %r9d
+     40e:	41 89 c8 	movl	%ecx, %r8d
+     411:	48 89 c1 	movq	%rax, %rcx
+     414:	e8 f9 fb ff ff 	callq	-1031 <TIFFSetField>
+     419:	48 8d 05 00 00 00 00 	leaq	(%rip), %rax
+     420:	8b 08 	movl	(%rax), %ecx
+     422:	48 8d 05 00 00 00 00 	leaq	(%rip), %rax
+     429:	8b 10 	movl	(%rax), %edx
+     42b:	48 8b 85 08 08 00 00 	movq	2056(%rbp), %rax
+     432:	41 89 c8 	movl	%ecx, %r8d
+     435:	48 89 c1 	movq	%rax, %rcx
+     438:	e8 d5 fb ff ff 	callq	-1067 <TIFFSetField>
+     43d:	48 8d 05 00 00 00 00 	leaq	(%rip), %rax
+     444:	8b 08 	movl	(%rax), %ecx
+     446:	48 8d 05 00 00 00 00 	leaq	(%rip), %rax
+     44d:	8b 10 	movl	(%rax), %edx
+     44f:	48 8b 85 08 08 00 00 	movq	2056(%rbp), %rax
+     456:	41 89 c8 	movl	%ecx, %r8d
+     459:	48 89 c1 	movq	%rax, %rcx
+     45c:	e8 b1 fb ff ff 	callq	-1103 <TIFFSetField>
+     461:	48 8d 05 00 00 00 00 	leaq	(%rip), %rax
+     468:	8b 10 	movl	(%rax), %edx
+     46a:	48 8b 85 08 08 00 00 	movq	2056(%rbp), %rax
+     471:	48 89 c1 	movq	%rax, %rcx
+     474:	e8 8d fb ff ff 	callq	-1139 <TIFFDefaultStripSize>
+     479:	48 8d 15 00 00 00 00 	leaq	(%rip), %rdx
+     480:	89 02 	movl	%eax, (%rdx)
+     482:	48 8d 05 00 00 00 00 	leaq	(%rip), %rax
+     489:	8b 08 	movl	(%rax), %ecx
+     48b:	48 8d 05 00 00 00 00 	leaq	(%rip), %rax
+     492:	8b 10 	movl	(%rax), %edx
+     494:	48 8b 85 08 08 00 00 	movq	2056(%rbp), %rax
+     49b:	41 89 c8 	movl	%ecx, %r8d
+     49e:	48 89 c1 	movq	%rax, %rcx
+     4a1:	e8 6c fb ff ff 	callq	-1172 <TIFFSetField>
+     4a6:	44 8b 85 c8 07 00 00 	movl	1992(%rbp), %r8d
+     4ad:	8b 8d cc 07 00 00 	movl	1996(%rbp), %ecx
+     4b3:	48 8b 95 e8 07 00 00 	movq	2024(%rbp), %rdx
+     4ba:	48 8b 85 08 08 00 00 	movq	2056(%rbp), %rax
+     4c1:	45 89 c1 	movl	%r8d, %r9d
+     4c4:	41 89 c8 	movl	%ecx, %r8d
+     4c7:	48 89 c1 	movq	%rax, %rcx
+     4ca:	e8 31 fb ff ff 	callq	-1231 <cvtRaster>
+     4cf:	48 81 c4 70 08 00 00 	addq	$2160, %rsp
+     4d6:	5d 	popq	%rbp
+     4d7:	c3 	retq
+
+main:
+     4d8:	55 	pushq	%rbp
+     4d9:	48 89 e5 	movq	%rsp, %rbp
+     4dc:	48 83 ec 20 	subq	$32, %rsp
+     4e0:	e8 00 00 00 00 	callq	0 <main+0xd>
+     4e5:	b8 00 00 00 00 	movl	$0, %eax
+     4ea:	48 83 c4 20 	addq	$32, %rsp
+     4ee:	5d 	popq	%rbp
+     4ef:	c3 	retq

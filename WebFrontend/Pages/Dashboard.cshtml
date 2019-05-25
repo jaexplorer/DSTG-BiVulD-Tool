@@ -4,27 +4,11 @@
 	Layout = "Shared/_MainUI";
 	ViewData["Title"] = "Dashboard";
 }
-@if (Model.FileUpload != true)
+@if (Model.Display == false)
 {
-	<div class="no-upload-error">
-		<p>No file uploaded! Click <a href="/Index">here</a> to upload a file</p>
-	</div>
+	<h3>No File has been uploaded yet!</h3>
 }
-else if (Model.Display != true)
-{
-	<h1>File Uploaded Successfully</h1>
-	<div class="settings-container">
-		<div class="settings-option-center">
-			<div class="setting-content-center">
-				<form method="post">
-					<input style="display:none" hidden class="choose-upload" name="scan" value="scan" />
-					<input class="upload-button" asp-page-handler="Scan" type="submit" value="Scan" />
-				</form>
-			</div>
-		</div>
-	</div>
-}
-else
+else if (Model.Display == true)
 {
 	<div id="lineChart-container">
 		<div id="lineChart">
