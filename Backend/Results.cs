@@ -23,24 +23,6 @@ namespace Backend
 		{
 			Type = type;
 
-			ReadProbs(directory);
-			ReadHexCode(directory);
-		}
-
-		[DataMember]
-		public SourceType Type { get; set; }
-
-		[DataMember]
-		public int TimeTaken { get; private set; }
-
-		[DataMember]
-		public int NumFunctions { get; private set; }
-
-		[DataMember]
-		public List<Function> Functions { get; set; } = new List<Function>();
-
-		void ReadProbs(string directory)
-		{
 			NumFunctions = 0;
 			var probs = new StreamReader(directory + FileNames.ProbName);
 
@@ -67,22 +49,40 @@ namespace Backend
 					NumFunctions += 1;
 				}
 			}
-		}
 
-		void ReadHexCode(string directory)
-		{
-			StreamReader functions = new StreamReader(directory + FileNames.FuncName);
-
-			using (functions)
+			using (var hex = new StreamReader(directory + FileNames.HexName))
 			{
-				for (int i = 0; !functions.EndOfStream; ++i)
+				for (int i = 0; !hex.EndOfStream; ++i)
 				{
-					foreach (string value in functions.ReadLine().Split(","))
+					foreach (string value in hex.ReadLine().Split(","))
 					{
 						Functions[i].HexCode.Add(value);
 					}
 				}
 			}
+
+			using (var asm = new StreamReader(directory + FileNames.AsmName))
+			{
+				for (int i = 0; !asm.EndOfStream; ++i)
+				{
+					foreach (string value in asm.ReadLine().Split(","))
+					{
+						Functions[i].AsmCode.Add(value);
+					}
+				}
+			}
 		}
+
+		[DataMember]
+		public SourceType Type { get; set; }
+
+		[DataMember]
+		public int TimeTaken { get; private set; }
+
+		[DataMember]
+		public int NumFunctions { get; private set; }
+
+		[DataMember]
+		public List<Function> Functions { get; set; } = new List<Function>();
 	}
 }

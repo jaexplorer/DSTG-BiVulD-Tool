@@ -14,13 +14,14 @@ namespace Backend
 		public const string ModelPath = "../BiVulD/model.h5";
 
 		public const string ObjdumpPath = "objdump";
-		public const string PythonPath = "/usr/bin/python3";
+		public const string PythonPath = "/usr/local/bin/python3";
 
 		public const string CreateCSVPath = "create_csv.py";
 		public const string CreateTestFilesPath = "create_test_files.py";
 		public const string GetProbabilitiesPath = "get_probabilities.py";
 
-		public const string FuncName = "binary_good.csv";
+		public const string HexName = "binary_good.csv";
+		public const string AsmName = "asm_good.csv";
 		public const string ProbName = "prob_assembly.csv";
 	}
 

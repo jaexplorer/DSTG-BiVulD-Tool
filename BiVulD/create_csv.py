@@ -2,7 +2,8 @@ import csv
 import sys
 
 objdump = open(sys.argv[1] + sys.argv[2], "r")
-functions = []
+hex = []
+asm = []
 
 for line in objdump:
 	# Skip blank lines
@@ -10,22 +11,33 @@ for line in objdump:
 		# If the line ends with a colon, it marks the beginning of a section
 		if line[-2] == ':':
 			# If the previous function has nothing in it, delete it
-			if len(functions) > 0 and len(functions[-1]) == 0:
-				functions.pop()
+			if len(hex) > 0 and len(hex[-1]) == 0:
+				hex.pop()
+				asm.pop()
 
-			functions.append([])
+			hex.append([])
+			asm.append([])
 		else:
 			# Make sure we're inside a function
-			if len(functions) > 0:
+			if len(hex) > 0:
 				# Extract the assembly from the line
-				functions[-1].append(line.split("\t")[1][:-1])
+				hex[-1].append(line.split("\t")[1][:-1])
+				asm[-1].append(" ".join(line.split("\t")[2:])[:-1])
 
 objdump.close()
 
-output = open(sys.argv[1] + "binary_good.csv", "w")
-csvWriter = csv.writer(output)
+hexFile = open(sys.argv[1] + "binary_good.csv", "w")
+hexWriter = csv.writer(hexFile)
 
-for function in functions:
-	csvWriter.writerow(function)
+for function in hex:
+	hexWriter.writerow(function)
 
-output.close()
+hexFile.close()
+
+asmFile = open(sys.argv[1] + "asm_good.csv", "w")
+asmWriter = csv.writer(asmFile)
+
+for function in asm:
+	asmWriter.writerow(function)
+
+asmFile.close()

@@ -6,5 +6,6 @@ namespace Backend
 	{
 		public double Prob { get; set; } = 0;
 		public List<string> HexCode { get; set; } = new List<string>();
+		public List<string> AsmCode { get; set; } = new List<string>();
 	}
 }
