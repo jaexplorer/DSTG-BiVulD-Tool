@@ -1,4 +1,4 @@
-﻿@model WebFrontend.Models.FileScanner
+@model WebFrontend.Models.FileScanner
 <!DOCTYPE html>
 <html>
 	<head>
@@ -9,84 +9,84 @@
 		<link href="~/css/main.css" rel="stylesheet" runat="server" type="text/css" />
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.css" />
 	</head>
-    <body>
-        <!-- Profile Status
-    ------------------------------------------------------------------- -->
-        <header class="p-header-container">
-            <!-- TODO: Add @ViewData Profile Pic-->
-            <div class="p-header-pic">
-                <img src="~/images/pic.jpg">
-            </div>
-            <!-- TODO: Add @ViewData Profile Name -->
-            <h4 class="p-header-name">John Smith</h4>
-        </header>
-        <!-- Main Menu
-    ------------------------------------------------------------------- -->
-        <div class="left-main-container">
-            <div class="left-nav-container">
-                <div class="left-nav-scan">
-                    @if (Model.FileUpload != true)
-                    {
-                    <form method="post" enctype="multipart/form-data" asp-page-handler="Upload">
-                        <!-- Choose File button -->
-                        <input style="display: none" id="file-upload" class="inputfile" asp-for="UploadFile" type="file" value="Upload" onchange="this.form.submit()"/>
-                        <label id="chooseFile-button" for="file-upload"><h5>Choose a file</h5></label>
-                    </form>
-                    } else if (Model.FileUpload == true)
-                    {
-                    <form method="post" enctype="multipart/form-data" id="scanBtn">
-                        <!-- Upload -->
-                        <input style="display: none" asp-page-handler="Scan" id="file-scan" type="submit" value="Scan">
-                        <label id="scanFile-button" for="file-scan"><h5>Scan</h5></label>
-                    </form>
-                    }
-                </div>
-                <div class="left-nav-list-container">
-                    <ul class="left-nav-list">
-                        <li id="Dashboard" class="page-item">
-                            <a href="/Dashboard"><img src="~/images/dashboard.svg" class="page-item-icon svg"><span>Dashboard</span></a>
-                        </li>
-                        <li id="Profile" class="page-item">
-                            <a href="/Profile"><img src="~/images/profile.svg" class="page-item-icon svg"><span>Profile</span></a>
-                        </li>
-                        <li id="Reports" class="page-item">
-                            <a href="/Reports"><img src="~/images/database.svg" class="page-item-icon svg"><span>Reports</span></a>
-                        </li>
-                        <li id="Login" class="page-item">
-                            <a href="/Login"><img src="~/images/database.svg" class="page-item-icon svg"><span>Login</span></a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <!-- Main View
-    ------------------------------------------------------------------- -->
-        <div id="preloader-container" style="display: none;">
-            <div id="preloader"></div>
-        </div>
-        <div class="right-main-container">
-            <div class="right-view-container">
-                @RenderBody()
-            </div>
-        </div>
-        <div id="noise"></div>
-        <script src="https://code.jquery.com/jquery-3.4.0.js"
-                integrity="sha256-DYZMCC8HTC+QDr5QNaIcfR7VSPtcISykd+6eSmBW5qo="
-                crossorigin="anonymous">
-        </script>
-        <script src="~/js/Noise/jquery/jquery.noisy.min.js"></script>
-        <script src="~/js/main.js"></script>
-        <script src="~/js/svg-img.js"></script>
+	<body>
+		<!-- Profile Status
+	------------------------------------------------------------------- -->
+		<header class="p-header-container">
+			<!-- TODO: Add @ViewData Profile Pic-->
+			<div class="p-header-pic">
+				<img src="~/images/pic.jpg">
+			</div>
+			<!-- TODO: Add @ViewData Profile Name -->
+			<h4 class="p-header-name">John Smith</h4>
+		</header>
+		<!-- Main Menu
+	------------------------------------------------------------------- -->
+		<div class="left-main-container">
+			<div class="left-nav-container">
+				<div class="left-nav-scan">
+					@if (Model.FileUpload != true)
+					{
+					<form method="post" enctype="multipart/form-data" asp-page-handler="Upload">
+						<!-- Choose File button -->
+						<input style="display: none" id="file-upload" class="inputfile" asp-for="UploadFile" type="file" value="Upload" onchange="this.form.submit()"/>
+						<label id="chooseFile-button" for="file-upload"><h5>Choose a file</h5></label>
+					</form>
+					} else if (Model.FileUpload == true)
+					{
+					<form method="post" enctype="multipart/form-data" id="scanBtn">
+						<!-- Upload -->
+						<input style="display: none" asp-page-handler="Scan" id="file-scan" type="submit" value="Scan">
+						<label id="scanFile-button" for="file-scan"><h5>Scan</h5></label>
+					</form>
+					}
+				</div>
+				<div class="left-nav-list-container">
+					<ul class="left-nav-list">
+						<li id="Dashboard" class="page-item">
+							<a href="/Dashboard"><img src="~/images/dashboard.svg" class="page-item-icon svg"><span>Dashboard</span></a>
+						</li>
+						<li id="Profile" class="page-item">
+							<a href="/Profile"><img src="~/images/profile.svg" class="page-item-icon svg"><span>Profile</span></a>
+						</li>
+						<li id="Reports" class="page-item">
+							<a href="/Reports"><img src="~/images/database.svg" class="page-item-icon svg"><span>Reports</span></a>
+						</li>
+						<li id="Login" class="page-item">
+							<a href="/Login"><img src="~/images/database.svg" class="page-item-icon svg"><span>Login</span></a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<!-- Main View
+	------------------------------------------------------------------- -->
+		<div id="preloader-container" style="display: none;">
+			<div id="preloader"></div>
+		</div>
+		<div class="right-main-container">
+			<div class="right-view-container">
+				@RenderBody()
+			</div>
+		</div>
+		<div id="noise"></div>
+		<script src="https://code.jquery.com/jquery-3.4.0.js"
+				integrity="sha256-DYZMCC8HTC+QDr5QNaIcfR7VSPtcISykd+6eSmBW5qo="
+				crossorigin="anonymous">
+		</script>
+		<script src="~/js/Noise/jquery/jquery.noisy.min.js"></script>
+		<script src="~/js/main.js"></script>
+		<script src="~/js/svg-img.js"></script>
 
 		<script type="text/javascript">
-            if(document.querySelector("#scanBtn") != null) {
-            document.querySelector("#scanBtn").addEventListener("submit", function(e){
-                document.querySelector("#preloader-container").style.display = "block";
-            });
-            }
+			if(document.querySelector("#scanBtn") != null) {
+			document.querySelector("#scanBtn").addEventListener("submit", function(e){
+				document.querySelector("#preloader-container").style.display = "block";
+			});
+			}
 
 
 		</script>
-        @RenderSection("Scripts", required: false)
-    </body>
+		@RenderSection("Scripts", required: false)
+	</body>
 </html>
