@@ -44,7 +44,7 @@ else if (Model.Display == true)
 		// foreach result in the results array
 		var chart = document.getElementById('lineChart');
 		var marginSize = 3;
-		for(var i = 0; i < @Model.Results.NumFunctions; i++)
+		for(var i = 0; i < @Model.Results.Functions.Count; i++)
 		{
 			// draw an empty bar and then overlay a bar with height equivent to its prob
 			chart.appendChild(drawLine(i, (@Model.Probabilities)[i]));
@@ -70,7 +70,7 @@ else if (Model.Display == true)
 		chartContainer.appendChild(createDiv("FP-Heading", "highest probability"));
 		chartContainer.appendChild(createDiv("overall-FP-Value", @Model.HighProb.ToString("n2") + "%"));
 		chartContainer.appendChild(createDiv("totalFunctionsHeading", "total functions"));
-		chartContainer.appendChild(createDiv("totalFunctionsValue", @Model.Results.NumFunctions));
+		chartContainer.appendChild(createDiv("totalFunctionsValue", @Model.Results.Functions.Count));
 		chartContainer.appendChild(createDiv("totalIssuesHeading", "total issues"));
 		chartContainer.appendChild(createDiv("totalIssuesValue", @Model.TotalIssues));
 		chartContainer.appendChild(createDiv("timeTakenHeading", "time taken"));
@@ -81,7 +81,7 @@ else if (Model.Display == true)
 		var hexInfo = [];
 		var asmInfo = [];
 
-		@for(int i = 0; i < Model.Results.NumFunctions; i++)
+		@for(int i = 0; i < Model.Results.Functions.Count; i++)
 		{
 			foreach (var line in Model.Results.Functions[i].HexCode)
 			{
@@ -101,7 +101,7 @@ else if (Model.Display == true)
 		var hexCodeByFunction = "@Model.HighlightedFunctionHexCode".split("-");
 		var asmCodeByFunction = "@Model.HighlightedFunctionAsmCode".split("-");
 
-		for(var i = 0; i < @Model.Results.NumFunctions; i++)
+		for(var i = 0; i < @Model.Results.Functions.Count; i++)
 		{
 			hexInfo[i] = hexCodeByFunction[i].split(",");
 			asmInfo[i] = asmCodeByFunction[i].split(",");

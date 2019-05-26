@@ -96,15 +96,6 @@ namespace Backend
 		public int TimeTaken { get; private set; }
 
 		[DataMember]
-		public int NumFunctions
-		{
-			get
-			{
-				return Functions.Count;
-			}
-		}
-
-		[DataMember]
 		public List<Function> Functions { get; set; } = new List<Function>();
 	}
 }

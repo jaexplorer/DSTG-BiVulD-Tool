@@ -50,7 +50,7 @@ namespace WebFrontend
 			HighProb *= 100;
 			Probabilities += "]";
 
-			for (int i = 1; i <= Results.NumFunctions; ++i)
+			for (int i = 1; i <= Results.Functions.Count; ++i)
 			{
 				FunctionAxis += i.ToString();
 				FunctionAxis += ",";
