@@ -206,6 +206,84 @@ body {
     height: calc(100%);
   }
 }
+// Reports
+// ------------------------------------------------------------------- //
+
+#reports-container {
+  position: relative;
+  top: 8.3rem;
+  display: grid;
+  grid-template-columns: repeat(3, auto);
+  grid-gap: 3rem;  
+  width: 100%;
+
+  .report-Element {
+    width: 100%;
+    border-radius: 50px;
+    border: 2px solid var(--greyText);
+    overflow: hidden;
+
+    .report-preview {
+      height: 10rem;
+      background: var(--primaryAccent);
+      border-bottom: 2px solid var(--greyText);
+      margin-bottom: 2rem;
+      display: grid;
+
+      h5 {
+        justify-self: center;
+        align-self: center;
+        text-transform: uppercase;
+        line-height: 0;
+        font-weight: 700;
+        font-size: 16pt;
+      }
+    }
+    .report-view {
+      height: 5rem;
+      width: 50%;
+      float: left;
+      display: grid;
+
+      button {
+        height: 3rem;
+        border-radius: 50px;
+        width: 70%;
+        justify-self: center;
+        background-color: #4bbdd9;
+        border: none;
+        color: white;
+        text-transform: uppercase;
+        line-height: 0;
+        font-weight: 700;
+        font-size: 12pt;
+      }
+    }
+    .report-download {
+      height: 5rem;
+      width: 50%;
+      float: left;
+      display: grid;
+
+      button {
+        height: 3rem;
+        border-radius: 50px;
+        width: 70%;
+        justify-self: center;
+        background-color: #4bbdd9;
+        border: none;
+        color: white;
+        text-transform: uppercase;
+        line-height: 0;
+        font-weight: 700;
+        font-size: 12pt;
+      }
+    }
+  }
+}
+
+
+
 // Profile
 // ------------------------------------------------------------------- //
 
@@ -721,6 +799,7 @@ body {
   position: absolute;
   padding: 3.5rem;
   z-index: 50;
+  pointer-events: none;
 
   #preloader {
     position: absolute;

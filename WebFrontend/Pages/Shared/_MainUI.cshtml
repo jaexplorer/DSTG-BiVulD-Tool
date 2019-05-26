@@ -34,7 +34,7 @@
                     </form>
                     } else if (Model.FileUpload == true)
                     {
-                    <form method="post" enctype="multipart/form-data" id="testing">
+                    <form method="post" enctype="multipart/form-data" id="scanBtn">
                         <!-- Upload -->
                         <input style="display: none" asp-page-handler="Scan" id="file-scan" type="submit" value="Scan">
                         <label id="scanFile-button" for="file-scan"><h5>Scan</h5></label>
@@ -79,10 +79,11 @@
         <script src="~/js/svg-img.js"></script>
 
 		<script type="text/javascript">
-
-            document.querySelector("#testing").addEventListener("submit", function(e){
+            if(document.querySelector("#scanBtn") != null) {
+            document.querySelector("#scanBtn").addEventListener("submit", function(e){
                 document.querySelector("#preloader-container").style.opacity = "1";
             });
+            }
 
 
 		</script>
