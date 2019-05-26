@@ -15,6 +15,7 @@ namespace Backend
 
 		public const string ObjdumpPath = "objdump";
 		public const string PythonPath = "/usr/bin/python3";
+		// Andrew's Python
 		// public const string PythonPath = "/Users/AndrewSabato/anaconda3/bin/python";
 
 		public const string CreateCSVPath = "create_csv.py";
