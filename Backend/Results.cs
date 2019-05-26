@@ -23,10 +23,7 @@ namespace Backend
 		{
 			Type = type;
 
-			NumFunctions = 0;
-			var probs = new StreamReader(directory + FileNames.ProbName);
-
-			using (probs)
+			using (var probs = new StreamReader(directory + FileNames.ProbName))
 			{
 				try
 				{
@@ -45,8 +42,6 @@ namespace Backend
 					};
 
 					Functions.Add(function);
-
-					NumFunctions += 1;
 				}
 			}
 
@@ -101,7 +96,13 @@ namespace Backend
 		public int TimeTaken { get; private set; }
 
 		[DataMember]
-		public int NumFunctions { get; private set; }
+		public int NumFunctions
+		{
+			get
+			{
+				return Functions.Count;
+			}
+		}
 
 		[DataMember]
 		public List<Function> Functions { get; set; } = new List<Function>();
