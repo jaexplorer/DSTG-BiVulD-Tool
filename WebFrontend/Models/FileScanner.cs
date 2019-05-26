@@ -20,22 +20,12 @@ namespace WebFrontend.Models
 		{
 			fileManager = new FileManager();
 
-			// if (UploadFile.Length == 0)
-			// {
-			// 	ModelState.AddModelError(UploadFile.Name, "The uploaded file must be valid");
-			// }
-
-			// if (UploadFile.ContentType != "application/octet-stream" && UploadFile.ContentType != "text/plain")
-			// {
-			// 	ModelState.AddModelError(UploadFile.Name, "The uploaded file must be a binary file or source code");
-			// }
-
 			using (var fileStream = fileManager.GetFileStream())
 			{
 				await UploadFile.CopyToAsync(fileStream);
 			}
 
-            FileUpload = (fileManager.IdentifyFile()) ? true : false;
+			FileUpload = fileManager.IdentifyFile();
 
 			return Page();
 		}
