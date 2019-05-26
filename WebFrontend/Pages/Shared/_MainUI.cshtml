@@ -61,7 +61,7 @@
         </div>
         <!-- Main View
     ------------------------------------------------------------------- -->
-        <div id="preloader-container" style="opacity: 0;">
+        <div id="preloader-container" style="display: none;">
             <div id="preloader"></div>
         </div>
         <div class="right-main-container">
@@ -81,7 +81,7 @@
 		<script type="text/javascript">
             if(document.querySelector("#scanBtn") != null) {
             document.querySelector("#scanBtn").addEventListener("submit", function(e){
-                document.querySelector("#preloader-container").style.opacity = "1";
+                document.querySelector("#preloader-container").style.display = "block";
             });
             }
 

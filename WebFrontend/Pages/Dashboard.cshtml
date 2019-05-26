@@ -74,26 +74,42 @@ else if (Model.Display == true)
 		chartContainer.appendChild(createDiv("totalIssuesHeading", "total issues"));
 		chartContainer.appendChild(createDiv("totalIssuesValue", @Model.TotalIssues));
 		chartContainer.appendChild(createDiv("timeTakenHeading", "time taken"));
-		chartContainer.appendChild(createDiv("timeTaken", "@Model.FormatTime(Model.Results.TimeTaken)"));
+		chartContainer.appendChild(createDiv("timeTaken", "@Model.FormatTime(Model.Results.TimeTaken)"));		
 	}
 
-		function grabFunctionInfo() {
+	function grabFunctionInfo() {
 		var hexInfo = [];
+		var asmInfo = [];
+
 		@for(int i = 0; i < Model.Results.NumFunctions; i++)
 		{
 			foreach (var line in Model.Results.Functions[i].HexCode)
 			{
-				Model.HighlightedFunctionCode += line;
-				Model.HighlightedFunctionCode += ",";
+				Model.HighlightedFunctionHexCode += line;
+				Model.HighlightedFunctionHexCode += ",";
 			}
-			Model.HighlightedFunctionCode += "-";
+			Model.HighlightedFunctionHexCode += "-";
+
+			foreach (var line in Model.Results.Functions[i].AsmCode)
+			{
+				Model.HighlightedFunctionAsmCode += line;
+				Model.HighlightedFunctionAsmCode += ",";
+			}
+			Model.HighlightedFunctionAsmCode += "-";
 		}
-		var codeByFunction = "@Model.HighlightedFunctionCode".split("-");
+
+		var hexCodeByFunction = "@Model.HighlightedFunctionHexCode".split("-");
+		var asmCodeByFunction = "@Model.HighlightedFunctionAsmCode".split("-");
+
 		for(var i = 0; i < @Model.Results.NumFunctions; i++)
 		{
-			hexInfo[i] = codeByFunction[i].split(",");
+			hexInfo[i] = hexCodeByFunction[i].split(",");
+			asmInfo[i] = asmCodeByFunction[i].split(",");
 		}
-		return hexInfo;
+		var temp = [];
+		temp["hex"] = hexInfo;
+		temp["asm"] = asmInfo;
+		return temp;
 	}
 	
 	function lineClicked(e) {
@@ -119,8 +135,15 @@ else if (Model.Display == true)
 		var binaryBreakDown = document.getElementById('binaryBreakDown');
 		binaryBreakDown.innerHTML = "";
 
-		for(var i = 0; i < functionsInfo[id].length; i++) {
-			binaryBreakDown.innerHTML += i+". "+ functionsInfo[id][i]+"<br />";
+		for(var i = 0; i < functionsInfo.hex[id].length; i++) {
+			binaryBreakDown.innerHTML += i+". "+ functionsInfo.hex[id][i]+"<br />";
+		}
+
+		var asmBreakDown = document.getElementById('assemblyBreakDown');
+		assemblyBreakDown.innerHTML = "";
+
+		for(var i = 0; i < functionsInfo.asm[id].length; i++) {
+			assemblyBreakDown.innerHTML += i+". "+ functionsInfo.asm[id][i]+"<br />";
 		}
 
 		var recommendationBreakDown = document.getElementById('recommendationBreakDown');
