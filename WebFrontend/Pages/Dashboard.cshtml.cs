@@ -13,7 +13,10 @@ namespace WebFrontend
 		public float HighProb { get; set; }
 
 		[BindProperty]
-		public string HighlightedFunctionCode { get; set; }
+		public string HighlightedFunctionHexCode { get; set; }
+		
+		[BindProperty]
+		public string HighlightedFunctionAsmCode { get; set; }
 
 		public void OnGet()
 		{
