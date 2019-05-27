@@ -1,62 +1,65 @@
-using Backend;
-using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Data.SQLite;
+using Backend;
+using Microsoft.AspNetCore.Mvc;
 
 namespace WebFrontend
 {
 	public class DashboardModel : Models.FileScanner
 	{
-        private DatabaseManager databaseManager { get; set; }
-        public string ErrorMessage { get; set; }
-        public bool Display { get; set; } = false;
+		private DatabaseManager DatabaseManager { get; set; }
+		public string ErrorMessage { get; set; }
+		public bool Display { get; set; } = false;
 		public string Probabilities { get; set; } = "[";
 		public Results Results { get; set; }
 		public string FunctionAxis { get; set; } = "[";
 		public int TotalIssues { get; set; } = 0;
 		public float HighProb { get; set; }
-        public User User { get; set; }
-        [BindProperty]
+		public new User User { get; set; }
+
+		[BindProperty]
 		public string HighlightedFunctionHexCode { get; set; }
-		
+
 		[BindProperty]
 		public string HighlightedFunctionAsmCode { get; set; }
 
 		public IActionResult OnGet()
 		{
-            User = getUserFromCookie();
-            if (User == null)
-            {
-                return RedirectToPage("/Login");
-            }
-            else
-            {
-                Display = HttpContext.Request.Query["Upload"] == "Success";
-                if (Display)
-                {
-                    PrintResults();
-                }
-                return null;
-            }
-            
+			User = getUserFromCookie();
+
+			if (User == null)
+			{
+				return RedirectToPage("/Login");
+			}
+
+			Display = HttpContext.Request.Query["Upload"] == "Success";
+
+			if (Display)
+			{
+				PrintResults();
+			}
+
+			return null;
 		}
 
 		public void PrintResults()
 		{
 			Results = fileManager.AnalyseFile();
-            databaseManager = new DatabaseManager();
-            SQLiteConnection db = databaseManager.ConnectToDatabase();
-            try
-            {
-                databaseManager.SaveResults(User.UserID, Results, db);
-            }
-            catch(Exception e)
-            {
-                ErrorMessage = "Result could not be saved";
-            }
-            HighProb = 0;
+			DatabaseManager = new DatabaseManager();
+			SQLiteConnection db = DatabaseManager.ConnectToDatabase();
 
-			foreach (Backend.Function function in Results.Functions)
+			try
+			{
+				DatabaseManager.SaveResults(User.UserID, Results, db);
+			}
+			catch (Exception)
+			{
+				ErrorMessage = "Result could not be saved";
+			}
+
+			HighProb = 0;
+
+			foreach (Function function in Results.Functions)
 			{
 				if (function.Prob > HighProb)
 				{
