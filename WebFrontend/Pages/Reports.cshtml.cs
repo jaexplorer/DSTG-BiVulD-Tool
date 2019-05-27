@@ -12,7 +12,7 @@ namespace WebFrontend
 
 		public IActionResult OnGet()
 		{
-			User = getUserFromCookie();
+			User = GetUserFromCookie();
 
 			if (User == null)
 			{

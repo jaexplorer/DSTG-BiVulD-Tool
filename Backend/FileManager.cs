@@ -108,6 +108,11 @@ namespace Backend
 			return new Results(FileNames.BiVulDDir + TempPath, SourceType.Binary);
 		}
 
+		public void Cleanup()
+		{
+			Directory.Delete(FileNames.BiVulDDir + TempPath, true);
+		}
+
 		static string Execute(string fileName, string arguments)
 		{
 			ProcessStartInfo psi = new ProcessStartInfo

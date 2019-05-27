@@ -7,7 +7,6 @@ namespace WebFrontend
 {
 	public class DashboardModel : Models.FileScanner
 	{
-		private DatabaseManager DatabaseManager { get; set; }
 		public string ErrorMessage { get; set; }
 		public bool Display { get; set; } = false;
 		public string Probabilities { get; set; } = "[";
@@ -16,6 +15,7 @@ namespace WebFrontend
 		public int TotalIssues { get; set; } = 0;
 		public float HighProb { get; set; }
 		public new User User { get; set; }
+		DatabaseManager DatabaseManager { get; set; }
 
 		[BindProperty]
 		public string HighlightedFunctionHexCode { get; set; }
@@ -25,7 +25,7 @@ namespace WebFrontend
 
 		public IActionResult OnGet()
 		{
-			User = getUserFromCookie();
+			User = GetUserFromCookie();
 
 			if (User == null)
 			{
@@ -85,6 +85,8 @@ namespace WebFrontend
 			}
 
 			FunctionAxis += "]";
+
+			fileManager.Cleanup();
 		}
 
 		public string FormatTime(int timeTaken)

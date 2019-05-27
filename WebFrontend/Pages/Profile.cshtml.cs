@@ -53,7 +53,7 @@ namespace WebFrontend
 
 		public IActionResult OnGet()
 		{
-			User = getUserFromCookie();
+			User = GetUserFromCookie();
 
 			if (User == null)
 			{
@@ -77,7 +77,7 @@ namespace WebFrontend
 
 		public IActionResult OnPostSave()
 		{
-			User = getUserFromCookie();
+			User = GetUserFromCookie();
 
 			if (User == null)
 			{
@@ -105,7 +105,7 @@ namespace WebFrontend
 
 		public IActionResult OnPostSavePassword()
 		{
-			User = getUserFromCookie();
+			User = GetUserFromCookie();
 
 			if (User == null)
 			{
