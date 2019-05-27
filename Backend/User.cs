@@ -37,7 +37,7 @@ namespace Backend
 		public UserRole Role { get; set; }
 		public List<Results> Results { get; set; }
 
-		string HashPassword(string password)
+		public string HashPassword(string password)
 		{
 			byte[] salt;
 
@@ -56,5 +56,13 @@ namespace Backend
 
 			return Convert.ToBase64String(hashBytes);
 		}
-	}
+        public string GenerateCookie()
+        {
+            byte[] cookie;
+            // Generate a 16 byte random cookie
+            new RNGCryptoServiceProvider().GetBytes(cookie = new byte[16]);
+            return Convert.ToBase64String(cookie);
+        }
+
+    }
 }

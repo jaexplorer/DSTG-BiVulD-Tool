@@ -6,11 +6,13 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Text.RegularExpressions;
 using System.Data.SQLite;
+using Microsoft.AspNetCore.Http;
 
 namespace WebFrontend.Pages
 {
     public class LoginModel : PageModel
     {
+        [BindProperty]
         [Required(ErrorMessage = "Email is required")]
         [DataType(DataType.EmailAddress)]
         [Display(Name = "Email")]
@@ -24,53 +26,73 @@ namespace WebFrontend.Pages
         [Display(Name = "Password")]
         public string Password { get; set; }
 
-        [BindProperty]
-        [Display(Name = "Status")]
-        public string Status { get; set; }
         private DatabaseManager databaseManager { get; set; }
-        public async Task<IActionResult> OnPostLogIn()
+
+        [BindProperty]
+        public SignUpModel SignUpModel { get; set; }
+
+        [TempData]
+        public string ErrorMessage { get; set; }
+
+        public IActionResult OnPostLogIn()
         {
             databaseManager = new DatabaseManager();
             SQLiteConnection db = databaseManager.ConnectToDatabase();
+            User user = new User();
             try
             {
-                if(databaseManager.AuthenticateUser(UserModel.Email,UserModel.Password, db))
+                if (databaseManager.AuthenticateUser(Email, Password, db))
                 {
-                    //To Add set current webpage to be "Logged In"
+                    user = databaseManager.GetUserFromDatabase(Email, db);
+                    databaseManager.RecordLogin(Email, db);
+                    string cookie = user.GenerateCookie();
+                    databaseManager.StoreCookie(user.UserID, cookie, db);
+                    if (Request.Cookies["auth"] != null)
+                    {
+                        Response.Cookies.Delete("auth");
+                    }
+                    var CookieOptions = new CookieOptions
+                    {
+                        Expires = DateTime.Now.AddDays(30),
+                        IsEssential = true
+                    };
+                    Response.Cookies.Append("auth", cookie, CookieOptions);
+
                     return RedirectToPage("/Profile");
                 }
                 ModelState.AddModelError(string.Empty, "Invalid username or password.");
             }
             catch (Exception e)
             {
-                Console.Write(e);
+                ErrorMessage = "Login failed. Error Message: " + e.Message;
             }
             return Page();
         }
-        [BindProperty]
-        public UserModel UserModel { get; set; }
-
-        [TempData]
-        public string Message { get; set; }
-
-        public async Task<IActionResult> OnPostSignUp()
+        
+        public IActionResult OnPostSignUp()
         {
             databaseManager = new DatabaseManager();
             SQLiteConnection db = databaseManager.ConnectToDatabase();
+            User user = new User();
+            user.Email = SignUpModel.Email;
+            user.Name = SignUpModel.Username;
+            user.Password = user.HashPassword(SignUpModel.Password);
+            user.Role = (UserRole)2;
             try
             {
-                Message = "An email has been sent to your email address. Follow the link to activate your account.";
+                databaseManager.AddUser(user, db);
+                ErrorMessage = "Account creation successful. Sign in.";
                 return Page();
             }
             catch (Exception e)
             {
-                Message = "Signup Failed. Error Message: " + e.Message;
+                ErrorMessage = "Failed to create User. Error Message: " + e.Message;
             }
             return Page();
         }
     }
 
-    public class UserModel
+    public class SignUpModel
     {
         [Required(ErrorMessage = "Username is required")]
         [MinLength(6, ErrorMessage = "Username must be at least 6 characters")]

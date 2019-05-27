@@ -1,35 +1,60 @@
 using Backend;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Data.SQLite;
 
 namespace WebFrontend
 {
 	public class DashboardModel : Models.FileScanner
 	{
-		public bool Display { get; set; } = false;
+        private DatabaseManager databaseManager { get; set; }
+        public string ErrorMessage { get; set; }
+        public bool Display { get; set; } = false;
 		public string Probabilities { get; set; } = "[";
 		public Results Results { get; set; }
 		public string FunctionAxis { get; set; } = "[";
 		public int TotalIssues { get; set; } = 0;
 		public float HighProb { get; set; }
-
-		[BindProperty]
+        public User User { get; set; }
+        [BindProperty]
 		public string HighlightedFunctionHexCode { get; set; }
 		
 		[BindProperty]
 		public string HighlightedFunctionAsmCode { get; set; }
 
-		public void OnGet()
+		public IActionResult OnGet()
 		{
-			Display = HttpContext.Request.Query["Upload"] == "Success";
-			if (Display) {
-				PrintResults();
-			}
+            User = getUserFromCookie();
+            if (User == null)
+            {
+                return RedirectToPage("/Login");
+            }
+            else
+            {
+                Display = HttpContext.Request.Query["Upload"] == "Success";
+                if (Display)
+                {
+                    PrintResults();
+                }
+                return null;
+            }
+            
 		}
 
 		public void PrintResults()
 		{
 			Results = fileManager.AnalyseFile();
-			HighProb = 0;
+            databaseManager = new DatabaseManager();
+            SQLiteConnection db = databaseManager.ConnectToDatabase();
+            try
+            {
+                databaseManager.SaveResults(User.UserID, Results, db);
+            }
+            catch(Exception e)
+            {
+                ErrorMessage = "Result could not be saved";
+            }
+            HighProb = 0;
 
 			foreach (Backend.Function function in Results.Functions)
 			{

@@ -47,83 +47,95 @@ namespace WebFrontend
         public User User { get; set; }
         private DatabaseManager databaseManager { get; set; }
         public string ErrorMessage { get; set; }
-        private User getUserFromCookie()
-        {
-            databaseManager = new DatabaseManager();
-            SQLiteConnection db = databaseManager.ConnectToDatabase();
-            User user = new User();
-            try
-            {
-                //TO DO: Add userID identifer from cookie as parameter
-                user = databaseManager.GetUserFromDatabase(1, db);
-            }
-            catch (Exception e)
-            {
-                ErrorMessage = "Failed to find user. Error Message: " + e.Message;
-            }
-            return user;
-        }
-        private void getUserInfo()
+        /*
+        * getUserInfo(int userID)
+        * @purpose
+        * Retrieve User info from  database
+        * @param
+        * int userID represesnting user
+        */
+        private void getUserInfo(int userID)
         {
             databaseManager = new DatabaseManager();
             SQLiteConnection db = databaseManager.ConnectToDatabase();
             try
             {
-                //TO DO: Add userID identifer from cookie as parameter
-                LastLogin = databaseManager.GetLastLogin(1, db);
-                TotalScans = databaseManager.GetTotalScans(1, db);
+                LastLogin = databaseManager.GetLastLogin(userID, db);
+                TotalScans = databaseManager.GetTotalScans(userID, db);
             }
             catch (Exception e)
             {
                 ErrorMessage = "Failed to find user. Error Message: " + e.Message;
             }
         }
-        public void OnGet()
+        public IActionResult OnGet()
         {
-            getUserInfo();
             User = getUserFromCookie();
-            UserModel = new UserModel();
-            PasswordModel = new PasswordModel();
-            PasswordModel.Password = "";
-            PasswordModel.ConfirmPassword =  "";
-            UserModel.Email = User.Email;
-            UserModel.Username = User.Name;
+            if (User == null)
+            {
+                return RedirectToPage("/Login");
+            }
+            else
+            {
+                getUserInfo(User.UserID);
+                UserModel = new UserModel();
+                PasswordModel = new PasswordModel();
+                PasswordModel.Password = "";
+                PasswordModel.ConfirmPassword = "";
+                UserModel.Email = User.Email;
+                UserModel.Username = User.Name;
+                return null;
+            }
         }
         public IActionResult OnPostSave()
         {          
             User = getUserFromCookie();
-            databaseManager = new DatabaseManager();
-            SQLiteConnection db = databaseManager.ConnectToDatabase();
-            User.Name = UserModel.Username;
-            User.Email = UserModel.Email;
-            try
+            if (User == null)
             {
-                databaseManager.UpdateUser(User, db);
+               return RedirectToPage("/Login");
+            }
+            else
+            {
+                databaseManager = new DatabaseManager();
+                SQLiteConnection db = databaseManager.ConnectToDatabase();
+                User.Name = UserModel.Username;
+                User.Email = UserModel.Email;
+                try
+                {
+                    databaseManager.UpdateUser(User, db);
+                    return RedirectToPage("/Profile");
+                }
+                catch (Exception e)
+                {
+                    ErrorMessage = "User Update Failed. Error Message: " + e.Message;
+                }
+
                 return RedirectToPage("/Profile");
             }
-            catch (Exception e)
-            {
-                ErrorMessage = "User Update Failed. Error Message: " + e.Message;
-            }
-
-            return RedirectToPage("/Profile");
         }
         public IActionResult OnPostSavePassword()
         {
             User = getUserFromCookie();
-            databaseManager = new DatabaseManager();
-            SQLiteConnection db = databaseManager.ConnectToDatabase();
-            User updateUser = new User(User.UserID, User.Email, User.Name, PasswordModel.Password);
-            try
+            if (User == null)
             {
-                databaseManager.UpdateUser(updateUser, db);
+                return RedirectToPage("/Login");
+            }
+            else
+            {
+                databaseManager = new DatabaseManager();
+                SQLiteConnection db = databaseManager.ConnectToDatabase();
+                User updateUser = new User(User.UserID, User.Email, User.Name, PasswordModel.Password);
+                try
+                {
+                    databaseManager.UpdateUser(updateUser, db);
+                    return RedirectToPage("/Profile");
+                }
+                catch (Exception e)
+                {
+                    ErrorMessage = "User Update Failed. Error Message: " + e.Message;
+                }
                 return RedirectToPage("/Profile");
             }
-            catch (Exception e)
-            {
-                ErrorMessage = "User Update Failed. Error Message: " + e.Message;
-            }
-            return RedirectToPage("/Profile");
         }
     }
 }
