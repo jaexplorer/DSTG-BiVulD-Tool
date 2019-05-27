@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System;
 using System.ComponentModel.DataAnnotations;
+using System.Data.SQLite;
 using System.Threading.Tasks;
 
 namespace WebFrontend
@@ -49,36 +50,32 @@ namespace WebFrontend
         private User getUserFromCookie()
         {
             databaseManager = new DatabaseManager();
-            databaseManager.ConnectToDatabase();
+            SQLiteConnection db = databaseManager.ConnectToDatabase();
             User user = new User();
             try
             {
                 //TO DO: Add userID identifer from cookie as parameter
-                user = databaseManager.GetUserFromDatabase(1);
-                databaseManager.DBConnection.Close();
+                user = databaseManager.GetUserFromDatabase(1, db);
             }
             catch (Exception e)
             {
                 ErrorMessage = "Failed to find user. Error Message: " + e.Message;
-                databaseManager.DBConnection.Close();
             }
             return user;
         }
         private void getUserInfo()
         {
             databaseManager = new DatabaseManager();
-            databaseManager.ConnectToDatabase();
+            SQLiteConnection db = databaseManager.ConnectToDatabase();
             try
             {
                 //TO DO: Add userID identifer from cookie as parameter
-                LastLogin = databaseManager.GetLastLogin(1);
-                TotalScans = databaseManager.GetTotalScans(1);
-                databaseManager.DBConnection.Close();
+                LastLogin = databaseManager.GetLastLogin(1, db);
+                TotalScans = databaseManager.GetTotalScans(1, db);
             }
             catch (Exception e)
             {
                 ErrorMessage = "Failed to find user. Error Message: " + e.Message;
-                databaseManager.DBConnection.Close();
             }
         }
         public void OnGet()
@@ -96,19 +93,17 @@ namespace WebFrontend
         {          
             User = getUserFromCookie();
             databaseManager = new DatabaseManager();
-            databaseManager.ConnectToDatabase();
+            SQLiteConnection db = databaseManager.ConnectToDatabase();
             User.Name = UserModel.Username;
             User.Email = UserModel.Email;
             try
             {
-                databaseManager.UpdateUser(User);
-                databaseManager.DBConnection.Close();
+                databaseManager.UpdateUser(User, db);
                 return RedirectToPage("/Profile");
             }
             catch (Exception e)
             {
                 ErrorMessage = "User Update Failed. Error Message: " + e.Message;
-                databaseManager.DBConnection.Close();
             }
 
             return RedirectToPage("/Profile");
@@ -117,18 +112,16 @@ namespace WebFrontend
         {
             User = getUserFromCookie();
             databaseManager = new DatabaseManager();
-            databaseManager.ConnectToDatabase();
+            SQLiteConnection db = databaseManager.ConnectToDatabase();
             User updateUser = new User(User.UserID, User.Email, User.Name, PasswordModel.Password);
             try
             {
-                databaseManager.UpdateUser(updateUser);
-                databaseManager.DBConnection.Close();
+                databaseManager.UpdateUser(updateUser, db);
                 return RedirectToPage("/Profile");
             }
             catch (Exception e)
             {
                 ErrorMessage = "User Update Failed. Error Message: " + e.Message;
-                databaseManager.DBConnection.Close();
             }
             return RedirectToPage("/Profile");
         }
