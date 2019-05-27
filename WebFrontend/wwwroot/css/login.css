@@ -7,7 +7,7 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 75vh;
+    height: 100vh;
     margin: -20px 0 50px;
 }
 h1{
@@ -31,7 +31,7 @@ span{
     align-content: center;
     position: relative;
 }
-.form-container{
+.form-container {
     background: #ffffff;
     border-radius: 10px;
     box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
@@ -40,9 +40,9 @@ span{
     overflow: hidden;
     width: 768px;
     max-width: 100%;
-    min-height: 480px;
-    margin-left:auto;
-    margin-right:auto;
+    min-height: 520px;
+    margin-left: auto;
+    margin-right: auto;
 }
 .login-container,.signup-container{
     position:absolute;
@@ -68,16 +68,12 @@ a{
     text-decoration:none;
     margin:15px;
 }
-a:hover {
-    font-style: normal;
-    text-decoration: none;
-}
 
 .card{
-
-    width: 400px;
+    width: 100%;
     background-color:#ffffff;
     text-align:center;
+    height:100%;
 }
 .card-body {
     position: center;
@@ -86,12 +82,12 @@ a:hover {
 .card-header{
     text-align:left;
 }
-.card-header h3 {
+.card-header h1 {
     color: #000000;
     position: static;
     display: inline;
     border: none;
-    margin-left:25%;
+    margin-left:18%;
 }
 #password-label {
     display:inline-flex;
@@ -113,7 +109,7 @@ a:hover {
 }
 .btn-primary {
     border-radius: 20px;
-    border: 1px solid #333;
+    border: 1px solid #ffffff;
     background: #4bbdd9;
     color: #FFFFFF;
     font-size: 12px;
@@ -125,6 +121,14 @@ a:hover {
 }
 .btn-primary:active {
     transform: scale(0.95);
+    border: 1px solid #ffffff !important;
+    background: #4bbdd9 !important;
+    border-color:  #ffffff !important;
+    box-shadow:none !important;
+}
+.btn-primary:hover {
+    border: 1px solid #ffffff;
+    background: #4bbdd9;
 }
 .navbtn {
     position:static;
@@ -146,13 +150,17 @@ a:hover {
     border: none;
     background: #ffffff;
 }
-button:focus{
-    outline:none;
+button:focus {
+    outline: none;
+    border: 1px solid #ffffff !important;
+    background: #4bbdd9 !important;
+    border-color: #ffffff !important;
+    box-shadow: none !important;
 }
 .overlay {
-    background: #FF416C;
-    background: -webkit-linear-gradient(to right, rgba(0,0,0,0.25),#000000);
-    background: linear-gradient(to right, rgba(0,0,0,0.25), rgba(0,0,0,0.5));
+    background: #4bbdd9;
+    background: -webkit-linear-gradient(to right, #4bbdd9, #5adeff);
+    background: linear-gradient(to right, #4bbdd9, #5adeff);
     background-repeat: no-repeat;
     background-size: cover;
     background-position: 0 0;
@@ -202,18 +210,19 @@ button:focus{
     background:#f3f3f3;
     border:none;
     padding:13px 16px;
-    margin: 8px 0;
     width:100%;
 }
 .text-danger{
-    position:absolute;
-    overflow:visible;
-    top:50px;
-    left:5%;
-}
-#form-control-password{
     position:static;
+    overflow:visible;
+    left:0;
+    right:0;
+    margin-left:auto;
+    margin-right:auto;
 }
+#text-danger-password{
+    position:static;
+}   
 #text-danger-reset{
     left:35%;
 }
