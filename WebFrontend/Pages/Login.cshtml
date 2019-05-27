@@ -17,7 +17,7 @@
             <div class="card">
                 <div class="card-header">
                     <a asp-page="/Index" class="navbtn"><img src="~/images/home.svg"></a>
-                    <h3>Log In</h3>
+                    <h1>Log In</h1>
                 </div>
                 <div class="card-body">
                     <form method="post">
@@ -50,7 +50,7 @@
             <div class="card">
                 <div class="card-header">
                     <a asp-page="/Index" class="navbtn"><img src="~/images/home.svg"></a>
-                    <h3>Signup</h3>
+                    <h1>Signup</h1>
                 </div>
                 <div class="card-body">
                     @if (Model.Message != null)
@@ -77,10 +77,10 @@
                                 @Html.ValidationMessageFor(m => m.UserModel.Email, "", new { @class = "text-danger" })
                             </div>
                         </div>
-                        <div class="input-group form-group">
+                        <div class="input-group form-group" id="form-group-password">
                             <div class="col-md-10">
-                                @Html.PasswordFor(m => m.UserModel.Password, new { @class = "form-control", Placeholder = "Password" })
-                                @Html.ValidationMessageFor(m => m.UserModel.Password, "", new { @class = "text-danger", @id = "form-control-password" })
+                                @Html.PasswordFor(m => m.UserModel.Password, new { @class = "form-control",id="form-control-password", Placeholder = "Password" })
+                                @Html.ValidationMessageFor(m => m.UserModel.Password, "", new { @class = "text-danger", @id = "text-danger-password" })
                             </div>
                         </div>
                         <div class="input-group form-group">
@@ -102,7 +102,7 @@
     <div class="overlay-container">
         <div class="overlay">
             <div class="overlay-panel overlay-left">
-                <h1>Hello!</h1>
+                <h1>Welcome Back!</h1>
                 <p>To access more content please login with your personal info</p>
                 <button asp-page-handler="signin-overlay" class="panel-button btn-primary" id="signIn">Sign In</button>
             </div>
