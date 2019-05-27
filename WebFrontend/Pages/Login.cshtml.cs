@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Text.RegularExpressions;
+using System.Data.SQLite;
 
 namespace WebFrontend.Pages
 {
@@ -30,12 +31,11 @@ namespace WebFrontend.Pages
         public async Task<IActionResult> OnPostLogIn()
         {
             databaseManager = new DatabaseManager();
-            databaseManager.ConnectToDatabase();
+            SQLiteConnection db = databaseManager.ConnectToDatabase();
             try
             {
-                if(databaseManager.AuthenticateUser(UserModel.Email,UserModel.Password))
+                if(databaseManager.AuthenticateUser(UserModel.Email,UserModel.Password, db))
                 {
-                    databaseManager.DBConnection.Close();
                     //To Add set current webpage to be "Logged In"
                     return RedirectToPage("/Profile");
                 }
@@ -44,7 +44,6 @@ namespace WebFrontend.Pages
             catch (Exception e)
             {
                 Console.Write(e);
-                databaseManager.DBConnection.Close();
             }
             return Page();
         }
@@ -56,24 +55,16 @@ namespace WebFrontend.Pages
 
         public async Task<IActionResult> OnPostSignUp()
         {
-            //User ID is a random number generated below 1000000
-            Random rnd = new Random();
-            int rndID = rnd.Next(1000000);
-
             databaseManager = new DatabaseManager();
-            databaseManager.ConnectToDatabase();
-            User newUser = new User(rndID, UserModel.Email, UserModel.Username, UserModel.Password);
+            SQLiteConnection db = databaseManager.ConnectToDatabase();
             try
             {
                 Message = "An email has been sent to your email address. Follow the link to activate your account.";
-                databaseManager.AddUser(newUser);
-                databaseManager.DBConnection.Close();
                 return Page();
             }
             catch (Exception e)
             {
                 Message = "Signup Failed. Error Message: " + e.Message;
-                databaseManager.DBConnection.Close();
             }
             return Page();
         }
