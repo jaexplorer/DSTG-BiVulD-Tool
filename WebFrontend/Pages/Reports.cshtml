@@ -6,51 +6,20 @@
 }
 
 <div id="reports-container">
-	<div class="report-Element">
-		<div class="report-preview"><h5>Scan 1</h5></div>
-		<div class="report-view"><button>View</button></div>
-		<div class="report-download"><button>Download</button></div>
-	</div>
-	<div class="report-Element">
-		<div class="report-preview"><h5>Scan 2</h5></div>
-		<div class="report-view"><button>View</button></div>
-		<div class="report-download"><button>Download</button></div>
-	</div>
-	<div class="report-Element">
-		<div class="report-preview"><h5>Scan 3</h5></div>
-		<div class="report-view"><button>View</button></div>
-		<div class="report-download"><button>Download</button></div>
-	</div>
+    @if (Model.NumReports == 0)
+    {
+        <p>No results found!</p>
+    }
+    else
+    {
+        @for (int i = 0; i < Model.NumReports; i++)
+        {
+           <div class="report-Element">
+                <div class="report-preview"><h5>Scan 1</h5></div>
+                <div class="report-view"><button>View</button></div>
+                <div class="report-download"><button>Download</button></div>
+           </div>
+        }
+    }
 
-	<div class="report-Element">
-		<div class="report-preview"><h5>Scan 4</h5></div>
-		<div class="report-view"><button>View</button></div>
-		<div class="report-download"><button>Download</button></div>
-	</div>
-	<div class="report-Element">
-		<div class="report-preview"><h5>Scan 5</h5></div>
-		<div class="report-view"><button>View</button></div>
-		<div class="report-download"><button>Download</button></div>
-	</div>
-	<div class="report-Element">
-		<div class="report-preview"><h5>Scan 6</h5></div>
-		<div class="report-view"><button>View</button></div>
-		<div class="report-download"><button>Download</button></div>
-	</div>
-
-	<div class="report-Element">
-		<div class="report-preview"><h5>Scan 7</h5></div>
-		<div class="report-view"><button>View</button></div>
-		<div class="report-download"><button>Download</button></div>
-	</div>
-	<div class="report-Element">
-		<div class="report-preview"><h5>Scan 8</h5></div>
-		<div class="report-view"><button>View</button></div>
-		<div class="report-download"><button>Download</button></div>
-	</div>
-	<div class="report-Element">
-		<div class="report-preview"><h5>Scan 9</h5></div>
-		<div class="report-view"><button>View</button></div>
-		<div class="report-download"><button>Download</button></div>
-	</div>
 </div>

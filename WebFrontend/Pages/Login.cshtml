@@ -53,40 +53,40 @@
                     <h1>Signup</h1>
                 </div>
                 <div class="card-body">
-                    @if (Model.Message != null)
+                    @if (Model.ErrorMessage != null)
                     {
                         <script>
                             document.getElementById("form-container").classList.add("right-panel-active");
                         </script>
                         <div class="d-flex justify-content-center h-100">
-                            <p class="model-message">@Model.Message</p>
+                            <p class="model-message">@Model.ErrorMessage</p>
                         </div>
-                        @Model.Message.Replace(Model.Message, null)
+                        @Model.ErrorMessage.Replace(Model.ErrorMessage, null)
                     }
                     <form method="post">
                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                         <div class="input-group form-group">
                             <div class="col-md-10">
-                                @Html.TextBoxFor(m => m.UserModel.Username, new { @class = "form-control", Placeholder = "Username" })
-                                @Html.ValidationMessageFor(m => m.UserModel.Username, "", new { @class = "text-danger" })
+                                @Html.TextBoxFor(m => m.SignUpModel.Username, new { @class = "form-control", Placeholder = "Full Name" })
+                                @Html.ValidationMessageFor(m => m.SignUpModel.Username, "", new { @class = "text-danger" })
                             </div>
                         </div>
                         <div class="input-group form-group">
                             <div class="col-md-10">
-                                @Html.TextBoxFor(m => m.UserModel.Email, new { @class = "form-control", Placeholder = "Email" })
-                                @Html.ValidationMessageFor(m => m.UserModel.Email, "", new { @class = "text-danger" })
+                                @Html.TextBoxFor(m => m.SignUpModel.Email, new { @class = "form-control", Placeholder = "Email" })
+                                @Html.ValidationMessageFor(m => m.SignUpModel.Email, "", new { @class = "text-danger" })
                             </div>
                         </div>
                         <div class="input-group form-group" id="form-group-password">
                             <div class="col-md-10">
-                                @Html.PasswordFor(m => m.UserModel.Password, new { @class = "form-control",id="form-control-password", Placeholder = "Password" })
-                                @Html.ValidationMessageFor(m => m.UserModel.Password, "", new { @class = "text-danger", @id = "text-danger-password" })
+                                @Html.PasswordFor(m => m.SignUpModel.Password, new { @class = "form-control",id="form-control-password", Placeholder = "Password" })
+                                @Html.ValidationMessageFor(m => m.SignUpModel.Password, "", new { @class = "text-danger", @id = "text-danger-password" })
                             </div>
                         </div>
                         <div class="input-group form-group">
                             <div class="col-md-10">
-                                @Html.PasswordFor(m => m.UserModel.ConfirmPassword, new { @class = "form-control", Placeholder = "Retype Password" })
-                                @Html.ValidationMessageFor(m => m.UserModel.ConfirmPassword, "", new { @class = "text-danger" })
+                                @Html.PasswordFor(m => m.SignUpModel.ConfirmPassword, new { @class = "form-control", Placeholder = "Retype Password" })
+                                @Html.ValidationMessageFor(m => m.SignUpModel.ConfirmPassword, "", new { @class = "text-danger" })
                             </div>
                         </div>
                         <div class="form-group">

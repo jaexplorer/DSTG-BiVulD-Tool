@@ -1,4 +1,6 @@
+using System;
 using System.ComponentModel.DataAnnotations;
+using System.Data.SQLite;
 using System.Threading.Tasks;
 using Backend;
 using Microsoft.AspNetCore.Http;
@@ -34,5 +36,37 @@ namespace WebFrontend.Models
 		{
 			return Redirect("/Dashboard/?Upload=Success");
 		}
-	}
+        /*
+         * getUserFromCookie()
+         * @purpose
+         * Create a user object from a given cookie
+         * @return
+         * User object if cookie is valid
+         * return null if cookie is not valid
+         */
+        protected User getUserFromCookie()
+        {
+            User user;
+            DatabaseManager databaseManager = new DatabaseManager();
+            SQLiteConnection db = databaseManager.ConnectToDatabase();
+            try
+            {
+                int userID = databaseManager.ValidateCookie(Request.Cookies["auth"], db);
+                if (userID != -1)
+                {
+                    user = databaseManager.GetUserFromDatabase(userID, db);
+                    return user;
+                }
+                else
+                {
+                    return null;
+                }
+
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
+        }
+    }
 }

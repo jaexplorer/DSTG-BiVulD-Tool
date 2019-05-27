@@ -101,7 +101,8 @@ namespace Backend
                 "\"Name\" TEXT NOT NULL, " +
                 "\"Password\" TEXT NOT NULL, " +
                 "\"LastLogin\" TEXT, " +
-                "\"Role\" INTEGER NOT NULL DEFAULT 0 );" +
+                "\"Role\" INTEGER NOT NULL DEFAULT 0," +
+                "\"Cookie\" TEXT UNIQUE);" +
                 "INSERT INTO \"User\" (\"UserID\", \"Email\", \"Name\"," +
                 "\"Password\", \"LastLogin\", \"Role\") VALUES ('1', 'email@email.com'," +
                 " 'admin', 'jR1qKO9qXceNTj2/RxRjzd4FgMB6WWcBd6Y6+B5Ts8rwE/Tw', '', '1');";
@@ -312,7 +313,7 @@ namespace Backend
                 dateParam.Value = DateTime.Now.ToString("dd/MM/yyyy hh-mm-ss");
 
                 // TODO: Add filename to Results class
-                fileParam.Value = "FileName";
+                fileParam.Value = "Scan"+ DateTime.Now.ToString("dd/MM/yyyy hh:mm:ss");
                 resultParam.Value = SerializeResult(result);
 
                 command.ExecuteNonQuery();
@@ -427,6 +428,35 @@ namespace Backend
             dbConnection.Close();
             return user;
 		}
+        /*
+         * [Overload]
+		 * GetUserFromDatabase(string email, SQLiteConnection dbConnection)
+		 * @purpose
+		 * Return a User object used to populate fields on Profile screen
+		 * @param string email
+		 * String value identifying Email in User table
+         * SQLiteConnection dbConnection dtabase connection
+		 * @return
+		 * User object
+		 *
+		 * NOTE: All calls to method must have error handling
+		 */
+        public User GetUserFromDatabase(string email, SQLiteConnection dbConnection)
+        {
+            dbConnection.Open();
+            User user = new User();
+            string sql = "SELECT * FROM User WHERE Email = ?";
+            SQLiteParameter emailParam = new SQLiteParameter();
+            SQLiteCommand command = new SQLiteCommand(sql, dbConnection);
+
+            command.Parameters.Add(emailParam);
+
+            emailParam.Value = email;
+            SQLiteDataReader results = command.ExecuteReader();
+            user = QueryToUser(results);
+            dbConnection.Close();
+            return user;
+        }
         /*
          * ValidatePassword(string password, string hashPassword)
          * @purpose
@@ -588,5 +618,90 @@ namespace Backend
 
 			return user;
 		}
-	}
+        /*
+         * RecordLogin(int userID,  SQLiteConnection dbConnection)
+         * @purpose
+         * Update the LastLogin field when a user signs in
+         * @param int userID, SQLiteConnection dbConnection
+         * Integer value identifying ID in Results table
+         * SQLiteConnection dbConnection database connection
+         */
+        public void RecordLogin(string email, SQLiteConnection dbConnection)
+        {
+            dbConnection.Open();
+            string sql = "UPDATE User SET LastLogin = @today WHERE Email = @email";
+            using (SQLiteTransaction sqlTransaction = dbConnection.BeginTransaction())
+            {
+                SQLiteCommand command = new SQLiteCommand(sql, dbConnection);
+
+                command.Parameters.AddWithValue("@today", DateTime.Now.ToString("dd/MM/yyyy hh:mm:ss"));
+                command.Parameters.AddWithValue("@email", email);
+
+                command.ExecuteNonQuery();
+                sqlTransaction.Commit();
+            }
+            dbConnection.Close();
+        }
+        /*
+         * StoreCookie(int userID, string cookie, SQLiteConnection dbConnection)
+         * @purpose
+         * Store a generate cookie into the User database
+         * @param int userID, string cookie, SQLiteConnection dbConnection
+         * Integer value identifying ID in Results table
+         * string cookie cookie value to be recorded
+         * SQLiteConnection dbConnection database connection 
+         */
+        public void StoreCookie(int userID, string cookie, SQLiteConnection dbConnection)
+        {
+            dbConnection.Open();
+            string sql = "UPDATE  User SET Cookie = @cookie WHERE UserID = @id";
+            using (SQLiteTransaction sqlTransaction = dbConnection.BeginTransaction())
+            {
+                SQLiteCommand command = new SQLiteCommand(sql, dbConnection);
+
+                command.Parameters.AddWithValue("@cookie", cookie);
+                command.Parameters.AddWithValue("@id", userID);
+
+                command.ExecuteNonQuery();
+                sqlTransaction.Commit();
+            }
+            dbConnection.Close();
+        }
+        /*
+         * ValidateCookie(string cookie, SQLiteConnection dbConnection)
+         * @purpose
+         * Identify the UserID of the user with given cookie
+         * @paramstring cookie, SQLiteConnection dbConnection
+         * string cookie value of the given cookie
+         * SQLiteConnection dbConnection connection to database
+         * @return
+         * Integer identifying the UserID
+         * if no user found return -1
+         */
+        public int ValidateCookie(string cookie, SQLiteConnection dbConnection)
+        {
+            int userID;
+            dbConnection.Open();
+            string sql = "SELECT UserID From User WHERE Cookie = @cookie";
+            SQLiteCommand command = new SQLiteCommand(sql, dbConnection);
+
+            command.Parameters.AddWithValue("@cookie", cookie);
+
+            SQLiteDataReader results = command.ExecuteReader();
+            try
+            {
+                results.Read();
+                userID = results.GetInt32(0);
+                results.Close();
+                dbConnection.Close();
+            }
+            catch (Exception e)
+            {
+                dbConnection.Close();
+                userID = -1;
+            }
+           
+            return userID;
+        }
+    }
 }
