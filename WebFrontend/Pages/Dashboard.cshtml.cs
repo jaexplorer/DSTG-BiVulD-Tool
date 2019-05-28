@@ -7,7 +7,6 @@ namespace WebFrontend
 {
 	public class DashboardModel : Models.FileScanner
 	{
-		public string ErrorMessage { get; set; }
 		public bool Display { get; set; } = false;
 		public string Probabilities { get; set; } = "[";
 		public Results Results { get; set; }
@@ -36,57 +35,52 @@ namespace WebFrontend
 
 			if (Display)
 			{
-				PrintResults();
+				Results = fileManager.AnalyseFile();
+				DatabaseManager = new DatabaseManager();
+				SQLiteConnection db = DatabaseManager.ConnectToDatabase();
+
+				try
+				{
+					DatabaseManager.SaveResults(User.UserID, Results, db);
+				}
+				catch (Exception)
+				{
+					ErrorMessage = "Result could not be saved";
+				}
+
+				HighProb = 0;
+
+				foreach (Function function in Results.Functions)
+				{
+					if (function.Prob > HighProb)
+					{
+						HighProb = (float)function.Prob;
+					}
+
+					if (function.Prob > 0.5)
+					{
+						TotalIssues += 1;
+					}
+
+					Probabilities += ((float)function.Prob * 100).ToString();
+					Probabilities += ",";
+				}
+
+				HighProb *= 100;
+				Probabilities += "]";
+
+				for (int i = 1; i <= Results.Functions.Count; ++i)
+				{
+					FunctionAxis += i.ToString();
+					FunctionAxis += ",";
+				}
+
+				FunctionAxis += "]";
+
+				fileManager.Cleanup();
 			}
 
 			return null;
-		}
-
-		public void PrintResults()
-		{
-			Results = fileManager.AnalyseFile();
-			DatabaseManager = new DatabaseManager();
-			SQLiteConnection db = DatabaseManager.ConnectToDatabase();
-
-			try
-			{
-				DatabaseManager.SaveResults(User.UserID, Results, db);
-			}
-			catch (Exception)
-			{
-				ErrorMessage = "Result could not be saved";
-			}
-
-			HighProb = 0;
-
-			foreach (Function function in Results.Functions)
-			{
-				if (function.Prob > HighProb)
-				{
-					HighProb = (float)function.Prob;
-				}
-
-				if (function.Prob > 0.5)
-				{
-					TotalIssues += 1;
-				}
-
-				Probabilities += ((float)function.Prob * 100).ToString();
-				Probabilities += ",";
-			}
-
-			HighProb *= 100;
-			Probabilities += "]";
-
-			for (int i = 1; i <= Results.Functions.Count; ++i)
-			{
-				FunctionAxis += i.ToString();
-				FunctionAxis += ",";
-			}
-
-			FunctionAxis += "]";
-
-			fileManager.Cleanup();
 		}
 
 		public string FormatTime(int timeTaken)

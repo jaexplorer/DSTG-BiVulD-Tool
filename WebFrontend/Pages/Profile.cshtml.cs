@@ -48,7 +48,6 @@ namespace WebFrontend
 
 		public int TotalScans { get; set; }
 		public new User User { get; set; }
-		public string ErrorMessage { get; set; }
 		DatabaseManager DatabaseManager { get; set; }
 
 		public IActionResult OnGet()
@@ -61,6 +60,7 @@ namespace WebFrontend
 			}
 
 			GetUserInfo(User.UserID);
+
 			UserModel = new UserModel();
 
 			PasswordModel = new PasswordModel
@@ -114,7 +114,7 @@ namespace WebFrontend
 
 			DatabaseManager = new DatabaseManager();
 			SQLiteConnection db = DatabaseManager.ConnectToDatabase();
-			User updateUser = new User(User.UserID, User.Email, User.Name, PasswordModel.Password);
+			var updateUser = new User(User.UserID, User.Email, User.Name, PasswordModel.Password);
 
 			try
 			{

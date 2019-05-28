@@ -16,6 +16,7 @@ namespace WebFrontend.Models
 		public IFormFile UploadFile { get; set; }
 
 		public bool FileUpload { get; set; }
+		public string ErrorMessage { get; protected set; }
 		protected static FileManager fileManager;
 
 		public async Task<IActionResult> OnPostUpload()
@@ -47,7 +48,6 @@ namespace WebFrontend.Models
 		 */
 		protected User GetUserFromCookie()
 		{
-			User user;
 			DatabaseManager databaseManager = new DatabaseManager();
 			SQLiteConnection db = databaseManager.ConnectToDatabase();
 
@@ -57,9 +57,7 @@ namespace WebFrontend.Models
 
 				if (userID != -1)
 				{
-					user = databaseManager.GetUserFromDatabase(userID, db);
-
-					return user;
+					return databaseManager.GetUserFromDatabase(userID, db);
 				}
 
 				return null;

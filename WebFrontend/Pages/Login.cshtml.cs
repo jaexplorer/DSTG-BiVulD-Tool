@@ -88,11 +88,12 @@ namespace WebFrontend.Pages
 			};
 
 			user.Password = user.HashPassword(SignUpModel.Password);
-			user.Role = (UserRole)2;
+			user.Role = UserRole.User;
 
 			try
 			{
 				DatabaseManager.AddUser(user, db);
+
 				ErrorMessage = "Account creation successful. Sign in.";
 
 				return Page();
