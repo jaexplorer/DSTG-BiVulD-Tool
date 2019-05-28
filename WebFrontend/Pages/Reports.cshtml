@@ -6,20 +6,20 @@
 }
 
 <div id="reports-container">
-    @if (Model.NumReports == 0)
-    {
-        <p>No results found!</p>
-    }
-    else
-    {
-        @for (int i = 0; i < Model.NumReports; i++)
-        {
-           <div class="report-Element">
-                <div class="report-preview"><h5>Scan 1</h5></div>
-                <div class="report-view"><button>View</button></div>
-                <div class="report-download"><button>Download</button></div>
-           </div>
-        }
-    }
+	@if (Model.NumReports == 0)
+	{
+		<p>No results found!</p>
+	}
+	else
+	{
+		@for (int i = 0; i < Model.NumReports; i++)
+		{
+		   <div class="report-Element">
+				<div class="report-preview"><h5>Scan 1</h5></div>
+				<div class="report-view"><button>View</button></div>
+				<div class="report-download"><button>Download</button></div>
+		   </div>
+		}
+	}
 
 </div>

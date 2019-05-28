@@ -12,34 +12,34 @@
 }
 <div class="container">
 	<div class="d-flex justify-content-center h-100">
-        <div class="card">
-            <div class="card-header">
-                <a asp-page="/Index" class="navbtn"><img src="~/images/home.svg"></a>
-                <h3 id="password-label">Reset Password</h3>
-            </div>
-            @if (Model.Message != null)
-            {
-                <div class="d-flex justify-content-center h-100">
-                    <p>@Model.Message</p>
-                </div>
-                @Model.Message.Replace(Model.Message, null)
-            }
-            <div class="card-body">
-                <form method="post">
-                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                    <div class="input-group form-group">
-                        <div class="col-md-10">
-                            @Html.TextBoxFor(m => m.Email, new { @class = "form-control", Placeholder = "Email" })
-                            @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger", @id = "text-danger-reset" })
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-md-offset-2 col-md-10">
-                            <button asp-page-handler="Reset" class="btn btn-primary">Reset</button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
+		<div class="card">
+			<div class="card-header">
+				<a asp-page="/Index" class="navbtn"><img src="~/images/home.svg"></a>
+				<h3 id="password-label">Reset Password</h3>
+			</div>
+			@if (Model.Message != null)
+			{
+				<div class="d-flex justify-content-center h-100">
+					<p>@Model.Message</p>
+				</div>
+				@Model.Message.Replace(Model.Message, null)
+			}
+			<div class="card-body">
+				<form method="post">
+					@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+					<div class="input-group form-group">
+						<div class="col-md-10">
+							@Html.TextBoxFor(m => m.Email, new { @class = "form-control", Placeholder = "Email" })
+							@Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger", @id = "text-danger-reset" })
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="col-md-offset-2 col-md-10">
+							<button asp-page-handler="Reset" class="btn btn-primary">Reset</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
 	</div>
 </div>

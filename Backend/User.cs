@@ -56,13 +56,13 @@ namespace Backend
 
 			return Convert.ToBase64String(hashBytes);
 		}
-        public string GenerateCookie()
-        {
-            byte[] cookie;
-            // Generate a 16 byte random cookie
-            new RNGCryptoServiceProvider().GetBytes(cookie = new byte[16]);
-            return Convert.ToBase64String(cookie);
-        }
+		public string GenerateCookie()
+		{
+			byte[] cookie;
+			// Generate a 16 byte random cookie
+			new RNGCryptoServiceProvider().GetBytes(cookie = new byte[16]);
+			return Convert.ToBase64String(cookie);
+		}
 
-    }
+	}
 }
