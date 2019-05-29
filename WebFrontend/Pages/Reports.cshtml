@@ -18,7 +18,7 @@
             {
 
                 <div class="report-Element">
-                    <div class="report-preview"><h5>@Model.ResultsList[i][0]</h5></div>
+                    <div class="report-preview"><h5>Scan ID: @Model.ResultsList[i][0]</h5></div>
                     <div class="report-view"><form method="post"><input type="hidden" asp-for="ResultID" value="@(i + 1)" /><button asp-page-handler="View">View</button></form></div>
                     <div class="report-download"><button>Download</button></div>
                 </div>
