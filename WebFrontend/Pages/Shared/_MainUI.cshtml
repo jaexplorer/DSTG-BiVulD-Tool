@@ -18,7 +18,7 @@
 				<img src="~/images/pic.jpg">
 			</div>
 			<!-- TODO: Add @ViewData Profile Name -->
-			<h4 class="p-header-name">John Smith</h4>
+			<h4 class="p-header-name">@Model.Username()</h4>
 		</header>
 		<!-- Main Menu
 	------------------------------------------------------------------- -->
@@ -51,9 +51,6 @@
 						</li>
 						<li id="Reports" class="page-item">
 							<a href="/Reports"><img src="~/images/database.svg" class="page-item-icon svg"><span>Reports</span></a>
-						</li>
-						<li id="Login" class="page-item">
-							<a href="/Login"><img src="~/images/database.svg" class="page-item-icon svg"><span>Login</span></a>
 						</li>
                         <li>
                             <form method="post"><button asp-page-handler="Logout">Logout</button></form>
