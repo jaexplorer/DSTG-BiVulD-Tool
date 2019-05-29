@@ -1,46 +1,46 @@
 @page
 @model WebFrontend.Pages.AdminModel
 @{
-    ViewData["Title"] = "Admin";
-    Layout = "Shared/_MainUI";
+	ViewData["Title"] = "Admin";
+	Layout = "Shared/_MainUI";
 }
 @section Styles{
-    <link href="@Href("~/css/admin.css")" rel="stylesheet" type="text/css" />
+	<link href="@Href("~/css/admin.css")" rel="stylesheet" type="text/css" />
 }
 <script src="https://d3js.org/d3.v5.min.js"></script>
 <div class="container-header">
-    <h2>Admin Dashboard</h2>
+	<h2>Admin Dashboard</h2>
 </div>
 <div class="container">
-    <div id="container-user-list" class="container-module">
-        <h3 class="module-header">User List</h3>
-        <div class="user-list-interface">
-            <div id="user-table">
+	<div id="container-user-list" class="container-module">
+		<h3 class="module-header">User List</h3>
+		<div class="user-list-interface">
+			<div id="user-table">
 
-            </div>
-        </div>
-    </div>
-    <div id="container-statistic" class="container-module">
-        <h3 class="module-header">User Monitor</h3>
-        <div id="statistic-graph">
+			</div>
+		</div>
+	</div>
+	<div id="container-statistic" class="container-module">
+		<h3 class="module-header">User Monitor</h3>
+		<div id="statistic-graph">
 
-        </div>
-    </div>
-    <div id="container-model" class="container-module">
-        <form method="post" enctype="multipart/form-data">
-            <label style="display: none" asp-for="UploadModel"></label>
-            <input style="display: none" id="model-upload" class="inputfile" asp-for="UploadModel" type="file" />
-            <label class="choose-upload" for="model-upload">Choose a file</label>
-            <div><span class="upload-error" asp-validation-for="UploadModel"></span></div>
-            <input class="upload-button" asp-page-handler="UploadModel" type="submit" value="Upload" />
-        </form>
-    </div>
-    <div id="container-scan-activity" class="container-module">
-        <h3 class="module-header" id="module-scan-header">Scan Activity Monitor</h3>
-        <div id="line-graph">
+		</div>
+	</div>
+	<div id="container-model" class="container-module">
+		<form method="post" enctype="multipart/form-data">
+			<label style="display: none" asp-for="UploadModel"></label>
+			<input style="display: none" id="model-upload" class="inputfile" asp-for="UploadModel" type="file" />
+			<label class="choose-upload" for="model-upload">Choose a file</label>
+			<div><span class="upload-error" asp-validation-for="UploadModel"></span></div>
+			<input class="upload-button" asp-page-handler="UploadModel" type="submit" value="Upload" />
+		</form>
+	</div>
+	<div id="container-scan-activity" class="container-module">
+		<h3 class="module-header" id="module-scan-header">Scan Activity Monitor</h3>
+		<div id="line-graph">
 
-        </div>
-    </div>
+		</div>
+	</div>
 </div>
 <script type="text/javascript">
 	document.onload = init();

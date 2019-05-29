@@ -9,51 +9,52 @@ namespace WebFrontend.Pages
 {
 	public class AdminModel : Models.FileScanner
 	{
-        [BindProperty]
-        [Display(Name = "Model")]
-        public IFormFile UploadModel { get; set; }
+		[BindProperty]
+		[Display(Name = "Model")]
+		public IFormFile UploadModel { get; set; }
 
-        public List<string[]> LocalList { get; set; }
-        DatabaseManager DatabaseManager { get; set; }
+		public List<string[]> LocalList { get; set; }
+		public string ModelName { get; set; }
+		DatabaseManager DatabaseManager { get; set; }
 
-        public void OnGet()
-        {
-            DatabaseManager = new DatabaseManager();
-            LocalList = DatabaseManager.GetUserList(DatabaseManager.ConnectToDatabase());
-        }
-        public string ModelName { get; set; }
+		public void OnGet()
+		{
+			DatabaseManager = new DatabaseManager();
+			LocalList = DatabaseManager.GetUserList(DatabaseManager.ConnectToDatabase());
+		}
 
-        public void DeleteUser(int value)
-        {
-            DatabaseManager = new DatabaseManager();
-            DatabaseManager.DeleteUser(value, DatabaseManager.ConnectToDatabase());
-        }
+		public void DeleteUser(int value)
+		{
+			DatabaseManager = new DatabaseManager();
 
-        public string UserToDelete { get; set; }
+			DatabaseManager.DeleteUser(value, DatabaseManager.ConnectToDatabase());
+		}
 
-        public async Task<IActionResult> OnPostUploadModel()
-        {
-            if (UploadModel.Length == 0)
-            {
-                ModelState.AddModelError(UploadModel.Name, "The uploaded model must be valid");
-            }
+		public string UserToDelete { get; set; }
 
-            if (!ModelState.IsValid)
-            {
-                return Page();
-            }
+		public async Task<IActionResult> OnPostUploadModel()
+		{
+			if (UploadModel.Length == 0)
+			{
+				ModelState.AddModelError(UploadModel.Name, "The uploaded model must be valid");
+			}
 
-            using (var fileStream = FileManager.GetModelStream())
-            {
-                await UploadModel.CopyToAsync(fileStream);
-            }
+			if (!ModelState.IsValid)
+			{
+				return Page();
+			}
 
-            return Redirect("/Admin");
-        }
-    }
-    public class ScanModel
-    {
-        public string CurrentModel { get; set; }
-    }
+			using (var fileStream = FileManager.GetModelStream())
+			{
+				await UploadModel.CopyToAsync(fileStream);
+			}
 
+			return Redirect("/Admin");
+		}
+	}
+
+	public class ScanModel
+	{
+		public string CurrentModel { get; set; }
+	}
 }
