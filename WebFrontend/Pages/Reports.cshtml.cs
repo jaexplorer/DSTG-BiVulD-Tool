@@ -14,7 +14,7 @@ namespace WebFrontend
         [BindProperty]
         public int ResultID { get; set; }
         public bool ShowResult { get; set; }
-
+        public List<string[]> ResultsList { get; set; }
         public string Probabilities { get; set; } = "[";
         public string FunctionAxis { get; set; } = "[";
         public int TotalIssues { get; set; } = 0;
