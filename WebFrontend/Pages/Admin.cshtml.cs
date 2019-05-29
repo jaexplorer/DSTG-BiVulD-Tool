@@ -14,13 +14,22 @@ namespace WebFrontend.Pages
 		public IFormFile UploadModel { get; set; }
 
 		public List<string[]> LocalList { get; set; }
-		public string ModelName { get; set; }
+        public new User User { get; set; }
+        public string ModelName { get; set; }
 		DatabaseManager DatabaseManager { get; set; }
 
-		public void OnGet()
+		public IActionResult OnGet()
 		{
-			DatabaseManager = new DatabaseManager();
+            User = GetUserFromCookie();
+
+            if (User == null)
+            {
+                return RedirectToPage("/Login");
+            }
+
+            DatabaseManager = new DatabaseManager();
 			LocalList = DatabaseManager.GetUserList(DatabaseManager.ConnectToDatabase());
+            return null;
 		}
 
 		public void DeleteUser(int value)
