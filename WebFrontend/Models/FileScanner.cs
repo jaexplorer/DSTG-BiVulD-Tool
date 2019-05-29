@@ -18,7 +18,6 @@ namespace WebFrontend.Models
 		public bool FileUpload { get; set; }
 		public string ErrorMessage { get; protected set; }
 		protected static FileManager fileManager;
-
 		public async Task<IActionResult> OnPostUpload()
 		{
 			fileManager = new FileManager();
@@ -37,7 +36,11 @@ namespace WebFrontend.Models
 		{
 			return Redirect("/Dashboard/?Upload=Success");
 		}
-
+        public string Username()
+        {
+            string username = GetUserFromCookie().Name.ToUpper();
+            return username;
+        }
 		/*
 		 * getUserFromCookie()
 		 * @purpose
