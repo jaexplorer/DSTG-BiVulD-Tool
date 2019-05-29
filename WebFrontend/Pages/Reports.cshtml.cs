@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Data.SQLite;
 using Backend;
 using Microsoft.AspNetCore.Mvc;
@@ -25,6 +26,7 @@ namespace WebFrontend
         public string HighlightedFunctionAsmCode { get; set; }
         public IActionResult OnGet()
 		{
+            
             ShowResult = false;
             User = GetUserFromCookie();
 
@@ -34,8 +36,8 @@ namespace WebFrontend
 			}
 			DatabaseManager = new DatabaseManager();
 			SQLiteConnection db = DatabaseManager.ConnectToDatabase();
-            var results = DatabaseManager.GetResultsList(User.UserID, db);
-			NumReports = results.Count;
+            ResultsList = DatabaseManager.GetResultsList(User.UserID, db);
+			NumReports = ResultsList.Count;
 
 			return null;
 		}
