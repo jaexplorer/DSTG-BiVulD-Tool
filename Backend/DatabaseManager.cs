@@ -680,28 +680,59 @@ namespace Backend
 		 */
 		public int ValidateCookie(string cookie, SQLiteConnection dbConnection)
 		{
-			int userID;
-			dbConnection.Open();
-			string sql = "SELECT UserID From User WHERE Cookie = @cookie";
-			SQLiteCommand command = new SQLiteCommand(sql, dbConnection);
+            int userID;
+            //Check cookie length if length < 24 invalid cookie
+            if (cookie.Length != 24)
+            {
+                userID = -1;
+            }
+            else {
+                dbConnection.Open();
+                string sql = "SELECT UserID From User WHERE Cookie = @cookie";
+                SQLiteCommand command = new SQLiteCommand(sql, dbConnection);
 
-			command.Parameters.AddWithValue("@cookie", cookie);
+                command.Parameters.AddWithValue("@cookie", cookie);
 
-			SQLiteDataReader results = command.ExecuteReader();
-			try
-			{
-				results.Read();
-				userID = results.GetInt32(0);
-				results.Close();
-				dbConnection.Close();
-			}
-			catch (Exception e)
-			{
-				dbConnection.Close();
-				userID = -1;
-			}
-
+                SQLiteDataReader results = command.ExecuteReader();
+                try
+                {
+                    results.Read();
+                    userID = results.GetInt32(0);
+                    results.Close();
+                    dbConnection.Close();
+                }
+                catch (Exception e)
+                {
+                    dbConnection.Close();
+                    userID = -1;
+                }
+            }
 			return userID;
 		}
+        /*
+         * DeleteCookie(int userID, SQLiteConnection dbConnection)
+         * @purpose
+         * Remove cookie from User table on logout
+         * @param
+         * int userID users id
+         * SQLiteConnection dbConnection connection to database
+         * 
+         */
+        public void DeleteCookie(int userID, SQLiteConnection dbConnection)
+        {
+            dbConnection.Open();
+            string sql = "UPDATE User SET Cookie = @cookie WHERE UserID = @id";
+            using (SQLiteTransaction sqlTransaction = dbConnection.BeginTransaction())
+            {
+                SQLiteCommand command = new SQLiteCommand(sql, dbConnection);
+
+                command.Parameters.AddWithValue("@cookie", "");
+                command.Parameters.AddWithValue("@id", userID);
+
+                command.ExecuteNonQuery();
+                sqlTransaction.Commit();
+            }
+            dbConnection.Close();
+        }
 	}
 }

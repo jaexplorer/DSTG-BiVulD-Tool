@@ -67,5 +67,30 @@ namespace WebFrontend.Models
 				return null;
 			}
 		}
-	}
+        /*
+         * OnPostLogOut()
+         * @purpose
+         * Log user out by deleting cookies
+         * @return
+         * Return user to /login page
+         */
+        public IActionResult OnPostLogOut()
+        {
+            DatabaseManager databaseManager = new DatabaseManager();
+            SQLiteConnection db = databaseManager.ConnectToDatabase();
+            if (Request.Cookies["auth"] != null)
+            {
+                Response.Cookies.Delete("auth");
+                try
+                {
+                    databaseManager.DeleteCookie(GetUserFromCookie().UserID, db);
+                }
+                catch(Exception e)
+                {
+                    //
+                }
+            }
+            return Redirect("/Login");
+        }
+    }
 }

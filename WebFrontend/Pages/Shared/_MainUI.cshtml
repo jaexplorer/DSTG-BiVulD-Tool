@@ -1,4 +1,4 @@
-@model WebFrontend.Models.FileScanner
+﻿@model WebFrontend.Models.FileScanner
 <!DOCTYPE html>
 <html>
 	<head>
@@ -55,6 +55,9 @@
 						<li id="Login" class="page-item">
 							<a href="/Login"><img src="~/images/database.svg" class="page-item-icon svg"><span>Login</span></a>
 						</li>
+                        <li>
+                            <form method="post"><button asp-page-handler="Logout">Logout</button></form>
+                        </li>
 					</ul>
 				</div>
 			</div>
