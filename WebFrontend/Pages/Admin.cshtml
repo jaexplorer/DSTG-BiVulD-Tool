@@ -1,4 +1,4 @@
-@page
+@page "{handler?}"
 @model WebFrontend.Pages.AdminModel
 @{
 	ViewData["Title"] = "Admin";
@@ -16,7 +16,36 @@
 		<h3 class="module-header">User List</h3>
 		<div class="user-list-interface">
 			<div id="user-table">
+                <table>
+                    <tr>
+                        <td>ID</td>
+                        <td>Name</td>
+                        <td>Email</td>
+                        <td>Action</td>
+                    </tr>
+                    @foreach (string[] user in Model.LocalList)
+                    {
+                        <tr>
+                            <td>
+                                @user[0]
+                            </td>
+                            <td>
+                                @user[1]
+                            </td>
+                            <td>
+                                @user[2]
+                            </td>
+                            <td>
+                                <form method="post">
+                                    <input type="hidden" name="UserToDelete" value="@user[0]" />
+                                    <button asp-page-handler="Delete" class="btn btn-primary">Delete</button>
+                                </form>
+                            </td>
+                        </tr>
 
+                    }
+
+                </table>
 			</div>
 		</div>
 	</div>
@@ -52,11 +81,11 @@
 		generateVisualization();
 	}
 	function generateVisualization() {
-		generateTable();
+		//generateTable();
 	   // generateStatistics();
 		//generateLineGraph();
 	}
-
+/*
 	function generateTable() {
 		var data= [
 			{},
@@ -75,7 +104,7 @@
 		function updateTable() {
 			var result;
 			var tempData = [];
-			data = @Html.Raw(Json.Serialize(@Model.LocalList));
+			//data = Html.Raw(Json.Serialize(Model.LocalList));
 			data.forEach(function (element){
 				result = element.reduce(function (result, field, index) {
 					result[titles[index]] = field;
@@ -87,7 +116,19 @@
 		}
 
 		function deleteUser(value) {
-		   //deleteUser
+            $.ajax({
+                type: "POST",
+                url: '/Admin/DeleteUser',
+                data: {"id": value},
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (msg) {
+                    $("#divResult").html("success");
+                },
+                error: function (e) {
+                    $("#divResult").html("Something Wrong.");
+                }
+            });
 		}
 		//generate table
 		function makeTable() {
@@ -186,6 +227,7 @@
 		}
 		makeTable();
 		}
+    */
 	function generateStatistics() {
 		var w = 250;
 		var h = 200;

@@ -1,5 +1,7 @@
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Data.SQLite;
 using System.Threading.Tasks;
 using Backend;
 using Microsoft.AspNetCore.Http;
@@ -12,16 +14,29 @@ namespace WebFrontend.Pages
 		[BindProperty]
 		[Display(Name = "Model")]
 		public IFormFile UploadModel { get; set; }
-
-		public List<string[]> LocalList { get; set; }
+        public List<string[]> LocalList { get; set; }
         public new User User { get; set; }
         public string ModelName { get; set; }
 		DatabaseManager DatabaseManager { get; set; }
-
-		public IActionResult OnGet()
+        [BindProperty]
+        public int UserToDelete { get; set; }
+        public void OnPostDelete()
+        {
+            DatabaseManager = new DatabaseManager();
+            SQLiteConnection db = DatabaseManager.ConnectToDatabase();
+            try
+            {
+                DatabaseManager.DeleteUser(UserToDelete, db);
+                LocalList = DatabaseManager.GetUserList(DatabaseManager.ConnectToDatabase());
+            }
+            catch(Exception e)
+            {
+                //s
+            }
+        }
+        public IActionResult OnGet()
 		{
             User = GetUserFromCookie();
-
             if (User == null)
             {
                 return RedirectToPage("/Login");
@@ -31,15 +46,6 @@ namespace WebFrontend.Pages
 			LocalList = DatabaseManager.GetUserList(DatabaseManager.ConnectToDatabase());
             return null;
 		}
-
-		public void DeleteUser(int value)
-		{
-			DatabaseManager = new DatabaseManager();
-
-			DatabaseManager.DeleteUser(value, DatabaseManager.ConnectToDatabase());
-		}
-
-		public string UserToDelete { get; set; }
 
 		public async Task<IActionResult> OnPostUploadModel()
 		{
