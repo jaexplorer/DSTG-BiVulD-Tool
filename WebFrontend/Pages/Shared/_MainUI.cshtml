@@ -6,56 +6,47 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>@ViewData["Title"] - WebFrontend</title>
 		<link rel="stylesheet" href="~/css/normalise.css" />
-		<link href="~/css/main.css" rel="stylesheet" runat="server" type="text/css" />
+		<link href="~/css/main2.css" rel="stylesheet" runat="server" type="text/css" />
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.css" />
 	</head>
 	<body>
-		<!-- Profile Status
-	------------------------------------------------------------------- -->
-		<header class="p-header-container">
-			<!-- TODO: Add @ViewData Profile Pic-->
-			<div class="p-header-pic">
-				<img src="~/images/pic.jpg">
-			</div>
-			<!-- TODO: Add @ViewData Profile Name -->
-			<h4 class="p-header-name">John Smith</h4>
-		</header>
 		<!-- Main Menu
 	------------------------------------------------------------------- -->
-		<div class="left-main-container">
-			<div class="left-nav-container">
-				<div class="left-nav-scan">
+		<div id="main-menu-container">
+			<div id="side-nav-container">
+				<div class="side-nav-element">
 					@if (Model.FileUpload != true)
 					{
-					<form method="post" enctype="multipart/form-data" asp-page-handler="Upload">
-						<!-- Choose File button -->
-						<input style="display: none" id="file-upload" class="inputfile" asp-for="UploadFile" type="file" value="Upload" onchange="this.form.submit()"/>
-						<label id="chooseFile-button" for="file-upload"><h5>Choose a file</h5></label>
-					</form>
+						<form method="post" enctype="multipart/form-data" asp-page-handler="Upload">
+							<input style="display: none" id="file-upload" asp-for="UploadFile" type="file" value="Upload" onchange="this.form.submit()"/>
+							<label id="chooseFile-btn" for="file-upload"><img src="~/images/upload.png"></label>
+						</form>
 					} else if (Model.FileUpload == true)
 					{
-					<form method="post" enctype="multipart/form-data" id="scanBtn">
-						<!-- Upload -->
-						<input style="display: none" asp-page-handler="Scan" id="file-scan" type="submit" value="Scan">
-						<label id="scanFile-button" for="file-scan"><h5>Scan</h5></label>
-					</form>
+						<form method="post" enctype="multipart/form-data" id="scanBtn">
+							<input style="display: none" asp-page-handler="Scan" id="file-scan" type="submit" value="Scan">
+							<label id="scanFile-btn" for="file-scan"><img src="~/images/scan.png"></label>
+						</form>
 					}
 				</div>
-				<div class="left-nav-list-container">
-					<ul class="left-nav-list">
-						<li id="Dashboard" class="page-item">
-							<a href="/Dashboard"><img src="~/images/dashboard.svg" class="page-item-icon svg"><span>Dashboard</span></a>
-						</li>
-						<li id="Profile" class="page-item">
-							<a href="/Profile"><img src="~/images/profile.svg" class="page-item-icon svg"><span>Profile</span></a>
-						</li>
-						<li id="Reports" class="page-item">
-							<a href="/Reports"><img src="~/images/database.svg" class="page-item-icon svg"><span>Reports</span></a>
-						</li>
-						<li id="Login" class="page-item">
-							<a href="/Login"><img src="~/images/database.svg" class="page-item-icon svg"><span>Login</span></a>
-						</li>
-					</ul>
+				<div class="side-nav-element">
+					<a class="page-item" href="/Dashboard"><img src="~/images/dash.png"></a>
+				</div>
+				<div class="side-nav-element">
+					<a class="page-item" href="/Profile"><img src="~/images/profile.png"></a>
+				</div>
+				<div class="side-nav-element">
+					<a class="page-item" href="/Reports"><img src="~/images/reports.png"></a>
+				</div>
+			</div>
+			<div id="top-nav-container">
+				<div id="top-nav-title">BIVULD<span>SCANNER</span></div>
+				<div id="top-nav-username">John Smith</div>
+				<div id="top-nav-userpic">
+					<img src="~/images/pic.jpg">
+				</div>
+				<div id="top-nav-logout">
+					<a href="#"><img src="~/images/logout.png"></a>
 				</div>
 			</div>
 		</div>
@@ -79,13 +70,11 @@
 		<script src="~/js/svg-img.js"></script>
 
 		<script type="text/javascript">
-			if(document.querySelector("#scanBtn") != null) {
-			document.querySelector("#scanBtn").addEventListener("submit", function(e){
-				document.querySelector("#preloader-container").style.display = "block";
-			});
-			}
-
-
+            if(document.querySelector("#scanBtn") != null) {
+            document.querySelector("#scanBtn").addEventListener("submit", function(e){
+                document.querySelector("#preloader-container").style.display = "block";
+            });
+            }
 		</script>
 		@RenderSection("Scripts", required: false)
 	</body>

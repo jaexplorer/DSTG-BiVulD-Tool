@@ -11,24 +11,54 @@
 else if (Model.Display == true)
 {
 	<div id="lineChart-container">
-		<div id="lineChart">
+		<div id="lineChart-results">
+			<div id="lineChart-headings">
+				<div id="results-heading">SCAN RESULTS</div>
+				<div id="resultsAvg-heading">
+					VUNERABLITY AVERAGE
+					<div id="resultsAvg-value">@Model.HighProb.ToString("n2")%</div>
+				</div>
+			</div>
+			<div id="lineChart"></div>
+		</div>
+		<div id="lineChart-summary">
+			<div id="summary-heading">SCAN SUMMARY</div>
+			<div id="summary-totals">
+				<div id="totalFunctionsHeading">
+					TOTAL FUNCTIONS
+					<div id="totalFunctionsValue">@Model.Results.NumFunctions</div>
+				</div>
+				<div id="totalIssuesHeading">
+					TOTAL ISSUES
+					<div id="totalIssuesValue">@Model.TotalIssues</div>
+				</div>
+				<div id="totalTimeHeading">
+					TIME TAKEN
+					<div id="totalTimeValue">@Model.FormatTime(Model.Results.TimeTaken)</div>
+				</div>
+			</div>
 		</div>
 	</div>
-	<div id="breakDown-container">
-		<div id="breakDownFunction">
-			<div id="functionHeading">Function:</div>
-			<div id="functionProbability">Vunerablity Probability:</div>
+
+	<div id="breakdown-container" style="display:none;">
+		<div id="breakdown-heading">
+			<div id="function-heading">FUNCTION #1</div>
+			<div id="function-probability-heading">
+				VUNERABLITY PROBABILITY 
+				<div id="function-probability-value">47.31%</div>
+			</div>
 		</div>
-		<div id="breakDownHeadings">
-			<div id="binaryHeading">Binary</div>
-			<div id="assemblyHeading">Assembly</div>
-			<div id="recommendationHeading">Recommendation</div>
+		<div class="breakdown-containers">
+			<div class="output-heading">BINARY</div>
+			<div class="breakdown-output"></div>
 		</div>
-		<div id="binaryBreakDown">
+		<div class="breakdown-containers">
+			<div class="output-heading">ASSEMBLY</div>
+			<div class="breakdown-output"></div>
 		</div>
-		<div id="assemblyBreakDown">
-		</div>
-		<div id="recommendationBreakDown">
+		<div class="breakdown-containers">
+			<div class="output-heading">RECOMMENDATION</div>
+			<div class="breakdown-output"></div>
 		</div>
 	</div>
 
@@ -49,7 +79,7 @@ else if (Model.Display == true)
 			// draw an empty bar and then overlay a bar with height equivent to its prob
 			chart.appendChild(drawLine(i, (@Model.Probabilities)[i]));
 
-			if (i >= 4 && i <= 6){
+			if (i >= 4 && i <= 8){
 				marginSize++;
 			}
 		}
@@ -63,18 +93,7 @@ else if (Model.Display == true)
 				break;
 			}
 			children[i].style.marginRight = "calc((100% - " + ((8*marginSize)+8) + "px) / "+ marginSize +")";
-		}
-
-		// add all the labels
-		var chartContainer = document.getElementById('lineChart-container');
-		chartContainer.appendChild(createDiv("FP-Heading", "highest probability"));
-		chartContainer.appendChild(createDiv("overall-FP-Value", @Model.HighProb.ToString("n2") + "%"));
-		chartContainer.appendChild(createDiv("totalFunctionsHeading", "total functions"));
-		chartContainer.appendChild(createDiv("totalFunctionsValue", @Model.Results.NumFunctions));
-		chartContainer.appendChild(createDiv("totalIssuesHeading", "total issues"));
-		chartContainer.appendChild(createDiv("totalIssuesValue", @Model.TotalIssues));
-		chartContainer.appendChild(createDiv("timeTakenHeading", "time taken"));
-		chartContainer.appendChild(createDiv("timeTaken", "@Model.FormatTime(Model.Results.TimeTaken)"));		
+		}	
 	}
 
 	function grabFunctionInfo() {
@@ -124,54 +143,51 @@ else if (Model.Display == true)
 	}
 
 	function makeBreakDownGraph(id) {
-		var breakDownC = document.getElementById('breakDown-container');
-		breakDownC.style.display = "block";
-		var functionName = document.getElementById('functionHeading');
-		var functionProb = document.getElementById('functionProbability');
+		var breakdownContainer = document.getElementById('breakdown-container');
+		breakdownContainer.style.display = "grid";
+		var functionHeading = document.getElementById('function-heading');
+		var functionProbValue = document.getElementById('function-probability-value');
 
-		functionName.innerHTML = "Function: " + (id +1);
-		functionProb.innerHTML = "Vunerablity Probability: " + (@Model.Probabilities)[id] +"%";
+		functionHeading.innerHTML = "FUNCTION #" + (id +1);
+		functionProbValue.innerHTML = ((@Model.Probabilities)[id]).toFixed(2)+"%";
 
-		var binaryBreakDown = document.getElementById('binaryBreakDown');
-		binaryBreakDown.innerHTML = "";
+		var breakDownOutputs = document.getElementsByClassName('breakdown-output');
+		breakDownOutputs[0].innerHTML = ""; // Hex
+		breakDownOutputs[1].innerHTML = ""; // Asm
+		breakDownOutputs[2].innerHTML = ""; // Recommendation
 
 		for(var i = 0; i < functionsInfo.hex[id].length; i++) {
-			binaryBreakDown.innerHTML += i+". "+ functionsInfo.hex[id][i]+"<br />";
+			breakDownOutputs[0].innerHTML += i+". "+ functionsInfo.hex[id][i]+"<br />";
 		}
-
-		var asmBreakDown = document.getElementById('assemblyBreakDown');
-		assemblyBreakDown.innerHTML = "";
 
 		for(var i = 0; i < functionsInfo.asm[id].length; i++) {
-			assemblyBreakDown.innerHTML += i+". "+ functionsInfo.asm[id][i]+"<br />";
+			breakDownOutputs[1].innerHTML += i+". "+ functionsInfo.asm[id][i]+"<br />";
 		}
 
-		var recommendationBreakDown = document.getElementById('recommendationBreakDown');
-		recommendationBreakDown.innerHTML = "";
 		if ((@Model.Probabilities)[id] > 50) {
-			recommendationBreakDown.innerHTML = "The probability of this function is quite vunerable, may require investigation";
+			breakDownOutputs[2].innerHTML = "The probability of this function is quite vunerable, may require investigation";
 		}
 	}
 
 	function drawLine(id, value) {
-		const SCALE = 2;
+		const SCALE = 9;
 		var xmlns = "http://www.w3.org/2000/svg";
 		var svg = document.createElementNS(xmlns, "svg");
 		svg.setAttributeNS(null,"width","8px");
-		svg.setAttributeNS(null,"height",10*SCALE+"rem");
+		svg.setAttributeNS(null,"height",10*SCALE+"%");
 
 		var emptyLine = document.createElementNS(xmlns, "rect");
 		emptyLine.setAttributeNS(null,"x",0);
 		emptyLine.setAttributeNS(null,"y",0);
 		emptyLine.setAttributeNS(null,"width","8");
-		emptyLine.setAttributeNS(null,"height",10*SCALE+"rem");
+		emptyLine.setAttributeNS(null,"height",10*SCALE+"%");
 		emptyLine.setAttributeNS(null,"fill", "rgba(85,85,85, 1)");
 
 		var fill = document.createElementNS(xmlns, "rect");
 		fill.setAttributeNS(null,"x",0);
-		fill.setAttributeNS(null,"y",((100 - value)/10)*SCALE+"rem");
+		fill.setAttributeNS(null,"y",((100 - value)/10)*SCALE+"%");
 		fill.setAttributeNS(null,"width","8");
-		fill.setAttributeNS(null,"height",(value/10)*SCALE+"rem");
+		fill.setAttributeNS(null,"height",(value/10)*SCALE+"%");
 		fill.setAttributeNS(null,"fill", "#f5f5f5");
 
 		svg.appendChild(emptyLine);
@@ -181,13 +197,6 @@ else if (Model.Display == true)
 		temp.className = "line";
 		temp.appendChild(svg);
 
-		return temp;
-	}
-
-	function createDiv(id, value) {
-		var temp = document.createElement('div');
-		temp.id = id;
-		temp.innerHTML = value;
 		return temp;
 	}
 </script>

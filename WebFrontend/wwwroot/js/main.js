@@ -1,12 +1,13 @@
 // Highlight Current Page Link
 // ------------------------------------------------------------------- //
-let currentLink = getLink(document.URL);
-
+let currentLink = getLink("/" + window.location.pathname.split('/')[1]);
+console.log("/" + window.location.pathname.split('/')[1]);
 function getLink(currentPage) {
 	let links = document.getElementsByClassName("page-item");
-
 	for (let l of links) {
-		if(l.firstElementChild.href === currentPage)
+		console.log(l.getAttribute("href"));
+
+		if(l.getAttribute("href") == currentPage)
 		{
 			return l;
 		}
@@ -14,10 +15,8 @@ function getLink(currentPage) {
     return null;
 }
 if(currentLink != null) {
-	currentLink.className += " current";
-	currentLink.getElementsByTagName("img")[0].className += " current";
+	currentLink.style.opacity = "1";
 }
-var ctx = document.getElementById('dotChart-container');
 
 // Get Color Theme
 // ------------------------------------------------------------------- //

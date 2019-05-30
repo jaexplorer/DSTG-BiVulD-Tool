@@ -38,6 +38,7 @@ namespace WebFrontend.Models
             FileUpload = (fileManager.IdentifyFile()) ? true : false;
 
 			return Page();
+
 		}
 
 		public IActionResult OnPostScan()
