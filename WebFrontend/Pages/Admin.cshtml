@@ -4,366 +4,58 @@
 	ViewData["Title"] = "Admin";
 	Layout = "Shared/_MainUI";
 }
-@section Styles{
-	<link href="@Href("~/css/admin.css")" rel="stylesheet" type="text/css" />
-}
-<script src="https://d3js.org/d3.v5.min.js"></script>
-<div class="container-header">
-	<h2>Admin Dashboard</h2>
-</div>
-<div class="container">
-	<div id="container-user-list" class="container-module">
-		<h3 class="module-header">User List</h3>
-		<div class="user-list-interface">
-			<div id="user-table">
-                <table>
-                    <tr>
-                        <td>ID</td>
-                        <td>Name</td>
-                        <td>Email</td>
-                        <td>Action</td>
-                    </tr>
-                    @foreach (string[] user in Model.LocalList)
-                    {
-                        <tr>
-                            <td>
-                                @user[0]
-                            </td>
-                            <td>
-                                @user[1]
-                            </td>
-                            <td>
-                                @user[2]
-                            </td>
-                            <td>
-                                <form method="post">
-                                    <input type="hidden" name="UserToDelete" value="@user[0]" />
-                                    <button asp-page-handler="Delete" class="btn btn-primary">Delete</button>
-                                </form>
-                            </td>
-                        </tr>
-
-                    }
-
-                </table>
-			</div>
-		</div>
+<div id="admin-container">
+	<div class="admin-card">
+		<div class="card-heading">Users</div>
+		<table>
+            <tr>
+				<td>ID</td>
+				<td>Name</td>
+				<td>Email</td>
+				<td>Action</td>
+            </tr>
+			@foreach (string[] user in Model.LocalList)
+			{
+				<tr>
+					<td>  
+						@user[0]
+					</td>
+					<td> 
+						@user[1]
+					</td>
+					<td> 
+						@user[2]
+					</td>
+					<td> 
+						<form method="post">
+							<input type="hidden" name="UserToDelete" value="@user[0]" />
+							<button asp-page-handler="Delete" id="admin-btn">Delete</button>
+						</form>
+					</td>
+				</tr>
+			}
+        </table>
 	</div>
-	<div id="container-statistic" class="container-module">
-		<h3 class="module-header">User Monitor</h3>
-		<div id="statistic-graph">
+	<div class="admin-card">
+	    <div class="card-heading">Stats</div>
 
-		</div>
-	</div>
-	<div id="container-model" class="container-module">
+	</div>	
+	<div class="admin-card">
+	    <div class="card-heading">Model Change</div>
 		<form method="post" enctype="multipart/form-data">
+			<!-- Have no idea what this does -->
 			<label style="display: none" asp-for="UploadModel"></label>
+
+			<!-- CHOOSE FILE BUTTON -->
 			<input style="display: none" id="model-upload" class="inputfile" asp-for="UploadModel" type="file" />
-			<label class="choose-upload" for="model-upload">Choose a file</label>
+			<label id="choose-model" for="model-upload">Choose a file</label>
+
+			<!-- UPLOAD ERRORS, not tested -->
 			<div><span class="upload-error" asp-validation-for="UploadModel"></span></div>
-			<input class="upload-button" asp-page-handler="UploadModel" type="submit" value="Upload" />
+
+			<!-- UPLOAD BUTTON -->
+			<input id="upload-model" asp-page-handler="UploadModel" type="submit" value="Upload" />
 		</form>
 	</div>
-	<div id="container-scan-activity" class="container-module">
-		<h3 class="module-header" id="module-scan-header">Scan Activity Monitor</h3>
-		<div id="line-graph">
-
-		</div>
-	</div>
 </div>
-<script type="text/javascript">
-	document.onload = init();
-	console.log("test");
-	var w = 250;
-	var h = 200;
 
-	function init() {
-		generateVisualization();
-	}
-	function generateVisualization() {
-		//generateTable();
-	   // generateStatistics();
-		//generateLineGraph();
-	}
-/*
-	function generateTable() {
-		var data= [
-			{},
-		];
-		var table = d3.select("#user-table")
-			.append("foreignObject")
-			.attr("width", w)
-			.attr("height", h)
-			.append("xhtml:table");
-		var titles = ['ID', 'Name', 'Email','Action'];
-		var headers;
-		var rows;
-		var sortAscending = true;
-
-		//Update the json array with user list initially and every time a user is deleted
-		function updateTable() {
-			var result;
-			var tempData = [];
-			//data = Html.Raw(Json.Serialize(Model.LocalList));
-			data.forEach(function (element){
-				result = element.reduce(function (result, field, index) {
-					result[titles[index]] = field;
-					return result;
-				}, {});
-				tempData.push(result);
-			})
-			data = tempData;
-		}
-
-		function deleteUser(value) {
-            $.ajax({
-                type: "POST",
-                url: '/Admin/DeleteUser',
-                data: {"id": value},
-                contentType: "application/json; charset=utf-8",
-                dataType: "json",
-                success: function (msg) {
-                    $("#divResult").html("success");
-                },
-                error: function (e) {
-                    $("#divResult").html("Something Wrong.");
-                }
-            });
-		}
-		//generate table
-		function makeTable() {
-			var counter = 0;
-
-			//clear table
-			table.selectAll("*").remove();
-			updateTable();
-			headers = table.append('thead').append('tr')
-				.selectAll('th')
-				.data(titles).enter()
-				.append('th')
-				.text(function (d) { return d;})
-				.on('click', function(d) {
-					headers.attr('class', 'header');
-				//these keys sort alphabetically sorting alphabetically when click on headings");
-				if (d == "ID" || d == "Name" || d == "Email") {
-					if (sortAscending) {
-					rows.sort(function(a, b) {
-						return d3.ascending(a[d], b[d]);
-					});
-					sortAscending = false;
-					this.className = 'aes';
-					} else {
-					rows.sort(function(a, b) {
-						return d3.descending(a[d], b[d]);
-					});
-					sortAscending = true;
-					this.className = 'des';
-					}
-				} else {
-					if (sortAscending) {
-					//all other keys sort numerically including time
-					rows.sort(function(a, b) {
-						return b[d] - a[d];
-					});
-					sortAscending = false;
-					this.className = 'aes';
-					} else {
-					rows.sort(function(a, b) {
-						return a[d] - b[d];
-					});
-					sortAscending = true;
-					this.className = 'des';
-					}
-				}
-				});
-			rows = table.append('tbody').selectAll('tr')
-				.data(data).enter()
-				.append('tr');
-			rows.selectAll('td')
-				.data(function (d) {
-				//turn json file to map object
-				return titles.map(function(key, i) {
-					return {
-					'value': d[key],
-					'name': d
-					};
-				});
-			}).enter()
-			.append('td')
-			.attr('data-th', function(d) {
-			return d.name;
-			})
-				.text(function (d) {
-			//fill table cell with values
-			if (typeof(d.value) == "object") {
-				return timeformat(d.value)
-			} else {
-				if (d.name.Action == d.value) {
-					return "";
-				}
-				return d.value;
-			}
-			//create button on the fourth column in every row
-			}).each(function (d) {
-				counter += 1;
-				if (counter >= 4) {
-					counter = 0;
-					d3.select(this)
-					.append("button")
-					.attr("type","button")
-					.attr("class","btn-btn")
-					.attr("id",d.value)
-					.append("div")
-					.attr("class","label")
-					.text("Delete User")
-						.on("click", function (x) {
-							//data.splice(data.lastIndexOf(x), 1);
-							deleteUser(x);
-							makeTable();
-							console.log(data);
-					});
-				}
-			})
-		}
-		makeTable();
-		}
-    */
-	function generateStatistics() {
-		var w = 250;
-		var h = 200;
-		var userStat = [10, 4, 21, 23, 9, 24, 1, 17, 21, 4, 9, 16, 10, 3, 2, 1];
-
-		var xScale = d3.scaleBand()
-			.domain(d3.range(userStat.length))
-			.rangeRound([0, w])
-			.paddingInner(0.05);
-
-		var yScale = d3.scaleLinear()
-			.domain([0, d3.max(userStat)])
-			.range([h, 0]);
-
-		var svg = d3.select("#statistic-graph")
-			.append("foreignObject")
-			.append("svg")
-			.attr("width", w)
-			.attr("height", h)
-
-		svg.selectAll("rect")
-			.data(userStat)
-			.enter()
-			.append("rect")
-			.attr("x", function (d, i) {
-				return xScale(i);
-			})
-			.attr("y", function (d) {
-				return yScale(d);
-			})
-			.attr("width", xScale.bandwidth())
-			.attr("height", function (d) {
-				return h - yScale(d);
-			})
-			.attr("fill", "slategrey")
-			.on("mouseover", function (d, i) {
-				d3.select(this)
-					.transition()
-					.duration(200)
-					.style("opacity",0.9)
-					.attr("fill", "rgb(75,189,217)");
-
-				var xPos = parseFloat(d3.select(this).attr("x"));
-				var yPos = parseFloat(d3.select(this).attr("y")) + 20
-
-				svg.append("text")
-					.attr("id", "tooltip")
-					.attr("x", xPos)
-					.attr("y", yPos)
-					.text(d);
-			})
-			.on("mouseout", function (d) {
-				d3.select(this)
-					.transition()
-					.duration(200)
-					.attr("fill", "slategrey");
-
-				d3.select("#tooltip").remove();
-			});
-	}
-
-	function generateLineGraph() {
-		var barPadding = 10;
-		var data = [
-			{ date: new Date(2017 ,05, 1), scan: 2 },
-			{ date: new Date(2017 , 04 , 30), scan: 7 },
-			{ date: new Date(2017 , 04 , 27), scan: 3 },
-			{ date: new Date(2017 , 04 , 26), scan: 11 },
-			{ date: new Date(2017 , 04 , 25), scan: 3 },
-			{ date: new Date(2017 , 04 , 24), scan: 2 }
-			];
-
-
-			var margin = {top: 30, right: 20, bottom: 30, left: 50},
-			w = 300 - margin.left - margin.right,
-			h = 300 - margin.top - margin.bottom;
-
-			var xScale = d3.scaleTime()
-			.domain([
-			d3.min(data, function(d){return d.date;}),
-			d3.max(data, function(d){return d.date;})
-			])
-			.range([0,w]);
-
-			var  yScale = d3.scaleLinear()
-			.domain([0,d3.max(data, function(d) {return d.scan;})
-			])
-			.range([h + margin.top + margin.bottom ,0 ]);
-
-
-			 var svg = d3.select("#line-graph")
-			.append("foreignObject")
-			.append("svg")
-			.attr("width", w + margin.left + margin.right)
-			.attr("height", h + margin.top + margin.bottom)
-			.append("g")
-			.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
-			//axis
-			var xAxis = d3.axisBottom()
-					.ticks(5)
-					.scale(xScale);
-
-			var yAxis = d3.axisLeft()
-					.scale(yScale);
-
-			// Define the line
-			var valueline = d3.line()
-				.x(function(d) { return xScale(d.date); })
-				.y(function(d) { return yScale(d.scan); });
-
-			// Add the valueline path.
-		svg.append("path")
-			.datum(data)
-			.attr("class", "line")
-			.attr("d", valueline);
-
-			// Add the scatterplot
-
-			svg.selectAll("dot")
-				.data(data)
-				.enter().append("circle")
-				.attr("r", 5)
-				.attr("cx", function(d) { return xScale(d.date); })
-				.attr("cy", function(d) { return yScale(d.scan); });
-
-
-			// Add the X Axis
-			svg.append("g")
-				.attr("class", "x axis")
-				.attr("transform", "translate(0," + h + ")")
-				.call(xAxis);
-
-			// Add the Y Axis
-			svg.append("g")
-				.attr("class", "y axis")
-				.call(yAxis);
-	}
-</script>
