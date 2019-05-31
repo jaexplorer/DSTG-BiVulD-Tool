@@ -18,7 +18,7 @@
 					@if (Model.FileUpload != true)
 					{
 						<form method="post" enctype="multipart/form-data" asp-page-handler="Upload">
-							<input style="display: none" id="file-upload" asp-for="UploadFile" type="file" value="Upload" onchange="this.form.submit()"/>
+							<input style="display: none" id="file-upload" asp-for="UploadFile" type="file" onchange="this.form.submit()"/>
 							<label id="chooseFile-btn" for="file-upload"><img src="~/images/upload.png"></label>
 						</form>
 					} else if (Model.FileUpload == true)

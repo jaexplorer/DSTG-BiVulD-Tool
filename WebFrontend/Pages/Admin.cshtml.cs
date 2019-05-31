@@ -11,15 +11,27 @@ namespace WebFrontend.Pages
 {
 	public class AdminModel : Models.FileScanner
 	{
+
+		// private DatabaseManager _databaseManager = new DatabaseManager(); 
+		// private List<string[]> _localList = _databaseManager.GetUserList(_databaseManager.ConnectToDatabase()); 
+
 		[BindProperty]
 		[Display(Name = "Model")]
 		public IFormFile UploadModel { get; set; }
+		public bool ModelUpload { get; set; }
         public List<string[]> LocalList { get; set; }
         public new User User { get; set; }
         public string ModelName { get; set; }
 		DatabaseManager DatabaseManager { get; set; }
         [BindProperty]
         public int UserToDelete { get; set; }
+
+
+		public AdminModel() {
+			DatabaseManager = new DatabaseManager();
+			LocalList = DatabaseManager.GetUserList(DatabaseManager.ConnectToDatabase());
+		}
+
         public void OnPostDelete()
         {
             DatabaseManager = new DatabaseManager();

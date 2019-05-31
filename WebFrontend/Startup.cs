@@ -25,6 +25,10 @@ namespace WebFrontend
 				options.CheckConsentNeeded = context => true;
 				options.MinimumSameSitePolicy = SameSiteMode.None;
 			});
+			services.AddMvc().AddRazorPagesOptions(options =>
+			{
+				options.Conventions.AddPageRoute("/Dashboard", "");
+			});
 
 
 			services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);

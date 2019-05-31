@@ -261,6 +261,106 @@ p, h1, h2, h3, h4, h5, span {
   height: 100%;
 }
 
+#dashboard-container {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: (minmax(300px, 1fr))[auto-fit];
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-gap: 3rem;
+}
+
+#dashboard-container #dashboard-intro-container {
+  position: relative;
+  background: #363636;
+  padding: 3rem;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-rows: max-content auto;
+      grid-template-rows: -webkit-max-content auto;
+      grid-template-rows: max-content auto;
+}
+
+#dashboard-container #dashboard-intro-container .dashboard-intro-heading {
+  color: var(--greyText);
+  text-transform: uppercase;
+  font-weight: 700;
+  font-size: 20pt;
+}
+
+#dashboard-container #dashboard-intro-container .dashboard-intro-content {
+  color: var(--greyText);
+  text-transform: uppercase;
+  font-weight: 600;
+  font-size: 12pt;
+  margin-top: 1rem;
+}
+
+#dashboard-container #dashboard-scanner-container {
+  position: relative;
+  background: #363636;
+  height: 20rem;
+  max-width: 20rem;
+  padding: 3rem;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-rows: max-content auto;
+      grid-template-rows: -webkit-max-content auto;
+      grid-template-rows: max-content auto;
+}
+
+#dashboard-container #dashboard-scanner-container .dashboard-scanner-heading {
+  color: var(--greyText);
+  text-transform: uppercase;
+  font-weight: 700;
+  font-size: 20pt;
+  text-align: center;
+}
+
+#dashboard-container #dashboard-scanner-container form {
+  display: -ms-grid;
+  display: grid;
+  width: 70%;
+  height: 70%;
+  -ms-grid-column-align: center;
+      justify-self: center;
+  -ms-grid-row-align: center;
+      align-self: center;
+}
+
+#dashboard-container #dashboard-scanner-container form #chooseFile-btn {
+  background: var(--primaryAccent);
+}
+
+#dashboard-container #dashboard-scanner-container form #scanFile-btn {
+  background: #34b475;
+}
+
+#dashboard-container #dashboard-scanner-container form label {
+  -ms-grid-column-align: center;
+      justify-self: center;
+  -ms-grid-row-align: center;
+      align-self: center;
+  width: 100%;
+  height: 100%;
+  display: -ms-grid;
+  display: grid;
+}
+
+#dashboard-container #dashboard-scanner-container form label img {
+  opacity: 0.3;
+  max-width: 35%;
+  height: auto;
+  -ms-grid-column-align: center;
+      justify-self: center;
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
+}
+
+#dashboard-container #dashboard-scanner-container form label:hover img {
+  opacity: 1;
+}
+
 #lineChart-container {
   position: relative;
   background: #363636;

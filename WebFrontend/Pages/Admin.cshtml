@@ -27,10 +27,11 @@
 						@user[2]
 					</td>
 					<td> 
-						<form method="post">
-							<input type="hidden" name="UserToDelete" value="@user[0]" />
-							<button asp-page-handler="Delete" id="admin-btn">Delete</button>
-						</form>
+
+							<form method="post">
+								<input type="hidden" name="UserToDelete" value="@user[0]" />
+								<button asp-page-handler="Delete" id="admin-btn">Delete</button>
+							</form>
 					</td>
 				</tr>
 			}
@@ -45,16 +46,15 @@
 		<form method="post" enctype="multipart/form-data">
 			<!-- Have no idea what this does -->
 			<label style="display: none" asp-for="UploadModel"></label>
+				<!-- CHOOSE FILE BUTTON -->
+				<input style="display: none" id="model-upload" class="inputfile" asp-for="UploadModel" type="file" />
+				<label id="choose-model" for="model-upload">Choose a file</label>
 
-			<!-- CHOOSE FILE BUTTON -->
-			<input style="display: none" id="model-upload" class="inputfile" asp-for="UploadModel" type="file" />
-			<label id="choose-model" for="model-upload">Choose a file</label>
+				<!-- UPLOAD ERRORS, not tested -->
+				<div><span class="upload-error" asp-validation-for="UploadModel"></span></div>
 
-			<!-- UPLOAD ERRORS, not tested -->
-			<div><span class="upload-error" asp-validation-for="UploadModel"></span></div>
-
-			<!-- UPLOAD BUTTON -->
-			<input id="upload-model" asp-page-handler="UploadModel" type="submit" value="Upload" />
+				<!-- UPLOAD BUTTON -->
+				<input id="upload-model" asp-page-handler="UploadModel" type="submit" value="Upload" />
 		</form>
 	</div>
 </div>

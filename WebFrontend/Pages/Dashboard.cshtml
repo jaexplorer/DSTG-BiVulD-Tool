@@ -5,9 +5,34 @@
 	ViewData["Title"] = "Dashboard";
 }
 @if (Model.Display == false)
-{
-	<h3>No File has been uploaded yet!</h3>
-}
+{	
+	<div id="dashboard-container">
+		<div id="dashboard-intro-container">
+			<div class="dashboard-intro-heading">Welcome to our BIVULD Scanner</div>
+			<div class="dashboard-intro-content">Please press the upload file button to begin.
+Upload a file and press the green scan button to scan for vulnerabilities</div>
+
+		</div>
+		<div id="dashboard-scanner-container">
+			@if (Model.FileUpload != true) 
+			{
+				<div class="dashboard-scanner-heading">Upload a File</div>
+				<form method="post" enctype="multipart/form-data" asp-page-handler="Upload">
+					<input style="display: none" id="file-upload" asp-for="UploadFile" type="file" onchange="this.form.submit()"/>
+					<label id="chooseFile-btn" for="file-upload"><img src="~/images/upload.png"></label>
+				</form>
+			}
+			else 
+			{
+				<div class="dashboard-scanner-heading">Scan File</div>
+				<form method="post" enctype="multipart/form-data" id="scanBtn">
+					<input style="display: none" asp-page-handler="Scan" id="file-scan" type="submit" value="Scan">
+					<label id="scanFile-btn" for="file-scan"><img src="~/images/scan.png"></label>
+				</form>
+			}
+		</div>
+	</div>
+} 
 else if (Model.Display == true)
 {
 	<div id="lineChart-container">
